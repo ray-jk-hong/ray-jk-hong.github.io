@@ -97,7 +97,8 @@ ignore:
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 #theme: Yilia-Pro
-theme: hexo-theme-clean-dark
+#theme: hexo-theme-clean-dark
+theme: dev-dark-theme
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
