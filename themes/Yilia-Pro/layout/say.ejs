@@ -1,0 +1,49 @@
+<%- css('css/say.css') %>
+<say class="say">
+    <div class="title">
+        <span id="title" ></span><span id="cursor">|</span>
+        <%if(theme.say.desc!=null){%>
+            <br>
+            <span id="subtitle"><%=theme.say.desc%></span>
+        <%}%>
+    </div>
+    <script type="text/javascript" src="https://unpkg.com/artitalk"></script>
+    <div id="artitalk_main"></div>
+    <script>
+        var subtitle = document.getElementById('title')
+        var i = 0;
+        function typing() {
+            var timer = 0;
+            var str = '<%= theme.say.title%>';
+            if (i <= str.length) {
+                subtitle.innerHTML = str.slice(0, i++)
+                timer = setTimeout(typing, 300)
+            } else {
+                subtitle.innerHTML = str
+                clearTimeout(timer)
+            }
+        }
+        typing()
+
+        new Artitalk({
+            appId: '<%=theme.say.appId%>',
+            appKey: '<%=theme.say.appKey%>',
+            serverURL: '<%=theme.say.serverURL%>',
+            lang: '<%=theme.say.lang%>',
+            pageSize: '<%=theme.say.pageSize%>',
+            avatarPla: '<%=theme.say.avatarPla%>',
+            motion: <%=theme.say.motion%>,
+            bgImg: '<%=theme.say.bgImg%>',
+            cssUrl: '<%=theme.say.cssUrl%>',
+            color1: '<%=theme.say.color1%>',
+            color2: '<%=theme.say.color2%>',
+            color3: '<%=theme.say.color3%>',
+            atComment: <%=theme.say.atComment%>,
+            atEmoji: {
+                <% for (var i in theme.say.atEmoji){ %>
+                     "<%= i %>":"<%- url_for(theme.say.atEmoji[i]) %>",
+                <%}%>
+            }
+        })
+    </script>
+</say>
