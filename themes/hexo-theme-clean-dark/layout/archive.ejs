@@ -1,0 +1,35 @@
+<div class="well">
+    <div class="page-content wc-container">
+        <h1><%= __('archive') %></h1>
+
+        <div class="post">
+            <% function buildArchive(posts, year) { %>
+                <div class="post-meta">
+                    <div class="post-time">
+                        <time><%- year %></time>
+                    </div>
+                </div>
+                <ul>
+                    <% posts.sort('date',-1).each(post => { %>
+                        <li><%= date(post.date, 'MM-DD') %><a href="<%- url_for(post.path) %>" ><%- post.title || __('notitle') %></a></li>
+                    <% }) %>
+                </ul>
+            <% } %>
+                <%
+                if (page.year) {
+                    let year = page.year;
+                    let posts = site.posts.filter(p => p.date.year() == year);
+                    buildArchive(posts, year)
+                } else {
+                    let years = {};
+                    let allpost = page.tag ? site.tags.findOne({name: page.tag}).posts : site.posts;
+                    allpost.each(post => years[post.date.year()] = null);
+                    for (let year of Object.keys(years).sort((a, b) => b - a)) {
+                        let posts = allpost.filter(p => p.date.year() == year);
+                        buildArchive(posts, year)
+                    }
+                }
+                %>
+        </div>
+    </div>
+</div>
