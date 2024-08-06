@@ -23,8 +23,8 @@ menu:
 # --------------------------------------
 
 highlight_theme: darker  #  light / pale night / light / ocean / mac / mac light / false
-highlight_copy: true # copy button
-highlight_lang: true # show the code language
+highlight_copy: false # copy button
+highlight_lang: false # show the code language
 highlight_shrink: false # true: shrink the code blocks / false: expand the code blocks | none: expand code blocks and hide the button
 highlight_height_limit: false # unit: px
 code_word_wrap: false
@@ -79,7 +79,7 @@ category_per_img:
 
 cover:
   # display the cover or not (是否顯示文章封面)
-  index_enable: true
+  index_enable: false
   aside_enable: true
   archives_enable: true
   # the position of cover in home page (封面顯示的位置)
