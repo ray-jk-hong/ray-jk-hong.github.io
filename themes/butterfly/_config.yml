@@ -4,7 +4,7 @@
 
 nav:
   logo: # image
-  display_title: true
+  display_title: false
   fixed: false # fixed navigation bar
 
 # Menu 目錄
@@ -139,7 +139,7 @@ copy:
   enable: false
   copyright:
     enable: false
-    limit_count: 50
+    limit_count: 0
 
 # Post
 # --------------------------------------
@@ -154,7 +154,7 @@ toc:
   scroll_percent: true
 
 post_copyright:
-  enable: true
+  enable: false
   decode: false
   author_href:
   license: CC BY-NC-SA 4.0
@@ -477,7 +477,7 @@ facebook_comments:
   user_id: # optional
   pageSize: 10 # The number of comments to show
   order_by: social # social/time/reverse_time
-  lang: zh_TW # Language en_US/zh_CN/zh_TW and so on
+  lang: zh-CN # Language en_US/zh_CN/zh_TW and so on
 
 # Twikoo
 # https://github.com/imaegoo/twikoo
@@ -552,7 +552,7 @@ crisp:
 messenger:
   enable: false
   pageID:
-  lang: zh_TW # Language en_US/zh_CN/zh_TW and so on
+  lang: zh-CN # Language en_US/zh_CN/zh_TW and so on
 
 # Analysis
 # --------------------------------------
