@@ -19,3 +19,5 @@ https://blog.csdn.net/wangquan1992/article/details/103963108
    (1) Hash表是为了便于通过mm_struct指针地址，来找到对应的mm_slot结构
    (2) Khugepaged_scan管理的链表是透明大页遍历扫描的链表，透明大页遍历每个mm_slot 的mm_struct
    (3) 通过mm_struct，遍历每个vma数据结构，扫描vma的地址空间，每次按2M大小扫描对应的pte内容
+
+4. libhugetlbfs：使用大页，将用户态程序的text/data/BSS保存到大页功能，提高性能
