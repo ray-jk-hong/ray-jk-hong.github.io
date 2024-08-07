@@ -21,3 +21,4 @@ https://blog.csdn.net/wangquan1992/article/details/103963108
    (3) 通过mm_struct，遍历每个vma数据结构，扫描vma的地址空间，每次按2M大小扫描对应的pte内容
 
 4. libhugetlbfs：使用大页，将用户态程序的text/data/BSS保存到大页功能，提高性能
+5. shmem大页：https://stackoverflow.com/questions/40777684/create-huge-page-shared-memory-for-ipc-in-linux
