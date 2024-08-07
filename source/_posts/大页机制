@@ -22,3 +22,6 @@ https://blog.csdn.net/wangquan1992/article/details/103963108
 
 4. libhugetlbfs：使用大页，将用户态程序的text/data/BSS保存到大页功能，提高性能
 5. shmem大页：https://stackoverflow.com/questions/40777684/create-huge-page-shared-memory-for-ipc-in-linux
+
+6. 配置大页内存
+   echo 200 > /proc/sys/vm/nr_huagepages
