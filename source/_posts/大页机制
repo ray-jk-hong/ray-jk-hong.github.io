@@ -1,0 +1,5 @@
+
+
+https://blog.csdn.net/wangquan1992/article/details/103963108
+HugeTLB机制： hstate管理大页，从伙伴系统申请，由order值决定大小。小于order的由伙伴系统申请，大于order的由memblock预留内存中申请或者调用alloc_cont_range申请
+
