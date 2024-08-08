@@ -1,1 +1,9 @@
 
+PTE_SHARED
+
+pgprot_val（PAGE_KERNEL）
+
+pteval_t
+
+这些都有什么不同
+
