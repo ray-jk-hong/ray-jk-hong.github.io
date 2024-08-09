@@ -38,17 +38,6 @@ https://community.frame.work/t/tracking-kworker-stuck-at-near-100-cpu-usage-with
 ### Trace Event添加
 
 ### 应用
-#### 进程sched事件追踪
-cd /sys/kernel/debug/tracing/events/sched
-
-echo 1 > sched_switch/enable
-echo 1 > sched_wakeup/enable
-echo 1 > sched_wakeup_new/enable
-echo 1 > sched_waking/enable
-echo 1 > sched_process_fork/enable
-echo 1 > sched_stat_runtime/enable
-echo 1 > /sys/kernel/debug/tracing/events/irq/enable
-echo 1 > /sys/kernel/debug/tracing/tracing_on
 
 ## 参考
 https://docs.kernel.org/trace/tracepoints.html
