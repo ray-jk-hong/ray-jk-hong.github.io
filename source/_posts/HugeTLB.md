@@ -4,6 +4,9 @@ title: 大页机制
 ## 参考
 https://blog.csdn.net/wangquan1992/article/details/103963108
 https://blog.csdn.net/hbuxiaofei/article/details/128402495
+https://blog.csdn.net/tony_vip/article/details/113791585
+
+https://students.mimuw.edu.pl/ZSO/Wyklady/11_extXfs/TransparentHugePages.pdf
 
 ## 为什么使用大页   
 #### 大页提高性能
@@ -20,7 +23,7 @@ https://blog.csdn.net/hbuxiaofei/article/details/128402495
    (2) shmget接口传SHM_HUGETLB标记
    (3) memfd的memfd_create接口传MFD_HUGETLB标记
    (4) mount挂载hugetlbfs文件系统，在文件系统里边创建文件并mmap对应文件
-### 组合大页（Compound pages）：多个page组合起来管理连续内存空间
+### 复合大页（Compound pages）：多个page组合起来管理连续内存空间
 ### 透明大页（Transparent Huge Pages）：伙伴系统直接动态分配
    透明大页机制介绍：khugepaged线程
    1) Hash表是为了便于通过mm_struct指针地址，来找到对应的mm_slot结构
@@ -32,6 +35,7 @@ https://blog.csdn.net/hbuxiaofei/article/details/128402495
    - mount一个特殊的hugetlbfs文件系统，在上面创建文件，然后用mmap()进行访问, 但文件是只读的。也可以使用libhugetlbfs。
    - shmget/shmat，调用shmget申请共享内存加上SHM_HUGETLB标志。
    - mmap()时指定MAP_HUGETLB标志。
+   - memfd的memfd_create传MFD_HUGETLB标记
 ##### mmap方式使用示例
 1) cat /proc/meminfo | grep -i huge查看大页预留情况
    AnonHugePages:      2048 kB
