@@ -2,15 +2,6 @@
 title: Workqueue
 ---
 
-## 查看workqueue在干什么
-1) 通过cat查看workqueue的调用栈
-  cat /proc/<kworker_pid>/stack
-2) trace-cmd方式查看
-  trace-cmd record -e workqueue:workqueue_queue_work
-  trace-cmd report > trace.log
-  You can get list of the most frequently queued to least frequently queued workqueue functions with the following:
-    grep -o -e "function=[_a-zA-Z_][_a-zA-Z0-9]*" trace.log|sort|uniq -c |sort -rn
-
 ## Workqueue问题定位
 ### Work消耗太多CPU Cycles(Top命令能看到)
 
