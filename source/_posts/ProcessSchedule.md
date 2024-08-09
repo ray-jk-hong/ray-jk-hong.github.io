@@ -4,9 +4,8 @@ title: Process Schedule
 
 
 ## 进程sched事件追踪
-```
+```bash
 cd /sys/kernel/debug/tracing/events/sched
-
 echo 1 > sched_switch/enable
 echo 1 > sched_wakeup/enable
 echo 1 > sched_wakeup_new/enable
