@@ -18,24 +18,24 @@ https://students.mimuw.edu.pl/ZSO/Wyklady/11_extXfs/TransparentHugePages.pdf
    HugeTLB机制：hugetlbfs文件系统
    (1) HugeTLB就是透过hugetlbfs方式向文件系统提供使用HugeTLB大页机制
    (2) hugetlbfs创建的文件可以被读系统调用操作，但不允许写系统调用操作，可以mmap映射
-   如何使用：
-   (1) mmap通过传MAAP_HUGETLB标记
-   (2) shmget接口传SHM_HUGETLB标记
-   (3) memfd的memfd_create接口传MFD_HUGETLB标记
-   (4) mount挂载hugetlbfs文件系统，在文件系统里边创建文件并mmap对应文件
+
 ### 复合大页（Compound pages）：多个page组合起来管理连续内存空间
 ### 透明大页（Transparent Huge Pages）：伙伴系统直接动态分配
    透明大页机制介绍：khugepaged线程
    1) Hash表是为了便于通过mm_struct指针地址，来找到对应的mm_slot结构
    2) Khugepaged_scan管理的链表是透明大页遍历扫描的链表，透明大页遍历每个mm_slot 的mm_struct
    3) 通过mm_struct，遍历每个vma数据结构，扫描vma的地址空间，每次按2M大小扫描对应的pte内容
+   透明大页由于性能抖动以及挂死等问题，被禁用：
+   https://www.pingcap.com/blog/transparent-huge-pages-why-we-disable-it-for-databases/
+
 ## 配置使用大页内存
 #### 用户态使用大页
    用户态使用大页有以下几种方法：
    - mount一个特殊的hugetlbfs文件系统，在上面创建文件，然后用mmap()进行访问, 但文件是只读的。也可以使用libhugetlbfs。
    - shmget/shmat，调用shmget申请共享内存加上SHM_HUGETLB标志。
-   - mmap()时指定MAP_HUGETLB标志。
+   - mmap()时指定MAAP_HUGETLB标志。
    - memfd的memfd_create传MFD_HUGETLB标记
+     
 ##### mmap方式使用示例
 1) cat /proc/meminfo | grep -i huge查看大页预留情况
    AnonHugePages:      2048 kB
