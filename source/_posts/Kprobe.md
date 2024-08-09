@@ -34,4 +34,8 @@ echo 1 > /sys/kernel/debug/tracing/options/stacktrace
 echo 'arg2==期望的值' > /sys/kernel/debug/tracing/events/kprobes/p_函数名_0/filter
 
 ### 挂死打印
+当内核panic的时候ftrace_dump函数会将trace缓冲区里边的内容打印到内核日志中。
 echo 1 > /proc/sys/kernel/ftrace_dump_on_oops
+例如：调用栈显示某个函数有挂死现象，则可以按照上述方式打开并跟踪参数情况，可以追踪哪些参数传到函数中导致的异常
+
+
