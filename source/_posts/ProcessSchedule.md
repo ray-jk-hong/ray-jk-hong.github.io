@@ -15,3 +15,5 @@ echo 1 > sched_stat_runtime/enable
 echo 1 > /sys/kernel/debug/tracing/events/irq/enable
 echo 1 > /sys/kernel/debug/tracing/tracing_on
 ```
+
+
