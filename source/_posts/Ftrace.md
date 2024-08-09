@@ -52,3 +52,4 @@ echo 1 > /sys/kernel/debug/tracing/tracing_on
 
 ## 参考
 https://docs.kernel.org/trace/tracepoints.html
+https://www.kernel.org/doc/Documentation/trace/ftrace.txt
