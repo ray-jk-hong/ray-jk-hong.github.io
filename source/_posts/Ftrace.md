@@ -29,3 +29,17 @@ you just have to echo its name into set_graph_function:
 https://man7.org/linux/man-pages/man1/trace-cmd-record.1.html
 使用trace-cmd record -e workqueue:workqueue_queue_work查看workqueue在执行时cpu 100%的问题
 https://community.frame.work/t/tracking-kworker-stuck-at-near-100-cpu-usage-with-ubuntu-22-04/23053?page=2
+
+## 进程sched事件追踪
+cd /sys/kernel/debug/tracing/events/sched
+
+echo 1 > sched_switch/enable
+echo 1 > sched_wakeup/enable
+echo 1 > sched_wakeup_new/enable
+echo 1 > sched_waking/enable
+echo 1 > sched_process_fork/enable
+echo 1 > sched_stat_runtime/enable
+echo 1 > /sys/kernel/debug/tracing/events/irq/enable
+echo 1 > /sys/kernel/debug/tracing/tracing_on
+
+
