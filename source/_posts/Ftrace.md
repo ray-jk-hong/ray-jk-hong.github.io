@@ -2,6 +2,9 @@
 title: Ftrace
 ---
 
+## Ftrace原理
+gcc编译时添加-pg编译选项。这个编译选项在函数开始处添加-bl指令
+
 ## Ftrace跟踪函数
 
 cd /sys/kernel/debug/tracing/
