@@ -11,23 +11,18 @@ https://docs.kernel.org/trace/kprobes.html
 
 ## 用户态使用Kprobe探测内核函数
 ### 开启关闭Kprobe
-
-1.开启：echo 1 > /sys/kernel/debug/tracing/events/kprobes/enable
-
-2.关闭：echo 0 > /sys/kernel/debug/tracing/events/kprobes/enable
+1. 开启：echo 1 > /sys/kernel/debug/tracing/events/kprobes/enable
+2. 关闭：echo 0 > /sys/kernel/debug/tracing/events/kprobes/enable
 
 ### 设置Kprobe探测点
-1.返回值打印：
-
+1. 返回值打印：
 ```bash
 echo 'r 函数名 ret=$retval' > /sys/kernel/debug/tracing/kprobe_events
 ```
-2.入参打印：
+2. 入参打印:
 
 x86平台使用%ax, %bx, %cx, %dx表示第0-3个参数。
-
 arm平台使用x0, x1, x2, x3来表示第0-3个参数。
-
 Linux4.x版本之后，应该都可以使用arg0, arg1等方式表示。
 
 2.1 函数的参数直接打印值：
@@ -36,7 +31,7 @@ X86打印第一个第二个参数:
 ```bash
 echo 'p function_name a=%ax:s32 b=%bx:u64' > /sys/kernel/debug/tracing/kprobe_events
 ```
-ARM打印第一个第二个参数:
+ARM打印第一个和第二个参数:
 ```bash
 echo 'p function_name a=%x0:x64 b=%x1' > /sys/kernel/debug/tracing/kprobe_events
 ```
