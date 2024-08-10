@@ -1,5 +1,5 @@
 ---
-title: 页表管理
+title: MMU
 ---
 
 ## TLB
