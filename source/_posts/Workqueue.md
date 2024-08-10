@@ -32,7 +32,7 @@ function=‘Work函数名’就是Work的函数。
 使用如下方式查看kwork的调用栈。
 '''bash
 $cat /proc/THE_OFFENDING_KWORKER/stack
-'''bash
+'''
 THE_OFFENDING_KWORKER就是Worker线程的pid。
 
 
