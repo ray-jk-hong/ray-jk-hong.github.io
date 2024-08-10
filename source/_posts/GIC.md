@@ -1,7 +1,7 @@
 ---
-title: GICV3
+title: GIC
 categories: 
-- GICV3
+- Aarch64
 tags:
-- GICV3
+- GIC
 ---

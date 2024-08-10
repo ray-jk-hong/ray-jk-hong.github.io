@@ -1,5 +1,9 @@
 ---
 title: MMU
+categories: 
+- Aarch64
+tags:
+- MMU
 ---
 
 ## TLB

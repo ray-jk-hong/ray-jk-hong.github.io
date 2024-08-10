@@ -1,7 +1,7 @@
 ---
 title: HugeTLB
 categories: 
-- Linux MM
+- Linux
 tags:
 - Linux MM
 ---

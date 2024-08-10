@@ -1,5 +1,9 @@
 ---
 title: Workqueue
+categories: 
+- Linux
+tags:
+- Linux Workqueue
 ---
 
 ## Workqueue问题定位

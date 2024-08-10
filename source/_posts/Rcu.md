@@ -1,5 +1,9 @@
 ---
 title: Rcu (Read Copy Update)
+categories: 
+- Linux
+tags:
+- Linux RCU
 ---
 
 ## 参考

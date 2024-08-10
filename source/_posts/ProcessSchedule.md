@@ -1,5 +1,9 @@
 ---
 title: Process Schedule
+categories: 
+- Linux
+tags:
+- Linux Process
 ---
 
 

@@ -1,7 +1,7 @@
 ---
 title: Ftrace
 categories: 
-- Linux Trace
+- Linux
 tags:
 - Linux Trace
 ---
