@@ -3,7 +3,7 @@ title: I2C协议
 categories: 
 - I2C
 tags:
-- I2C
+- I2C Protocol
 ---
 
 ## I2C协议综述
