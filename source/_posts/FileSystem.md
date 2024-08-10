@@ -1,7 +1,7 @@
 ---
 title: FileSystem
 categories: 
-- Linux
+- Linux File System
 tags:
 - Linux File System
 ---

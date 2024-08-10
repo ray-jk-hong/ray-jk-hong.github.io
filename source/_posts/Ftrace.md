@@ -1,5 +1,9 @@
 ---
 title: Ftrace
+categories: 
+- Linux Trace
+tags:
+- Linux Trace
 ---
 
 ## Ftrace原理

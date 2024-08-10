@@ -1,6 +1,11 @@
 ---
 title: HugeTLB
+categories: 
+- Linux MM
+tags:
+- Linux MM
 ---
+
 ## 参考
 https://blog.csdn.net/wangquan1992/article/details/103963108
 https://blog.csdn.net/hbuxiaofei/article/details/128402495
