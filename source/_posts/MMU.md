@@ -47,7 +47,6 @@ EL2和EL3有TTBR0但没有TTBR1(就是说EL2有TTBR0_EL2, EL3有TTBR_EL3，但�
 
 ###### TTBR地址范围确定
 
-![Alt text](./TTBR0-TTBR1地址范围和选择.drawio.svg)
 <img src="./TTBR0-TTBR1地址范围和选择.drawio.svg">
 
 ###### 如何选择（D5-1736）
