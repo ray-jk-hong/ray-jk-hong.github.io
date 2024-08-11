@@ -47,7 +47,7 @@ EL2和EL3有TTBR0但没有TTBR1(就是说EL2有TTBR0_EL2, EL3有TTBR_EL3，但�
 
 ###### TTBR地址范围确定
 
-![你想输入的替代文字](/MMU/TTBR0-TTBR1-choose.drawio.svg)
+![altrcx](/images/TTBR0-TTBR1-choose.drawio.svg)
 
 ###### 如何选择（D5-1736）
 
