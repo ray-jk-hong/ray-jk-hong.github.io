@@ -35,6 +35,16 @@ EL2和EL3有TTBR0但没有TTBR1(就是说EL2有TTBR0_EL2, EL3有TTBR_EL3，但�
 以下是对TCR寄存器中的各位进行解释
 
 ### TB （Top Byte ignored）（D8-2038）
+表示top addr是ignore，还是用于MTE的计算
+
+### A1
+ASID的选择，是使用TTBR_EL1中的，还是使用TTBR_EL0中的
+
+### AS
+ASID是使用8bit，还是使用16bit
+
+### EPD
+包含EPD1、EPD0，表示TTBR_EL1/TTBR_EL0是enable还是disable
 
 ### T1SZ/T0SZ
 T0SZ: 表示TTBR0_EL1能表示的地址范围，地址范围的计算公式就是2^(64-T1SZ) Bytest:
