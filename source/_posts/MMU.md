@@ -88,4 +88,5 @@ https://blog.csdn.net/2301_79143213/article/details/137247214?utm_medium=distrib
 
 https://blog.csdn.net/weixin_42135087/article/details/109057232
 
-
+## 参考
+https://github.com/rcore-os/rCore/blob/master/docs/2_OSLab/g2/memory.md
