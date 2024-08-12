@@ -1,3 +1,10 @@
+---
+title: Prctl
+categories: 
+- Linux
+tags:
+- Linux Prctl
+---
 
 ## 参考
 
