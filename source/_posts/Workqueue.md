@@ -53,3 +53,6 @@ THE_OFFENDING_KWORKER就是Worker线程的pid。
 
 ## 参考
 Linux/Documentation/core-api/workqueue.rst
+https://www.kernel.org/doc/html/v5.14/translations/zh_CN/core-api/workqueue.html
+
+
