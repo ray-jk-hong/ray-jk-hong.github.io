@@ -50,3 +50,6 @@ THE_OFFENDING_KWORKER就是Worker线程的pid。
 2.调用cancel_work_sync等待work结束
 
 3.调用destroy_workqueue销毁workqueue
+
+## 参考
+Linux/Documentation/core-api/workqueue.rst
