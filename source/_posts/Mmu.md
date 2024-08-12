@@ -56,6 +56,8 @@ ASID的选择，是使用TTBR_EL1中的，还是使用TTBR_EL0中的。
 ### AS
 ASID是使用8bit，还是使用16bit。
 
+TTBRx_EL1中使用ASID的原因：https://blog.csdn.net/WANGYONGZIXUE/article/details/132996049
+
 ### EPD
 包含EPD1、EPD0，表示TTBR_EL1/TTBR_EL0是使能还是去使能。
 
