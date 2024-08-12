@@ -20,11 +20,9 @@ EL2和EL3有TTBR0但没有TTBR1(就是说EL2有TTBR0_EL2, EL3有TTBR_EL3，但�
 ### 如何选择（D5-1736）
 
 ### TTBR位分配
-
 1) ASID是做什么？
 
-##### VTTBR_EL2
-
+### VTTBR_EL2
 ## TCR(Translation Control Register)寄存器
 包含TCR_EL1/TCR_EL2/TCR_EL3这几种。
 决定EL0/EL1在做地址翻译的时候选择哪个TTBR寄存器。
@@ -77,8 +75,6 @@ pgprot_val（PAGE_KERNEL）
 pteval_t
 
 这些都有什么不同
-
-
 
 ## 页表walk
 
