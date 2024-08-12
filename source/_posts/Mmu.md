@@ -1,9 +1,9 @@
 ---
-title: MMU
+title: Mmu
 categories: 
 - Aarch64
 tags:
-- MMU
+- Mmu
 ---
 
 ## TTBR(Translation Table Base Register)寄存器
@@ -57,7 +57,7 @@ ASID的选择，是使用TTBR_EL1中的，还是使用TTBR_EL0中的。
 ASID是使用8bit，还是使用16bit。
 
 ### EPD
-包含EPD1、EPD0，表示TTBR_EL1/TTBR_EL0是enable还是disable
+包含EPD1、EPD0，表示TTBR_EL1/TTBR_EL0是使能还是去使能。
 
 ### T1SZ/T0SZ
 T0SZ: 表示TTBR0_EL1能表示的地址范围，地址范围的计算公式就是2^(64-T1SZ) Bytest:
@@ -68,6 +68,7 @@ Aarch64的tcr相关的定义都在arch/arm64/include/asm/pgtable-hwdef.h
 虚拟地址的位宽在linux用CONFIG_ARM64_VA_BITS定义
 
 ### IPS（Intermediate Physical Address Size）
+中间级物理地址大小
 表示物理地址的范围：
 000 32 bits, 4 GB.
 001 36 bits, 64 GB.
@@ -104,3 +105,5 @@ https://blog.csdn.net/2301_79143213/article/details/137247214?utm_medium=distrib
 https://github.com/rcore-os/rCore/blob/master/docs/2_OSLab/g2/memory.md
 
 https://blog.csdn.net/weixin_42135087/article/details/109057232
+
+
