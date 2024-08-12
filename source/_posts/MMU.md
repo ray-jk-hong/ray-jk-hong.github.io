@@ -36,10 +36,10 @@ EL2和EL3有TTBR0但没有TTBR1(就是说EL2有TTBR0_EL2, EL3有TTBR_EL3，但�
 表示top addr是ignore，还是用于MTE的计算
 
 ### A1
-ASID的选择，是使用TTBR_EL1中的，还是使用TTBR_EL0中的
+ASID的选择，是使用TTBR_EL1中的，还是使用TTBR_EL0中的。
 
 ### AS
-ASID是使用8bit，还是使用16bit
+ASID是使用8bit，还是使用16bit。
 
 ### EPD
 包含EPD1、EPD0，表示TTBR_EL1/TTBR_EL0是enable还是disable
@@ -48,6 +48,7 @@ ASID是使用8bit，还是使用16bit
 T0SZ: 表示TTBR0_EL1能表示的地址范围，地址范围的计算公式就是2^(64-T1SZ) Bytest:
 例如：如果用户态地址范围是48位虚拟地址，那这里应该配置T0SZ=64-48=16, 虚拟地址的范围是 2^(64-16) = 0 ~ 0x0000_FFFF_FFFF_FFFF
 T1SZ: 和T0SZ一样，就是表示的是TTBR1_EL1的
+T1SZ或者T0SZ的每个bit位必须是全0或者是全1
 
 ### IPS（Intermediate Physical Address Size）
 表示物理地址的范围：
@@ -63,6 +64,10 @@ T1SZ: 和T0SZ一样，就是表示的是TTBR1_EL1的
 01 16KByte
 10 4KByte
 11 64KByte
+
+## MAIR（Memory Attribute Indirection Register)
+表示内存的属性。
+
 
 ## 页表设置
 
