@@ -10,12 +10,12 @@ tags:
 ### Work消耗太多CPU Cycles(Top命令能看到)
 
 Worker线程通过ps命令打印如下：
-‘’‘
+```bash
 root      5671  0.0  0.0      0     0 ?        S    12:07   0:00 [kworker/0:1]
 root      5672  0.0  0.0      0     0 ?        S    12:07   0:00 [kworker/1:2]
 root      5673  0.0  0.0      0     0 ?        S    12:12   0:00 [kworker/0:0]
 root      5674  0.0  0.0      0     0 ?        S    12:13   0:00 [kworker/1:0]
-’‘’
+```
 
 以下几种可能
 1.Work切换频繁
