@@ -1,9 +1,9 @@
 ---
-title: I2C协议
+title: I2c Protocol
 categories: 
 - I2C
 tags:
-- I2C Protocol
+- I2c Protocol
 ---
 
 ## I2C协议综述
