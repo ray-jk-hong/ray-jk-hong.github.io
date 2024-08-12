@@ -36,13 +36,13 @@ EL2和EL3有TTBR0但没有TTBR1(就是说EL2有TTBR0_EL2, EL3有TTBR_EL3，但�
 ### TB （Top Byte ignored）（D8-2038）
 表示top addr是ignore，还是用于MTE的计算
 看代码应该是kasa在用这个。
-'''[arch/arm64/mm/proc.S]
+```[arch/arm64/mm/proc.S]
 #ifdef CONFIG_KASAN_SW_TAGS
 #define TCR_KASAN_FLAGS TCR_TBI1
 #else
 #define TCR_KASAN_FLAGS 0
 #endif
-'''
+```
 
 参考文件：Linux目录下tools/testing/selftests/arm64/tags/tags_test.c 可以查看TB是否使能。
 TB ignore使能的情况下，可以将高位用来做计数，实际地址访问的时候是会把高位给忽略掉的
