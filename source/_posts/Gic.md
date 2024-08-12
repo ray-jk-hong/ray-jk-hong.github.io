@@ -1,7 +1,7 @@
 ---
-title: GIC
+title: Gic
 categories: 
 - Aarch64
 tags:
-- GIC
+- Gic
 ---
