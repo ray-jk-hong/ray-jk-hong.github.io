@@ -8,15 +8,17 @@ tags:
 
 ## TTBR(Translation Table Base Register)寄存器
 ### TTBR寄存器介绍
-Stage1的页表翻译时，MMU页表的基地址由TTBR0_EL1, TTBR1_EL1指定。TTBR0_EL1指定用户态页表基地址，TTBR1_EL1指定内核态的页表基地址。
+Stage1页表翻译时的页表基地址。
+TTBR0_EL1指定用户态页表基地址，TTBR1_EL1指定内核态的页表基地址。
 EL2和EL3有TTBR0但没有TTBR1(就是说EL2有TTBR0_EL2, EL3有TTBR_EL3，但没有TTBR1_EL2和TTRB1_EL3)。
 - 所以EL2/EL3模式下，只能使用0x0-0x0000FFFF_FFFFFFFF范围的地址
 
 用户态不能直接访问MMU，当然也没有所谓的TTBR0_EL0，TTBR1_EL0之类的寄存器了。
 
 ### TTBR地址范围确定
-
 ![TTBR地址范围](/images/MMU/TTBR表示的地址范围.drawio.svg)
+在Linux系统中，0x0000_0000_0000_0000到0x0000_FFFF_FFFF_FFFF范围是被指定为用户态内存，0xFFFF_0000_0000_0000到0xFFFF_FFFF_FFFF_FFFF被指定为内核态地址。
+具体前面几个0表示走TTBR0_EL1或者几个F走TTBR1_EL1则是由TCR.TxSZ指定。
 
 ### 如何选择（D5-1736）
 在TCR.T0SZ, TCR.T1SZ都为16的场景下：
@@ -53,6 +55,8 @@ TB ignore使能的情况下，可以将高位用来做计数，实际地址访�
 
 ./Documentation/arm64/memory-tagging-extension.rst
 prctl(PR_SET_TAGGED_ADDR_CTRL, flags, 0, 0, 0)
+
+TB的使用可以具体参考MTE使用篇。
 
 ### A1
 ASID的选择，是使用TTBR_EL1中的，还是使用TTBR_EL0中的。
@@ -91,12 +95,45 @@ Aarch64的tcr相关的定义都在arch/arm64/include/asm/pgtable-hwdef.h
 
 ## MAIR (Memory Attribute Indirection Register)
 表示内存的属性。
+![TCR寄存器](/images/MMU/MAIR_EL1-1.png)
+MAIR_ELx可以定义8种不同的属性。每种属性占8bit。8个bit分为前4个bit和后4个bit分别定义了不同的属性。
+![TCR寄存器](/images/MMU/MAIR_EL1-2.png)
+![TCR寄存器](/images/MMU/MAIR_EL1-3.png)
 
-## 参考
+上面显示的RW分别别是读写属性。如果读写属性都有，就填1就可以了。
 
-https://github.com/rcore-os/rCore/blob/master/docs/2_OSLab/g2/memory.md
+在Linux中，占了5种类型。MAIR_ELx属性在启动阶段就会设置好。设置的代码在
+arch/arm64/mm/proc.S的__cpu_setup函数中。
+```s
+mov_q   mair, MAIR_EL1_SET
+```
 
-https://blog.csdn.net/weixin_42135087/article/details/109057232
+MAIR_EL1_SET定义如下：
+```c 
+#define MAIR_ATTRIDX(attr, idx)     ((attr) << ((idx) * 8))
 
-https://blog.csdn.net/2301_79143213/article/details/137247214?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-137247214-blog-109057232.235^v43^pc_blog_bottom_relevance_base1&spm=1001.2101.3001.4242.1&utm_relevant_index=3
+#define MAIR_ATTR_DEVICE_nGnRnE     UL(0x00)
+#define MAIR_ATTR_DEVICE_nGnRE      UL(0x04)
+#define MAIR_ATTR_NORMAL_NC         UL(0x44)
+#define MAIR_ATTR_NORMAL_TAGGED     UL(0xf0)
+#define MAIR_ATTR_NORMAL            UL(0xff)
+#define MAIR_ATTR_MASK              UL(0xff)
+
+#define MT_NORMAL           0 
+#define MT_NORMAL_TAGGED    1                    
+#define MT_NORMAL_NC        2                
+#define MT_DEVICE_nGnRnE    3
+#define MT_DEVICE_nGnRE     4                               
+
+#define MAIR_EL1_SET                            \
+    (MAIR_ATTRIDX(MAIR_ATTR_DEVICE_nGnRnE, MT_DEVICE_nGnRnE) |  \ 
+    MAIR_ATTRIDX(MAIR_ATTR_DEVICE_nGnRE, MT_DEVICE_nGnRE) |  \    
+    MAIR_ATTRIDX(MAIR_ATTR_NORMAL_NC, MT_NORMAL_NC) |     \           
+    MAIR_ATTRIDX(MAIR_ATTR_NORMAL, MT_NORMAL) |            \  
+    MAIR_ATTRIDX(MAIR_ATTR_NORMAL, MT_NORMAL_TAGGED)) 
+```
+
+MAIR_ELx设置完成之后，在寻址的时候，就只需要通过lower attribute中的Attrindex中的index就可以知道这段页的内存是哪种属性了。例如如果Attrindex的值是0就是MT_NORMAL，如果是3就是MT_DEVICE_nGnRnE这种类型的。
+![TCR寄存器](/images/MMU/PTE-1.png)
+![TCR寄存器](/images/MMU/PTE-2.png)
 
