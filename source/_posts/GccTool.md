@@ -45,8 +45,69 @@ ar -help打印：
 - V：显示ar的版本.
 
 ## nm
+列出目标文件的符号清单
+```bash
+nm -s filename.a或者filename.o或者filename.out  
+```
+
+nm -help打印
+
+- -a或--debug-syms：显示调试符号。
+- -B：等同于--format=bsd，用来兼容MIPS的nm。
+- -C或--demangle：将低级符号名解码(demangle)成用户级名字。这样可以使得C++函数名具有可读性。
+- -D或--dynamic：显示动态符号。该任选项仅对于动态目标(例如特定类型的共享库)有意义。
+- -f format：使用format格式输出。format可以选取bsd、sysv或posix，该选项在GNU的nm中有用。默认为bsd。
+- -g或--extern-only：仅显示外部符号。
+- -n、-v或--numeric-sort：按符号对应地址的顺序排序，而非按符号名的字符顺序。
+- -p或--no-sort：按目标文件中遇到的符号顺序显示，不排序。
+- -P或--portability：使用POSIX.2标准输出格式代替默认的输出格式。等同于使用任选项-f posix。
+- -s或--print-armap：当列出库中成员的符号时，包含索引。索引的内容包含：哪些模块包含哪些名字的映射。
+- -r或--reverse-sort：反转排序的顺序(例如，升序变为降序)。
+- --size-sort：按大小排列符号顺序。该大小是按照一个符号的值与它下一个符号的值进行计算的。
+- -t radix或--radix=radix：使用radix进制显示符号值。radix只能为"d"表示十进制、"o"表示八进制或"x"表示十六进制。
+- --target=bfdname：指定一个目标代码的格式，而非使用系统的默认格式。
+- -u或--undefined-only：仅显示没有定义的符号(那些外部符号)。
+- -l或--line-numbers：对每个符号，使用调试信息来试图找到文件名和行号。对于已定义的符号，查找符号地址的行号。对于未定义符号，查找指向符号重定位入口的行号。如果可以找到行号信息，显示在符号信息之后。
+- -V或--version：显示nm的版本号。
+- --help：显示nm的任选项。
 
 ## objdump
+常用命令：
+1. objdump -h file<.o,.a,.out> // 查看对象文件所有的节sections.例如
+   #objdump -h libtest1.o
+```bash
+   libtest1.o:     file format elf32-i386
+   Sections:
+   Idx Name          Size      VMA       LMA       File off  Algn
+     0 .text         00000014  00000000  00000000  00000034  2**2
+                     CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+     1 .data         00000000  00000000  00000000  00000048  2**2
+                     CONTENTS, ALLOC, LOAD, DATA
+     2 .bss          00000000  00000000  00000000  00000048  2**2
+                     ALLOC
+     3 .rodata       0000000e  00000000  00000000  00000048  2**0
+                     CONTENTS, ALLOC, LOAD, READONLY, DATA
+     4 .comment      0000001f  00000000  00000000  00000056  2**0
+                     CONTENTS, READONLY
+     5 .note.GNU-stack 00000000  00000000  00000000  00000075  2**0
+                     CONTENTS, READONLY
+```
+2. objdump -t 查看对象文件所有的符号列表，相当于 nm -s objfilename,如：
+#objdump -t libtest1.o
+```bash
+   libtest1.o:     file format elf32-i386
+   
+   SYMBOL TABLE:
+   00000000 l    df *ABS*  00000000 libtest1.c
+   00000000 l    d  .text  00000000 .text
+   00000000 l    d  .data  00000000 .data
+   00000000 l    d  .bss   00000000 .bss
+   00000000 l    d  .rodata        00000000 .rodata
+   00000000 l    d  .note.GNU-stack        00000000 .note.GNU-stack
+   00000000 l    d  .comment       00000000 .comment
+   00000000 g     F .text  00000014 print_test1
+   00000000         *UND*  00000000 puts
+```
 
 ## addr2line
 将可执行文件反汇编并打印对应文件的行号。
