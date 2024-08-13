@@ -70,7 +70,3 @@ SECTIONS
                 +-- finalise_el2()          /// Prefer VHE if possible
                 \-- start_kernel()          /// 跳转到start_kernel执行
 ```
-
-## 参考
-
-https://blog.csdn.net/u014001096/article/details/131342636
