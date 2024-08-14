@@ -25,8 +25,9 @@ TASKLET_STATE_SCHED(被成功提交)-->TASKLET_STATE_RUN | TASKLET_STATE_SCHED(�
 在sys trace目录下，可以打开相关的开关
 ```
 /sys/kernel/debug/tracing/events/irq
-softirq_entry  softirq_exit  softirq_raise
+softirq_entry  softirq_exit  softirq_raise tasklet_entry tasklet_exit
 ```
+tasklet_entry和tasklet_exit在5.10版本中是没有的，在6.9版本是有的。
 
 ## 参考
 http://blog.chinaunix.net/uid-23769728-id-3195496.html
