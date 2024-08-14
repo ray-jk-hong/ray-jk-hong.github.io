@@ -6,7 +6,16 @@ tags:
 - Linux Workqueue
 ---
 
-## Workqueue问题定位
+## Workqueue Trace
+### Trace节点
+在sys trace目录/sys/kernel/debug/tracing/events/workqueue下，可以看到几个event节点。
+
+```bash
+/sys/kernel/debug/tracing/events/workqueue/
+workqueue_activate_work  workqueue_execute_end  workqueue_execute_start  workqueue_queue_work
+```
+所有的都打开就可以看到所有work执行的过程
+
 ### Work消耗太多CPU Cycles(Top命令能看到)
 
 Worker线程通过ps命令打印如下：
