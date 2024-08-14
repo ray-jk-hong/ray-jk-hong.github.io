@@ -10,7 +10,7 @@ tags:
 gcc编译时添加-pg编译选项。这个编译选项在函数开始处添加-bl指令
 
 ## Ftrace跟踪函数
-
+```bash
 cd /sys/kernel/debug/tracing/
 echo 0 > tracing_on
 echo 5 > max_graph_depth
@@ -23,9 +23,7 @@ echo 1 > tracing_on
 ./a.out 执行完程序
 echo 0 > tracing_on
 cat trace
-
-
-https://www.cnblogs.com/arnoldlu/p/7211249.html
+```
 
 ### set_graph_function
 If you want to trace only one function and all of its children,
@@ -46,3 +44,4 @@ https://community.frame.work/t/tracking-kworker-stuck-at-near-100-cpu-usage-with
 ## 参考
 https://docs.kernel.org/trace/tracepoints.html
 https://www.kernel.org/doc/Documentation/trace/ftrace.txt
+https://www.cnblogs.com/arnoldlu/p/7211249.html
