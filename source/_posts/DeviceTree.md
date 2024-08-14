@@ -49,4 +49,66 @@ dev_info(dev, "Allocated reserved memory, vaddr: 0x%0llX, paddr: 0x%0llX\n",
 (u64)lp->vaddr, lp->paddr);
 ```
 
+### 通过DMA API预留
+```c
+reserved-memory {
+   #address-cells = <2>;
+   #size-cells = <2>;
+   ranges;
+   
+   reserved: buffer@0 {
+      compatible = "shared-dma-pool";
+      no-map;
+      reg = <0x0 0x70000000 0x0 0x10000000>;
+   };
+};
+   
+reserved-driver@0 {
+   compatible = "xlnx,reserved-memory";
+   memory-region = <&reserved>;
+};
+```
+然后在驱动代码中使用dma接口申请。
+```c
+/* Initialize reserved memory resources */
+rc = of_reserved_mem_device_init(dev);
+if(rc) {
+   dev_err(dev, "Could not get reserved memory\n");
+   goto error1;
+}
+  
+/* Allocate memory */
+dma_set_coherent_mask(dev, 0xFFFFFFFF);
+lp->vaddr = dma_alloc_coherent(dev, ALLOC_SIZE, &lp->paddr, GFP_KERNEL);
+dev_info(dev, "Allocated coherent memory, vaddr: 0x%0llX, paddr: 0x%0llX\n", 
+(u64)lp->vaddr, lp->paddr);
 
+```
+
+
+### CMA内存预留
+CMA跟上面DMA API预留方式一致，但多了两个属性。
+需要的属性：
+reusable;
+linux,cma-default
+```
+reserved-memory {
+      #address-cells = <2>;
+      #size-cells = <2>;
+      ranges;
+ 
+      reserved: buffer@0 {
+         compatible = "shared-dma-pool";
+         reusable;
+         reg = <0x0 0x70000000 0x0 0x10000000>;
+         linux,cma-default;
+      };
+   };
+```
+这样在设备启动的时候会显示：
+```
+[    0.000000] Reserved memory: created CMA memory pool at 0x0000000070000000, size 
+256 MiB
+[    0.000000] Reserved memory: initialized node buffer@0, compatible id shared-dma-
+pool
+```
