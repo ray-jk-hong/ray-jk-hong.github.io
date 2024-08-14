@@ -5,3 +5,7 @@ categories:
 tags:
 - Aarch64
 ---
+
+## 参考
+
+Documentation\cputopology.txt
