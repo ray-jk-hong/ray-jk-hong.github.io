@@ -6,6 +6,12 @@ tags:
 - Linux Workqueue
 ---
 
+## work被中断抢占
+1. work每次都执行在cpu0的时候被中断抢占，可以设置work的cpumask不让work在cpu0上执行
+```bash
+/sys/devices/virtual/workqueue# echo ffe >cpumask
+```
+
 ## Workqueue Trace
 ### Trace节点
 在sys trace目录/sys/kernel/debug/tracing/events/workqueue下，可以看到几个event节点。
@@ -62,9 +68,7 @@ THE_OFFENDING_KWORKER就是Worker线程的pid。
 
 ## 参考
 Linux/Documentation/core-api/workqueue.rst
-
 https://www.kernel.org/doc/html/v5.14/translations/zh_CN/core-api/workqueue.html
-
 https://events.static.linuxfound.org/sites/events/files/slides/Async%20execution%20with%20wqs.pdf
 
 
