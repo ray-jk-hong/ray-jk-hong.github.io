@@ -21,6 +21,13 @@ TASKLET_STATE_SCHED(被成功提交)-->TASKLET_STATE_RUN | TASKLET_STATE_SCHED(�
 1.	同一个tasklet在添加之后，在执行之前不能重新添加
 2.	同一个tasklet在执行的时候，可以重新添加(同一个CPU或者不同的CPU)，但不可能并行执行
 
+## Debug
+在sys trace目录下，可以打开相关的开关
+```
+/sys/kernel/debug/tracing/events/irq
+softirq_entry  softirq_exit  softirq_raise
+```
+
 ## 参考
 http://blog.chinaunix.net/uid-23769728-id-3195496.html
 
