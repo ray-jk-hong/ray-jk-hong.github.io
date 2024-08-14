@@ -73,4 +73,5 @@ https://events.static.linuxfound.org/sites/events/files/slides/Async%20execution
 
 https://www.kernel.org/doc/Documentation/core-api/workqueue.rst
 
+https://lwn.net/Articles/932431/
 
