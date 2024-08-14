@@ -115,4 +115,7 @@ perf record -e probe_test_perf_probe:loop -aR sleep 1
 ## 火焰图
 
 ## 参考
+
+https://www.brendangregg.com/perf.html
+
 https://www.brendangregg.com/perf.html
