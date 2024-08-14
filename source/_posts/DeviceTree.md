@@ -6,6 +6,13 @@ tags:
 - Linux DeviceTree
 ---
 
+## 编译与反编译命令
+1. 编译命令
+dtc -O dtb -o dest.dtb src.dts
+
+2. 反编译命令
+dtc -I dtb -O dts src.dtb > des.dts
+
 ## 预留内存
 ### reserved-memory方式
 1. 在reserve-memoyr区域添加要预留的内存。
