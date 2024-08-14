@@ -71,4 +71,6 @@ Linux/Documentation/core-api/workqueue.rst
 https://www.kernel.org/doc/html/v5.14/translations/zh_CN/core-api/workqueue.html
 https://events.static.linuxfound.org/sites/events/files/slides/Async%20execution%20with%20wqs.pdf
 
+https://www.kernel.org/doc/Documentation/core-api/workqueue.rst
+
 
