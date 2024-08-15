@@ -6,6 +6,13 @@ tags:
 - Linux Workqueue
 ---
 
+## alloc_workqueue WQ_UNBOUND的时候创建线程
+在内核态ps -ef可以看到alloc_workqueue调用的时候创建的线程。例如名字是xxx_wq的时候, 5.15版本是[xxx_wq]，6.6x版本是显示[kworker/R-xxx_wq]。
+这个线程是在init_rescuer的时候创建的。什么时候在这个worker里边执行，后面再看一下。
+在queue_work的时候，真正执行的并不是上面的线程，一般都是在新创建的kworkerxxx执行。因为在alloc_workqueue的时候会选择条件一致的
+struct worker_pool并在这个上面执行。
+
+
 ## work被中断抢占
 1. work每次都执行在cpu0的时候被中断抢占，可以设置work的cpumask不让work在cpu0上执行
 ```bash
