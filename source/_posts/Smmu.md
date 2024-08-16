@@ -22,6 +22,7 @@ iommu_sva_get_pasid
 PASID的意义
 https://blog.csdn.net/yiyeguzhou100/article/details/128069086
 https://www.kernel.org/doc/html/next/x86/sva.html
+https://blog.csdn.net/qq_45024274/article/details/129224989
 
 ## SVA的概念
 https://www.kernel.org/doc/html/next/x86/sva.html
