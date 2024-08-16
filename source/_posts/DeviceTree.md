@@ -15,7 +15,7 @@ dtc -I dtb -O dts src.dtb > des.dts
 
 ## 预留内存
 ### reserved-memory方式
-1. 在reserve-memoyr区域添加要预留的内存。
+1. 在reserve-memory区域添加要预留的内存。
    下面就是在该区域添加了reserve:buffer@0区域。no-map表示该区域不要被映射进内核。预留后/proc/iomem也显示System RAM区域小于内存量。
 ```c
 reserved-memory {
