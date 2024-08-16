@@ -119,3 +119,5 @@ reserved-memory {
 [    0.000000] Reserved memory: initialized node buffer@0, compatible id shared-dma-
 pool
 ```
+
+## simple-bus关键字
