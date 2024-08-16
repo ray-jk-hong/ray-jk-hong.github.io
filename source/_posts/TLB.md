@@ -27,3 +27,5 @@ type字段：
 ALL：刷新所有TLB entry
 VMALL: 刷新所有stage 1TLB entry
 
+
+https://aijishu.com/a/1060000000381352
