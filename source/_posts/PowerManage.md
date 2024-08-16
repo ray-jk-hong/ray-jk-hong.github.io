@@ -25,6 +25,7 @@ register_pm_notifier接口注册监听上述几个状态。
 
 https://www.wowotech.net/pm_subsystem/suspend_and_resume.html
 https://blog.csdn.net/u012719256/article/details/52754492
+https://blog.csdn.net/MyArrow/article/details/8837756
 
 ## 用户态进程冻结
 
