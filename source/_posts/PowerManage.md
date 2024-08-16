@@ -21,8 +21,12 @@ tags:
 register_pm_notifier接口注册监听上述几个状态。
 在进入睡眠之前会发送PM_SUSPEND_PREPARE， 等睡眠结束（进入睡眠失败或者从睡眠中唤醒的时候）会再发送PM_POST_SUSPEND
 
-
 ### Suspend流程参考
+
 https://www.wowotech.net/pm_subsystem/suspend_and_resume.html
+https://blog.csdn.net/u012719256/article/details/52754492
 
+## 用户态进程冻结
 
+### 进程冻结参考
+http://www.wowotech.net/pm_subsystem/237.html
