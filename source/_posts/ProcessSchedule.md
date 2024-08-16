@@ -20,4 +20,8 @@ echo 1 > /sys/kernel/debug/tracing/events/irq/enable
 echo 1 > /sys/kernel/debug/tracing/tracing_on
 ```
 
+## 参考
+https://blog.csdn.net/weixin_51760563/article/details/122789480
+
+
 
