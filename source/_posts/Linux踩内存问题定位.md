@@ -6,7 +6,9 @@ tags:
 - Linux Debug
 ---
 
-打开的宏
+## 打开Kasan选项
+
+## 打开page alloc/free相关宏
 ```c
 CONFIG_PAGE_EXTENSION=y
 CONFIG_DEBUG_PAGEALLOC=y
