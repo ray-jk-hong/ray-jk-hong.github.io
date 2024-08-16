@@ -136,3 +136,8 @@ MAIR_EL1_SET定义如下：
 MAIR_ELx设置完成之后，在寻址的时候，就只需要通过lower attribute中的Attrindex中的index就可以知道这段页的内存是哪种属性了。例如如果Attrindex的值是0就是MT_NORMAL，如果是3就是MT_DEVICE_nGnRnE这种类型的。
 ![TCR寄存器](/images/MMU/PTE-1.png)
 ![TCR寄存器](/images/MMU/PTE-2.png)
+
+## 参考
+
+TTBR寄存器中asid的作用
+https://blog.csdn.net/weixin_42135087/article/details/123369119
