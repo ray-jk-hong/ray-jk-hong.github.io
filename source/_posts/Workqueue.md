@@ -6,6 +6,10 @@ tags:
 - Linux Workqueue
 ---
 
+## alloc_queue创建流程
+
+![TCR寄存器](/images/Workqueue/Workqueue创建流程.drawio.svg)
+
 ## alloc_workqueue WQ_UNBOUND的时候创建线程
 在内核态ps -ef可以看到alloc_workqueue调用的时候创建的线程。例如名字是xxx_wq的时候, 5.15版本是[xxx_wq]，6.6x版本是显示[kworker/R-xxx_wq]。
 这个线程是在init_rescuer的时候创建的。什么时候在这个worker里边执行，后面再看一下。
