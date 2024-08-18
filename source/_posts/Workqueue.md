@@ -23,13 +23,14 @@ tags:
     worker_thread线程不一定会被创建出来新的。因为unbound类型的attr已有的话，就会沿用以前的。
     如果创建新的，就可以在内核线程中新创建[kworker/%d:%d%d, pool->cpu, id]这样的新的内核线程。
 
-## 给某个workqueue指定执行的cpu
+## Workqueue指定执行的cpu
 1. 可以在调用alloc_workqueue的时候传入WQ_SYSFS
     例如：alloc_workqueue(xxx, WQ_SYSFS)，xxx是workqueue的名字
 2. 修改/sys/devices/virtual/workqueue/xxx/cpumask。
     例如cpu个数是10个则/sys/devices/virtual/workqueue/xxx/cpumask是0x3FF。
     如果想把cpu0给mask掉不让workqueue执行到cpu0，就写入0x3FE即可。
-    原理是写入之后，workqueue创建worker的流程会重新执行，并将worker_thread线程bind到对应的cpu上。
+
+原理是写入之后，workqueue创建worker的流程会重新执行，并将worker_thread线程bind到对应的cpu上。
 
 ## Workqueue Trace
 ### Trace节点
