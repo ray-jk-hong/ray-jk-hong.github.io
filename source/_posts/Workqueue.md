@@ -6,7 +6,7 @@ tags:
 - Linux Workqueue
 ---
 
-## alloc_queue创建流程
+## WQ_UNBOUND类型的Workqueue创建流程
 在调用alloc_workqueue的时候创建的结构体如下图：
 ![TCR寄存器](/images/Workqueue/Workqueue创建流程.drawio.svg)
 
@@ -23,7 +23,7 @@ tags:
     worker_thread线程不一定会被创建出来新的。因为unbound类型的attr已有的话，就会沿用以前的。
     如果创建新的，就可以在内核线程中新创建[kworker/%d:%d%d, pool->cpu, id]这样的新的内核线程。
 
-## Workqueue指定执行的cpu
+## WQ_UNBOUND类型的Wokqueue指定执行的cpu
 1. 可以在调用alloc_workqueue的时候传入WQ_SYSFS
     例如：alloc_workqueue(xxx, WQ_SYSFS)，xxx是workqueue的名字
 2. 修改/sys/devices/virtual/workqueue/xxx/cpumask。
