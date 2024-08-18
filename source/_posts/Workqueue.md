@@ -7,21 +7,29 @@ tags:
 ---
 
 ## alloc_queue创建流程
-
+在调用alloc_workqueue的时候创建的结构体如下图：
 ![TCR寄存器](/images/Workqueue/Workqueue创建流程.drawio.svg)
 
-## alloc_workqueue WQ_UNBOUND的时候创建线程
-在内核态ps -ef可以看到alloc_workqueue调用的时候创建的线程。例如名字是xxx_wq的时候, 5.15版本是[xxx_wq]，6.6x版本是显示[kworker/R-xxx_wq]。
-这个线程是在init_rescuer的时候创建的。什么时候在这个worker里边执行，后面再看一下。
-在queue_work的时候，真正执行的并不是上面的线程，一般都是在新创建的kworkerxxx执行。因为在alloc_workqueue的时候会选择条件一致的
-struct worker_pool并在这个上面执行。
+### 创建进程所属的结构体
+1. 创建struct workqueue_struct和struct workqueue_attrs
+2. 创建struct pool_workqueue
+    此结构体如果ordered为true则只有一个，如果ordered是
 
+### 创建全局的结构体
+1. 创建struct worker_pool。
+    此结构体是全局的，根据wqattrs_equal函数的对比结果，可能创建新的，可能会沿用旧的。
+2. 在创建worker_pool的时候，对应的会创建一个新的struct worker。
+    在调用完alloc_workqueue("xxx")之后，会生成[xxx]线程(5.xx版本)或者kworker/R-xxx线程，这个就是一个rescue线程。
+    worker_thread线程不一定会被创建出来新的。因为unbound类型的attr已有的话，就会沿用以前的。
+    如果创建新的，就可以在内核线程中新创建[kworker/%d:%d%d, pool->cpu, id]这样的新的内核线程。
 
-## work被中断抢占
-1. work每次都执行在cpu0的时候被中断抢占，可以设置work的cpumask不让work在cpu0上执行
-```bash
-/sys/devices/virtual/workqueue# echo ffe >cpumask
-```
+## 给某个workqueue指定执行的cpu
+1. 可以在调用alloc_workqueue的时候传入WQ_SYSFS
+    例如：alloc_workqueue(xxx, WQ_SYSFS)，xxx是workqueue的名字
+2. 修改/sys/devices/virtual/workqueue/xxx/cpumask。
+    例如cpu个数是10个则/sys/devices/virtual/workqueue/xxx/cpumask是0x3FF。
+    如果想把cpu0给mask掉不让workqueue执行到cpu0，就写入0x3FE即可。
+    原理是写入之后，workqueue创建worker的流程会重新执行，并将worker_thread线程bind到对应的cpu上。
 
 ## Workqueue Trace
 ### Trace节点
@@ -65,7 +73,6 @@ $cat /proc/THE_OFFENDING_KWORKER/stack
 ```
 THE_OFFENDING_KWORKER就是Worker线程的pid。
 
-
 ## 接口使用注意
 #### cancle_work_sync
 如果work的回调函数中有等待信号量等操作的时候，直接调用destroy_workqueue是会有报错的。
@@ -85,7 +92,6 @@ https://events.static.linuxfound.org/sites/events/files/slides/Async%20execution
 https://www.kernel.org/doc/Documentation/core-api/workqueue.rst
 
 https://lwn.net/Articles/932431/
-
 
 https://docs.kernel.org/core-api/workqueue.html
 
