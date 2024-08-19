@@ -6,6 +6,8 @@ tags:
 - Linux Process
 ---
 
+## 进程调度算法
+CFS/FIFO/RR
 
 ## 进程sched事件追踪
 ```[bash] [sched事件追踪]
