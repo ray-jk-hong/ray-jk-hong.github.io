@@ -44,6 +44,26 @@ NUMA node1 CPU(s):     1,3,5,7,9,11,13,15,17,19,21,23
 - L1d/L1i/L2/L3 Cache：每层的Cache内存大小
 - Numa nodex：有几个Numa，且每个Numa对应的CPU核是哪些
 
+## 启动
+```
+cpu-map {
+  socket0 {
+    cluster0 {
+      core0 {
+        cpu = <&cpu0>;
+      };
+      core1 {
+        cpu = <&cpu1>;
+      };      
+    };
+    cluster1 {
+      cpu = <&cpu2>;
+    };
+  };
+};
+```
+解析这段DTS定义的函数：drivers/base/arch_topology.c文件的parse_dt_topology函数
+
 ## 参考
 
 Documentation\cputopology.txt
