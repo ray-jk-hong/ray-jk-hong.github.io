@@ -1,5 +1,5 @@
 ---
-title: Mmu
+title: Mmu寄存器
 categories: 
 - Aarch64
 tags:
@@ -69,13 +69,13 @@ TTBRx_EL1中使用ASID的原因：https://blog.csdn.net/WANGYONGZIXUE/article/de
 ### EPD
 包含EPD1、EPD0，表示TTBR_EL1/TTBR_EL0是使能还是去使能。
 
-### T1SZ/T0SZ
+### T1SZ/T0SZ：表示虚拟地址的范围
 T0SZ: 表示TTBR0_EL1能表示的地址范围，地址范围的计算公式就是2^(64-T1SZ) Bytest:
 例如：如果用户态地址范围是48位虚拟地址，那这里应该配置T0SZ=64-48=16, 虚拟地址的范围是 2^(64-16) = 0 ~ 0x0000_FFFF_FFFF_FFFF
 T1SZ: 和T0SZ一样，就是表示的是TTBR1_EL1的
 这样设置之后，0x0000_开头的地址都走TTBR0_EL1进行地址翻译，0xFFFFF_开头的地址就都走TTBR1_EL1进行地址翻译。
 Aarch64的tcr相关的定义都在arch/arm64/include/asm/pgtable-hwdef.h
-虚拟地址的位宽在linux用CONFIG_ARM64_VA_BITS定义
+虚拟地址的位宽在linux用CONFIG_ARM64_VA_BITS定义。CONFIG_ARM64_VA_BITS宏的值和TCR.T1SZ的值是否要保持一致？答案是linux内核会根据CONFIG_ARM64_VA_BITS去配置TCR.T1SZ的值
 
 ### IPS（Intermediate Physical Address Size）
 中间级物理地址大小
