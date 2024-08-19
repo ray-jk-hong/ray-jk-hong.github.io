@@ -138,6 +138,10 @@ MAIR_ELx设置完成之后，在寻址的时候，就只需要通过lower attrib
 ![TCR寄存器](/images/MMU/PTE-1.png)
 ![TCR寄存器](/images/MMU/PTE-2.png)
 
+## 启动时配置mmu
+__cpu_setup
+__enable_mmu
+
 ## 参考
 
 TTBR寄存器中asid的作用
