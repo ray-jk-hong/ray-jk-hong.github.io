@@ -134,7 +134,10 @@ THE_OFFENDING_KWORKER就是Worker线程的pid。
 设置这个标记之后，每次queue_work，如果输入的cpu是-1的时候，所有unbound类型的workqueue会主动使用rr方式找到下一个cpu并找到对应cpu的struct pool_workqueue->struct worker_pool挂接work上去。
 
 ## 非WQ_UNBOUND类型
-per-CPU的Worker 早在 CPU prepare 阶段就通过 workqueue_prepare_cpu->create_worker 创建。在create_workqueue的时候，不再需要创建worker。
+per-CPU的Worker 早在 CPU prepare 阶段就通过以下步骤创建完毕：
+1. workqueue_init_early初始化cpu_worker_pools
+2. workqueue_prepare_cpu->create_worker 创建。
+所以在create_workqueue的时候，不再需要创建worker。
 
 
 参考：
