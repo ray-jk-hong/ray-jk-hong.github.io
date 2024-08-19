@@ -1,3 +1,11 @@
+---
+title: Numa perf
+categories: 
+- Linux
+tags:
+- Linux Numa
+---
+
 ```c
 #include <stdio.h>
 #include <stdbool.h>
