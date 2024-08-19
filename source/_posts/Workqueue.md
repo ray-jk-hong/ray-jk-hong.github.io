@@ -133,6 +133,8 @@ THE_OFFENDING_KWORKER就是Worker线程的pid。
 工作队列的设计目的是在提交任务的 CPU 上运行这些任务，以期获得更好的内存缓存行为。这个标志关闭了这种行为，允许提交的任务在系统中的任何 CPU 上运行。它适用于任务可以运行很长时间的情况，这样让调度程序管理它们的位置会更好。
 设置这个标记之后，每次queue_work，如果输入的cpu是-1的时候，所有unbound类型的workqueue会主动使用rr方式找到下一个cpu并找到对应cpu的struct pool_workqueue->struct worker_pool挂接work上去。
 
+## 非WQ_UNBOUND类型
+per-CPU的Worker 早在 CPU prepare 阶段就通过 workqueue_prepare_cpu->create_worker 创建。在create_workqueue的时候，不再需要创建worker。
 
 
 参考：
@@ -161,3 +163,4 @@ https://lwn.net/Articles/932431/
 
 https://docs.kernel.org/core-api/workqueue.html
 
+https://www.binss.me/blog/analysis-of-linux-workqueue/
