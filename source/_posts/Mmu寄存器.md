@@ -154,17 +154,4 @@ __enable_mmu
 TTBR寄存器中asid的作用
 https://blog.csdn.net/weixin_42135087/article/details/123369119
 
-页表
-https://www.cnblogs.com/LoyenWang/p/11406693.html
-
-http://www.wowotech.net/armv8a_arch/__cpu_setup.html
-http://www.wowotech.net/armv8a_arch/turn-on-mmu.html
-http://www.wowotech.net/armv8a_arch/create_page_tables.html
-http://www.wowotech.net/armv8a_arch/__cpu_setup.html
-
-
-http://www.wowotech.net/armv8a_arch/create_page_tables.html
-http://www.wowotech.net/armv8a_arch/turn-on-mmu.html
-
-https://www.cnblogs.com/LoyenWang/p/11406693.html
 

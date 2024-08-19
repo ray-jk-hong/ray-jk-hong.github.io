@@ -6,7 +6,7 @@ tags:
 - Linux PowerManage
 ---
 
-## wakelock接口
+## Wakelock接口
 
 
 ## Suspend流程
@@ -18,8 +18,8 @@ tags:
 #define PM_RESTORE_PREPARE	0x0005 /* Going to restore a saved image */
 #define PM_POST_RESTORE		0x0006 /* Restore failed */
 ```
-register_pm_notifier接口注册监听上述几个状态。
-在进入睡眠之前会发送PM_SUSPEND_PREPARE， 等睡眠结束（进入睡眠失败或者从睡眠中唤醒的时候）会再发送PM_POST_SUSPEND
+`register_pm_notifier`接口注册监听上述几个状态。
+在进入睡眠之前会发送PM_SUSPEND_PREPARE， 等睡眠结束（进入睡眠失败或者从睡眠中唤醒的时候）会再发送`PM_POST_SUSPEND`
 
 ### Suspend流程参考
 
