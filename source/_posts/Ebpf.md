@@ -1,7 +1,7 @@
 ---
-title: Ebuf
+title: Ebpf
 categories: 
 - Linux
 tags:
-- Linux Ebuf
+- Linux Ebpf
 ---
