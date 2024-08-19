@@ -25,4 +25,6 @@ kmem_cache_create创建的时候传的flag. 定义在include/linux/slab.h文件�
  *   maintainers, and not used together with CONFIG_SLUB_TINY
  */
 ```
+出现Wrong slab cache. "lsm_file_cache"，是否跟Slab的merge有关系？
+
 2. SLAB_ACCOUNT: 多numa且打开cgroup的场景，是否一定要定义这个？
