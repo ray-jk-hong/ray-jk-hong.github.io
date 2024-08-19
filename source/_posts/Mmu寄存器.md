@@ -31,9 +31,12 @@ EL2和EL3有TTBR0但没有TTBR1(就是说EL2有TTBR0_EL2, EL3有TTBR_EL3，但�
 ### VTTBR_EL2
 
 ## TCR(Translation Control Register)寄存器
-包含TCR_EL1/TCR_EL2/TCR_EL3这几种。
-决定EL0/EL1在做地址翻译的时候选择哪个TTBR寄存器。
-例如：0x0000开始的地址，比如0x0000_ABCD_ABCD_ABCD这样的地址就是通过TTBR0_EL1开始地址翻译，而0xFFFF开始的地址，比如0xFFFF_ABCD_ABCD_ABCD这个地址就是通过TTBR1_EL1开始地址翻译。
+TCR寄存器的初始化在__cpu_setup函数[arch/arm64/mm/proc.S]中。
+```c 
+mov_q   tcr, TCR_TxSZ(VA_BITS) | TCR_CACHE_FLAGS | TCR_SMP_FLAGS | \
+            TCR_TG_FLAGS | TCR_KASLR_FLAGS | TCR_ASID16 | \       
+                TCR_TBI0 | TCR_A1 | TCR_KASAN_SW_FLAGS | TCR_MTE_FLAGS      
+```
 
 ### TCR寄存器位分配
 ![TCR寄存器](/images/MMU/TCR寄存器位图.png)
@@ -75,6 +78,7 @@ T0SZ: 表示TTBR0_EL1能表示的地址范围，地址范围的计算公式就�
 T1SZ: 和T0SZ一样，就是表示的是TTBR1_EL1的
 这样设置之后，0x0000_开头的地址都走TTBR0_EL1进行地址翻译，0xFFFFF_开头的地址就都走TTBR1_EL1进行地址翻译。
 Aarch64的tcr相关的定义都在arch/arm64/include/asm/pgtable-hwdef.h
+
 虚拟地址的位宽在linux用CONFIG_ARM64_VA_BITS定义。CONFIG_ARM64_VA_BITS宏的值和TCR.T1SZ的值是否要保持一致？答案是linux内核会根据CONFIG_ARM64_VA_BITS去配置TCR.T1SZ的值
 
 ### IPS（Intermediate Physical Address Size）
@@ -93,6 +97,9 @@ Aarch64的tcr相关的定义都在arch/arm64/include/asm/pgtable-hwdef.h
 01 16KByte
 10 4KByte
 11 64KByte
+
+这个寄存器在__cpu_setup函数[arch/arm64/mm/proc.S]中根据
+CONFIG_ARM64_4K_PAGES/CONFIG_ARM64_16K_PAGES/CONFIG_ARM64_64K_PAGES的使能情况进行设定。
 
 ## MAIR (Memory Attribute Indirection Register)
 表示内存的属性。
@@ -135,8 +142,8 @@ MAIR_EL1_SET定义如下：
 ```
 
 MAIR_ELx设置完成之后，在寻址的时候，就只需要通过lower attribute中的Attrindex中的index就可以知道这段页的内存是哪种属性了。例如如果Attrindex的值是0就是MT_NORMAL，如果是3就是MT_DEVICE_nGnRnE这种类型的。
-![TCR寄存器](/images/MMU/PTE-1.png)
-![TCR寄存器](/images/MMU/PTE-2.png)
+![页表描述](/images/MMU/PTE-1.png)
+![页表描述](/images/MMU/PTE-2.png)
 
 ## 启动时配置mmu
 __cpu_setup
