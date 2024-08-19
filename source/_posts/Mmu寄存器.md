@@ -158,3 +158,6 @@ http://www.wowotech.net/armv8a_arch/__cpu_setup.html
 
 http://www.wowotech.net/armv8a_arch/create_page_tables.html
 http://www.wowotech.net/armv8a_arch/turn-on-mmu.html
+
+https://www.cnblogs.com/LoyenWang/p/11406693.html
+
