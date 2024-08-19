@@ -46,6 +46,25 @@ NUMA node1 CPU(s):     1,3,5,7,9,11,13,15,17,19,21,23
 
 ## 启动
 ```
+cpus {
+  cpu0 : cpu@0 {
+    device_type = "cpu";
+    compatible = "arm, armv8";
+    ret = <0x0>;
+    enable-method = "psci";
+    cpu-release-addr = <0x0 0xAAAA>;
+    numa-node-id = <0>;
+  };
+  cpu1 : cpu@1 {
+    device_type = "cpu";
+    compatible = "arm, armv8";
+    ret = <0x100>;
+    enable-method = "psci";
+    cpu-release-addr = <0x0 0xAAAA>;
+    numa-node-id = <0>;
+  };
+};
+
 cpu-map {
   socket0 {
     cluster0 {
