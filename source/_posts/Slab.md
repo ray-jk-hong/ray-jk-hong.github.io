@@ -11,7 +11,7 @@ CONFIG_SLAB_MERGE_DEFAULT
 https://lore.kernel.org/lkml/20230627132131.214475-1-julian.pidancet@oracle.com/T/
 
 ## Flag
-kmem_cache_create创建的时候传的flag
+kmem_cache_create创建的时候传的flag. 定义在include/linux/slab.h文件下。
 1. SLAB_NO_MERGE
 ```c [include/linux/slab.h]
 /*
