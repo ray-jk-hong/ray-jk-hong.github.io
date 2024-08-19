@@ -137,6 +137,7 @@ THE_OFFENDING_KWORKER就是Worker线程的pid。
 
 参考：
 https://lwn.net/Articles/403891/
+https://lwn.net/Articles/403918/
 
 ## 接口使用注意
 #### cancle_work_sync
