@@ -86,6 +86,7 @@ Aarch64的tcr相关的定义都在arch/arm64/include/asm/pgtable-hwdef.h
 - 011 42 bits, 4 TB.
 - 100 44 bits, 16 TB.
 - 101 48 bits, 256 TB.
+应该是和TxSZ表示的大小设置一样就可以了。
 
 ### TG（Granule size）
 寻址的地址粒度（在Linux场景下，就是page_size对应的大小）
@@ -141,3 +142,6 @@ MAIR_ELx设置完成之后，在寻址的时候，就只需要通过lower attrib
 
 TTBR寄存器中asid的作用
 https://blog.csdn.net/weixin_42135087/article/details/123369119
+
+页表
+https://www.cnblogs.com/LoyenWang/p/11406693.html
