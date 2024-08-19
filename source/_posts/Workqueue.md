@@ -8,7 +8,7 @@ tags:
 
 ## WQ_UNBOUND类型的Workqueue创建流程
 在调用alloc_workqueue的时候创建的结构体如下图：
-![TCR寄存器](/images/Workqueue/Workqueue创建流程.drawio.svg)
+![Workqueue初始化结构体创建](/images/Workqueue/Workqueue创建流程.drawio.svg)
 
 ### 创建进程所属的结构体
 1. 创建struct workqueue_struct和struct workqueue_attrs
