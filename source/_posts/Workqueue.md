@@ -132,6 +132,8 @@ THE_OFFENDING_KWORKER就是Worker线程的pid。
 1. WQ_UNBOUND
 工作队列的设计目的是在提交任务的 CPU 上运行这些任务，以期获得更好的内存缓存行为。这个标志关闭了这种行为，允许提交的任务在系统中的任何 CPU 上运行。它适用于任务可以运行很长时间的情况，这样让调度程序管理它们的位置会更好。
 设置这个标记之后，每次queue_work，如果输入的cpu是-1的时候，所有unbound类型的workqueue会主动使用rr方式找到下一个cpu并找到对应cpu的struct pool_workqueue->struct worker_pool挂接work上去。
+2. WQ_SYSFS
+传入之后会在[/sys/devices/virtual/workqueue/]目录下生成节点，可以查看cpumask等信息，也可以修改。
 
 ## 非WQ_UNBOUND类型
 per-CPU的Worker 早在 CPU prepare 阶段就通过以下步骤创建完毕：
@@ -143,6 +145,11 @@ per-CPU的Worker 早在 CPU prepare 阶段就通过以下步骤创建完毕：
 参考：
 https://lwn.net/Articles/403891/
 https://lwn.net/Articles/403918/
+
+## Workqueue系统初始化
+1. start_kernel->workqueue_init_early
+2. start_kernel->rest_init->kernel_init->kernel_init_freeable->workqueue_init
+3. start_kernel->rest_init->kernel_init->kernel_init_freeable->smp_init：cpu上线的时候会调用workqueue_prepare_cpu
 
 ## 接口使用注意
 #### cancle_work_sync
