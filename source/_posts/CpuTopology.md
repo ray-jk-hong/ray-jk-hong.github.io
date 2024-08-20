@@ -83,6 +83,9 @@ cpu-map {
 ```
 解析这段DTS定义的函数：drivers/base/arch_topology.c文件的parse_dt_topology函数
 
+## cpu上电过程
+https://blog.csdn.net/chensong_2000/article/details/129442447
+
 ## 参考
 
 Documentation\cputopology.txt
