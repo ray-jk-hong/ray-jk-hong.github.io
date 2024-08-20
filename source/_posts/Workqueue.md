@@ -162,6 +162,8 @@ https://lwn.net/Articles/403918/
 
 3.调用destroy_workqueue销毁workqueue
 
+## wq_worker_tick这个函数被scheduler_tick调用，这是做什么的？
+
 ## 参考
 Linux/Documentation/core-api/workqueue.rst
 https://www.kernel.org/doc/html/v5.14/translations/zh_CN/core-api/workqueue.html
