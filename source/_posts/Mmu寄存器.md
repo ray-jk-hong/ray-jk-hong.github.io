@@ -66,15 +66,30 @@ ASID的选择，是使用TTBR_EL1中的，还是使用TTBR_EL0中的。
 
 ### AS
 ASID是使用8bit，还是使用16bit。
-
+AS的初始化在__cpu_setup[arch/arm64/mm/proc.S]，默认使用16位的asid的（TCR_ASID16）。
+```c
+/*
+* Set/prepare TCR and TTBR. We use 512GB (39-bit) address range for
+* both user and kernel.
+*/
+mov_q	x10, TCR_TxSZ(VA_BITS) | TCR_CACHE_FLAGS | TCR_SMP_FLAGS | \
+            TCR_TG_FLAGS | TCR_KASLR_FLAGS | TCR_ASID16 | \
+            TCR_TBI0 | TCR_A1 | TCR_KASAN_FLAGS
+```
+但linux代码中asid_bits初始化是在[arch/arm64/mm/context.c]文件中，读的又是ID_AA64MMFR0_EL1寄存器写入的，不知道会不会冲突。
+真正asid的分配逻辑也在[arch/arm64/mm/context.c]文件的arm64_mm_context_get函数，保存在mm_struct.context.id里边。
+asid在进程切换的时候使用。
 TTBRx_EL1中使用ASID的原因：https://blog.csdn.net/WANGYONGZIXUE/article/details/132996049
+
+与asid对应的还有一个pasid。pasid应该是sva使用的，例如某个物理地址在cpu或者多个dma设备之间共享。
+创建应该是在[drivers/iommu/iommu-sva.c]文件的iommu_sva_bind_device->iommu_alloc_mm_data
 
 ### EPD
 包含EPD1、EPD0，表示TTBR_EL1/TTBR_EL0是使能还是去使能。
 
 ### T1SZ/T0SZ：表示虚拟地址的范围
-T0SZ: 表示TTBR0_EL1能表示的地址范围，地址范围的计算公式就是2^(64-T1SZ) Bytest:
-例如：如果用户态地址范围是48位虚拟地址，那这里应该配置T0SZ=64-48=16, 虚拟地址的范围是 2^(64-16) = 0 ~ 0x0000_FFFF_FFFF_FFFF
+T0SZ: 表示TTBR0_EL1能表示的虚拟地址范围，范围的计算公式就是2^(64-T1SZ) Bytest:
+例如：如果用户态虚拟地址范围是48位虚拟地址，那这里应该配置T0SZ=64-48=16, 虚拟地址的范围是 2^(64-16) = 0 ~ 0x0000_FFFF_FFFF_FFFF
 T1SZ: 和T0SZ一样，就是表示的是TTBR1_EL1的
 这样设置之后，0x0000_开头的地址都走TTBR0_EL1进行地址翻译，0xFFFFF_开头的地址就都走TTBR1_EL1进行地址翻译。
 Aarch64的tcr相关的定义都在arch/arm64/include/asm/pgtable-hwdef.h
@@ -82,8 +97,7 @@ Aarch64的tcr相关的定义都在arch/arm64/include/asm/pgtable-hwdef.h
 虚拟地址的位宽在linux用CONFIG_ARM64_VA_BITS定义。CONFIG_ARM64_VA_BITS宏的值和TCR.T1SZ的值是否要保持一致？答案是linux内核会根据CONFIG_ARM64_VA_BITS去配置TCR.T1SZ的值
 
 ### IPS（Intermediate Physical Address Size）
-中间级物理地址大小
-表示物理地址的范围：
+中间级物理地址范围
 - 000 32 bits, 4 GB.
 - 001 36 bits, 64 GB.
 - 010 40 bits, 1 TB.
@@ -112,7 +126,7 @@ MAIR_ELx可以定义8种不同的属性。每种属性占8bit。8个bit分为前
 
 在Linux中，占了5种类型。MAIR_ELx属性在启动阶段就会设置好。设置的代码在
 arch/arm64/mm/proc.S的__cpu_setup函数中。
-```s
+```c
 mov_q   mair, MAIR_EL1_SET
 ```
 
