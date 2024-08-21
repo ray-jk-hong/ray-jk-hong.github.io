@@ -135,6 +135,10 @@ THE_OFFENDING_KWORKER就是Worker线程的pid。
 2. WQ_SYSFS
 传入之后会在[/sys/devices/virtual/workqueue/]目录下生成节点，可以查看cpumask等信息，也可以修改。
 
+3. WQ_MEM_RECLAIM
+??
+和WQ_MEM_RECLAIM这个flag相关的概念是rescuer thread。前面我们描述解决并发问题的时候说到：对于A B C D四个work，当正在处理的B work被阻塞后，worker pool会创建一个新的worker thread来处理其他的work，但是，在memory资源比较紧张的时候，创建worker thread未必能够成功，这时候，如果B work是依赖C或者D work的执行结果的时候，系统进入dead lock。这种状态是由于不能创建新的worker thread导致的，如何解决呢？对于每一个标记WQ_MEM_RECLAIM flag的work queue，系统都会创建一个rescuer thread，当发生这种情况的时候，C或者D work会被rescuer thread接手处理，从而解除了dead lock。
+
 ## 非WQ_UNBOUND类型
 per-CPU的Worker 早在 CPU prepare 阶段就通过以下步骤创建完毕：
 1. workqueue_init_early初始化cpu_worker_pools
