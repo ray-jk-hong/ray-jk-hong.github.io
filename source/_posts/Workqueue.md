@@ -18,7 +18,7 @@ tags:
 ### 创建全局的结构体
 1. 创建struct worker_pool。
     此结构体是全局的，根据wqattrs_equal函数的对比结果，可能创建新的，可能会沿用旧的。
-2. 在创建worker_pool的时候，对应的会创建一个新的struct worker。
+2. 在创建worker_pool的时候，如果设置了WQ_MEM_RECLAIM，则对应的会创建一个新的struct  worker。
     在调用完alloc_workqueue("xxx")之后，会生成[xxx]线程(5.xx版本)或者kworker/R-xxx线程，这个就是一个rescue线程。
     worker_thread线程不一定会被创建出来新的。因为unbound类型的attr已有的话，就会沿用以前的。
     如果创建新的，就可以在内核线程中新创建[kworker/%d:%d%d, pool->cpu, id]这样的新的内核线程。
