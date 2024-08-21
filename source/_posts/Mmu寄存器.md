@@ -168,4 +168,4 @@ __enable_mmu
 TTBR寄存器中asid的作用
 https://blog.csdn.net/weixin_42135087/article/details/123369119
 
-
+https://developer.arm.com/documentation/ddi0595/2020-12/AArch64-Registers/TTBR0-EL1--Translation-Table-Base-Register-0--EL1-
