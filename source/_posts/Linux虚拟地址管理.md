@@ -12,3 +12,5 @@ VM_LOCKED
 ## Mmap的flag
 
 MAP_SHARED
+
+https://zhuanlan.zhihu.com/p/566614796
