@@ -5,5 +5,10 @@ categories:
 tags:
 - Linux MM
 ---
-## VM flag[include/linux/mm.h]
+## 内核虚拟地址管理[include/linux/mm.h]
 VM_LOCKED
+
+
+## Mmap的flag
+
+MAP_SHARED
