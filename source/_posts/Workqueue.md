@@ -152,6 +152,9 @@ THE_OFFENDING_KWORKER就是Worker线程的pid。
 WQ_FREEZABLE是一个和电源管理相关的内容。在系统Hibernation或者suspend的时候，有一个步骤就是冻结用户空间的进程以及部分（标注freezable的）内核线程（包括workqueue的worker thread）。
 标记WQ_FREEZABLE的workqueue需要参与到进程冻结的过程中，worker thread被冻结的时候，会处理完当前所有的work，一旦冻结完成，那么就不会启动新的work的执行，直到进程被解冻。
 
+8. WQ_HIGHPRI
+明挂入该workqueue的work是属于高优先级的work，需要高优先级（比较低的nice value）的worker thread来处理。
+
 ## 非WQ_UNBOUND类型
 per-CPU的Worker 早在 CPU prepare 阶段就通过以下步骤创建完毕：
 1. workqueue_init_early初始化cpu_worker_pools
