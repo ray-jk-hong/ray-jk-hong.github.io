@@ -11,6 +11,8 @@ tags:
 可以看[arch/arm64/mm/context.c]文件中的cpu_do_switch_mm函数，确实是在重新设置ttbr0_el1基地址。
 疑问：多个用户态进程在不同的cpu上并发，但只有一个ttbr0_el1寄存器？
 
+内核的页表基地址：swapper_pg_dir
+
 ## 地址范围
 虚拟地址范围需要设置到TCR.TxSZ寄存器中，Linux下会根据CONFIG_ARM64_VA_BITS的值设置上去。可以看mmu寄存器篇。
 ```c
