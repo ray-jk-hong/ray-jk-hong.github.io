@@ -17,6 +17,17 @@ https://students.mimuw.edu.pl/ZSO/Wyklady/11_extXfs/TransparentHugePages.pdf
 #### 大页提高性能
 大页能提高性能的原理：MMU翻译页表，按照2MB翻译，到PMD这层就可以了，不用翻译到PTE阶段。
 
+## 预留大页
+1. 查看预留的大页
+cat /proc/meminfo | grep -i huge
+2. 预留大页
+sysctl vm.nr_hugepages=100
+或者
+echo 200 > /proc/sys/vm/nr_huagepages
+
+4. 查看预留是否成功
+cat /proc/meminfo | grep -i huge
+
 ## 大页类型
 ### HugeTLB机制： 
    hstate管理大页，从伙伴系统申请，由order值决定大小。小于order的由伙伴系统申请，大于order的由memblock预留内存中申请或者调用alloc_cont_range申请。
