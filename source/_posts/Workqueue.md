@@ -132,12 +132,25 @@ THE_OFFENDING_KWORKER就是Worker线程的pid。
 1. WQ_UNBOUND
 工作队列的设计目的是在提交任务的 CPU 上运行这些任务，以期获得更好的内存缓存行为。这个标志关闭了这种行为，允许提交的任务在系统中的任何 CPU 上运行。它适用于任务可以运行很长时间的情况，这样让调度程序管理它们的位置会更好。
 设置这个标记之后，每次queue_work，如果输入的cpu是-1的时候，所有unbound类型的workqueue会主动使用rr方式找到下一个cpu并找到对应cpu的struct pool_workqueue->struct worker_pool挂接work上去。
-2. WQ_SYSFS
+
+标有WQ_UNBOUND这个flag的workqueue说明其work的处理不需要绑定在特定的CPU上执行，workqueue需要关联一个系统中的unbound worker thread pool。如果系统中能找到匹配的线程池（根据workqueue的属性（attribute）），那么就选择一个，如果找不到适合的线程池，workqueue就会创建一个worker thread pool来处理work。
+
+3. WQ_SYSFS
 传入之后会在[/sys/devices/virtual/workqueue/]目录下生成节点，可以查看cpumask等信息，也可以修改。
 
-3. WQ_MEM_RECLAIM
+4. WQ_MEM_RECLAIM
 ??
 和WQ_MEM_RECLAIM这个flag相关的概念是rescuer thread。前面我们描述解决并发问题的时候说到：对于A B C D四个work，当正在处理的B work被阻塞后，worker pool会创建一个新的worker thread来处理其他的work，但是，在memory资源比较紧张的时候，创建worker thread未必能够成功，这时候，如果B work是依赖C或者D work的执行结果的时候，系统进入dead lock。这种状态是由于不能创建新的worker thread导致的，如何解决呢？对于每一个标记WQ_MEM_RECLAIM flag的work queue，系统都会创建一个rescuer thread，当发生这种情况的时候，C或者D work会被rescuer thread接手处理，从而解除了dead lock。
+
+5. WQ_HIGHPRI：WQ_HIGHPRI说明挂入该workqueue的work是属于高优先级的work，需要高优先级（比较低的nice value）的worker thread来处理。
+6. WQ_CPU_INTENSIVE这个flag说明挂入该workqueue的work是属于特别消耗cpu的那一类。
+
+   为何要提供这样的flag呢？我们还是用老例子来说明。对于A B C D四个work，B是cpu intersive的，当thread正在处理B work的时候，该worker thread一直执行B work，因为它是cpu intensive的，特别吃cpu，
+   这时候，thread pool是不会创建新的worker的，因为当前还有一个worker是running状态，正在处理B work。这时候C Dwork实际上是得不到执行，影响了并发。
+
+7. WQ_FREEZABLE
+WQ_FREEZABLE是一个和电源管理相关的内容。在系统Hibernation或者suspend的时候，有一个步骤就是冻结用户空间的进程以及部分（标注freezable的）内核线程（包括workqueue的worker thread）。
+标记WQ_FREEZABLE的workqueue需要参与到进程冻结的过程中，worker thread被冻结的时候，会处理完当前所有的work，一旦冻结完成，那么就不会启动新的work的执行，直到进程被解冻。
 
 ## 非WQ_UNBOUND类型
 per-CPU的Worker 早在 CPU prepare 阶段就通过以下步骤创建完毕：
