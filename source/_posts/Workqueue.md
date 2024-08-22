@@ -141,18 +141,20 @@ THE_OFFENDING_KWORKER就是Worker线程的pid。
 4. WQ_MEM_RECLAIM
 ??
 和WQ_MEM_RECLAIM这个flag相关的概念是rescuer thread。前面我们描述解决并发问题的时候说到：对于A B C D四个work，当正在处理的B work被阻塞后，worker pool会创建一个新的worker thread来处理其他的work，但是，在memory资源比较紧张的时候，创建worker thread未必能够成功，这时候，如果B work是依赖C或者D work的执行结果的时候，系统进入dead lock。这种状态是由于不能创建新的worker thread导致的，如何解决呢？对于每一个标记WQ_MEM_RECLAIM flag的work queue，系统都会创建一个rescuer thread，当发生这种情况的时候，C或者D work会被rescuer thread接手处理，从而解除了dead lock。
+通俗讲，就是在alloc_workqueue的时候，会去创建一个rescure thread。在内存紧张创建额外的work thread失败的时候，resucue thread会接管，防止提交的work执行失败或者需要等很长时间。
+所以最好是设置这个。
 
-5. WQ_HIGHPRI：WQ_HIGHPRI说明挂入该workqueue的work是属于高优先级的work，需要高优先级（比较低的nice value）的worker thread来处理。
-6. WQ_CPU_INTENSIVE这个flag说明挂入该workqueue的work是属于特别消耗cpu的那一类。
+6. WQ_HIGHPRI：WQ_HIGHPRI说明挂入该workqueue的work是属于高优先级的work，需要高优先级（比较低的nice value）的worker thread来处理。
+7. WQ_CPU_INTENSIVE这个flag说明挂入该workqueue的work是属于特别消耗cpu的那一类。
 
    为何要提供这样的flag呢？我们还是用老例子来说明。对于A B C D四个work，B是cpu intersive的，当thread正在处理B work的时候，该worker thread一直执行B work，因为它是cpu intensive的，特别吃cpu，
    这时候，thread pool是不会创建新的worker的，因为当前还有一个worker是running状态，正在处理B work。这时候C Dwork实际上是得不到执行，影响了并发。
 
-7. WQ_FREEZABLE
+8. WQ_FREEZABLE
 WQ_FREEZABLE是一个和电源管理相关的内容。在系统Hibernation或者suspend的时候，有一个步骤就是冻结用户空间的进程以及部分（标注freezable的）内核线程（包括workqueue的worker thread）。
 标记WQ_FREEZABLE的workqueue需要参与到进程冻结的过程中，worker thread被冻结的时候，会处理完当前所有的work，一旦冻结完成，那么就不会启动新的work的执行，直到进程被解冻。
 
-8. WQ_HIGHPRI
+9. WQ_HIGHPRI
 明挂入该workqueue的work是属于高优先级的work，需要高优先级（比较低的nice value）的worker thread来处理。
 
 ## 非WQ_UNBOUND类型
