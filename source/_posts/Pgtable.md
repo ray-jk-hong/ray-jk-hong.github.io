@@ -31,6 +31,53 @@ CONFIG_ARM64_PA_BITS=48
 - 10：4KByte
 - 11：64KByte
 
+## 页的属性 [G3-3596]
+### PXN: 特权模式下不能执行。阻止内核态执行用户态代码
+https://blog.csdn.net/andlee/article/details/121227038
+
+### XN: 表示在任何模式下都不能执行
+### UXN：表示在用户模式下不能执行
+### AP[2:1]: 表示访问权限
+AP[1]：
+- 0：EL0不可访问，EL1可访问
+- 1：EL0可访问，EL1可访问
+AP[2]：
+- 0：可读写
+- 1：只读
+
+AP[2:1]可以组织个表
+[AP]        [EL0]              [EL1/2/3]
+[00]        [No access]        [Read and write]
+[01]        [Read and write]   [Read and write]
+[10]        [No access]        [Read Only]
+[11]        [Read Only]        [Read Only]
+
+### AF
+表示页表是否是第一次被访问。其实就是在建页表的时候，这个比特位就需要被软件设置为1。
+AF为位0表示从来没有被访问过，表示在第一次访问这个地址的时候，TLB就不需要针对此地址做TLB Flush，因为这个地址从来没有在TLB中存在过。
+ARMv8是要求软件做AF的设置的，pte_mkyoung函数，可以看到在很多缺页和主动建页表的函数中存在。
+
+### nG
+- 0：表示此页是可以被所有的进程访问的
+- 1：此页只有当前进程访问。
+nG的设置会影响TLB Flush的策略。
+
+### DBM（Dirt Bit Modifier）
+脏比特位(Dirty Bit Modifier)。Linux内核使用PTE_DBM宏来表示该比特位
+
+https://lkml.indiana.edu/hypermail/linux/kernel/2307.2/00102.html
+
+### Contiguous
+表示当前页表项处在一个连续物理页面集合中，可以使用一个单一的TLB表项进行优化。
+Linux内核使用PTE_CONT宏来表示该比特位
+
+### AttrIndx[2:0]
+配合MAIR寄存器表示内存属性。
+
+### PBHA ?
+
+### Reserved for Software use ?
+
 ## 页表设置
 
 保存stage2的页表基地址
