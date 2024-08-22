@@ -67,6 +67,8 @@ nG的设置会影响TLB Flush的策略。
 
 https://lkml.indiana.edu/hypermail/linux/kernel/2307.2/00102.html
 
+https://cloud.tencent.com/developer/article/2117804
+
 ### Contiguous
 表示当前页表项处在一个连续物理页面集合中，可以使用一个单一的TLB表项进行优化。
 Linux内核使用PTE_CONT宏来表示该比特位
