@@ -115,6 +115,9 @@ Aarch64的tcr相关的定义都在arch/arm64/include/asm/pgtable-hwdef.h
 这个寄存器在__cpu_setup函数[arch/arm64/mm/proc.S]中根据
 CONFIG_ARM64_4K_PAGES/CONFIG_ARM64_16K_PAGES/CONFIG_ARM64_64K_PAGES的使能情况进行设定。
 
+### HD（TCR_HD）
+CONFIG_ARM64_HW_AFDBM
+
 ## MAIR (Memory Attribute Indirection Register)
 表示内存的属性。
 ![TCR寄存器](/images/MMU/MAIR_EL1-1.png)
