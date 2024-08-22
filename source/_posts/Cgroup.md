@@ -8,5 +8,5 @@ tags:
 ---
 
 {% plantuml %}
-    Bob->Alice : hello
+    AAA->BBB : hello
 {% endplantuml %}
