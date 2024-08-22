@@ -118,6 +118,12 @@ CONFIG_ARM64_4K_PAGES/CONFIG_ARM64_16K_PAGES/CONFIG_ARM64_64K_PAGES的使能情�
 ### HD（TCR_HD）
 CONFIG_ARM64_HW_AFDBM
 
+http://www.wowotech.net/linux_kenrel/516.html
+
+https://zhuanlan.zhihu.com/p/575667017
+
+https://zhuanlan.zhihu.com/p/566614796
+
 ## MAIR (Memory Attribute Indirection Register)
 表示内存的属性。
 ![TCR寄存器](/images/MMU/MAIR_EL1-1.png)
