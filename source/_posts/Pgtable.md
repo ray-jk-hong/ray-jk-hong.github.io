@@ -73,6 +73,8 @@ https://cloud.tencent.com/developer/article/2117804
 表示当前页表项处在一个连续物理页面集合中，可以使用一个单一的TLB表项进行优化。
 Linux内核使用PTE_CONT宏来表示该比特位
 
+PTE_CONT
+
 ### AttrIndx[2:0]
 配合MAIR寄存器表示内存属性。
 
