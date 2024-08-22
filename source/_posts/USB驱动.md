@@ -36,7 +36,8 @@ Endpoint可以是如下4种之一：
     也是发送大量数据，但数据不是100%保证不丢失的。通常audio/video设备都使用这种。这种一般都是可以容忍部分数据丢失的，但数据必须要是实时到达的数据。
 
 Linux内核使用struct usb_host_endpoint描述endpoint。
-```plantuml
+
+{% plantuml %}
 @startuml
 
 class usb_endpoint_descriptor {
@@ -66,7 +67,7 @@ note left of usb_endpoint_descriptor::bEndpointAddress
 end note
 
 @enduml
-```
+{% endplantuml %}
 
 ## 参考
 https://docs.kernel.org/driver-api/usb/writing_usb_driver.html
