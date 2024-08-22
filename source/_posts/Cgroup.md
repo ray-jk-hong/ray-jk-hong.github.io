@@ -7,6 +7,8 @@ tags:
 - Linux Cgroup
 ---
 
-{% plantuml %}
-    Bob->Alice : hello
-{% endplantuml %}
+```plantuml
+@startuml
+Bob -> Alice : hello
+@enduml
+```
