@@ -38,8 +38,6 @@ Endpoint可以是如下4种之一：
 Linux内核使用struct usb_host_endpoint描述endpoint。
 
 {% plantuml %}
-@startuml
-
 class usb_endpoint_descriptor {
 	__u8  bLength;
 	__u8  bDescriptorType;
@@ -65,8 +63,6 @@ note left of usb_endpoint_descriptor::bEndpointAddress
     0~3位表示端点号
     7位表示方向：值为0表示OUT, 值为1表示IN
 end note
-
-@enduml
 {% endplantuml %}
 
 ## 参考
