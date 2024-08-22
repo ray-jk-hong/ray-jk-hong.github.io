@@ -69,3 +69,5 @@ end note
 https://docs.kernel.org/driver-api/usb/writing_usb_driver.html
 
 LINUX下USB驱动程序的设计与实现 pdf
+
+https://cloud.tencent.cn/developer/information/linux%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E5%AE%9E%E4%BE%8Bpdf
