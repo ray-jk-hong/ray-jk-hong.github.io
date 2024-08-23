@@ -1,7 +1,7 @@
 ---
 title: DeviceModel
 categories: 
-- Linux
+- Linux Driver
 tags:
 - Linux Driver
 ---
