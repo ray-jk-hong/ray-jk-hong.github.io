@@ -1,7 +1,9 @@
 ---
-title: Linux 物理页管理
+title: Linux Buddy
 categories: 
 - Linux MM
 tags:
 - Linux MM
 ---
+
+CONFIG_NODES_SHIFT
