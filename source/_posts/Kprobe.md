@@ -1,7 +1,7 @@
 ---
 title: Kprobe
 categories: 
-- Linux
+- Linux Trace
 tags:
 - Linux Trace
 ---
