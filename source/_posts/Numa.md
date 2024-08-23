@@ -37,3 +37,7 @@ Node 38, zone  Movable      0      0      0      0      0      0      0      0  
 Node 39, zone  Movable      0      0      0      0      0      0      0      0      0      0    269
 Node 40, zone  Movable      0      0      0      0      0      0      0      0      0      0     35
 ```
+
+相关的宏
+CONFIG_NODES_SHIFT
+
