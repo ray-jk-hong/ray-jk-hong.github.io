@@ -3,7 +3,7 @@ title: TLB
 categories: 
 - Aarch64
 tags:
-- TLB
+- Aarch64
 ---
 
 ## TLB
