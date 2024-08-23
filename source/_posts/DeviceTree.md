@@ -1,9 +1,9 @@
 ---
 title: DeviceTree
 categories: 
-- Linux
+- Linux Driver
 tags:
-- Linux DeviceTree
+- Linux Driver
 ---
 
 ## 编译与反编译命令
