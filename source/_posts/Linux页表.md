@@ -1,9 +1,9 @@
 ---
 title: Linux页表
 categories: 
-- Linux
+- Linux MM
 tags:
-- Linux 页表
+- Linux MM
 ---
 
 ## 页表基地址
