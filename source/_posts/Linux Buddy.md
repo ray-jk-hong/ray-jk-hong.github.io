@@ -90,6 +90,16 @@ note left of pglist_data::node_id
     Numa node id
 end note
 {% endplantuml %}
+
+## pglist_data初始化
+```c
++-- start_kernel:
+    +-- setup_arch:
+        +-- bootmem_init:
+            +-- zone_sizes_init:
+		+-- free_area_init
+```
+
 ## 相关宏
 ```c
 CONFIG_FLATMEM 没定义
