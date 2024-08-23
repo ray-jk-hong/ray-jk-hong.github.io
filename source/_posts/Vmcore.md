@@ -1,9 +1,9 @@
 ---
-title: FileSystem
+title: Vmcore分析
 categories: 
-- Linux
+- Linux Debug
 tags:
-- Linux Vmcore
+- Linux Debug
 ---
 
 ## 参考
