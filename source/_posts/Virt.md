@@ -1,9 +1,9 @@
 ---
-title: Virt
+title: Linux 虚拟化
 categories: 
-- Linux
+- Linux 虚拟化
 tags:
-- Linux Virt
+- Linux 虚拟化
 ---
 
 ## 参考
