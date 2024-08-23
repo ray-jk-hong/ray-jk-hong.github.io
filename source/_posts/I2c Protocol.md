@@ -1,9 +1,9 @@
 ---
 title: I2c Protocol
 categories: 
-- I2C
+- Linux Driver
 tags:
-- I2c Protocol
+- Linux Driver
 ---
 
 ## I2C协议综述
