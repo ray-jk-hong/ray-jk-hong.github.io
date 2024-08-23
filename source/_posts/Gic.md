@@ -1,9 +1,9 @@
 ---
 title: Gic
 categories: 
-- Aarch64
+- Linux Interrupt
 tags:
-- Gic
+- Linux Interrupt
 ---
 
 ## 寄存器
