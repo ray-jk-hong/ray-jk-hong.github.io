@@ -1,7 +1,7 @@
 ---
 title: Linux Devmem
 categories: 
-- Linux
+- Linux MM
 tags:
 - Linux MM
 ---
