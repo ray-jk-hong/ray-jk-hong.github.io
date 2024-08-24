@@ -63,34 +63,39 @@ enum memblock_flags {
 ### reserve范围确定
 cat /sys/kernel/debug/memblock/reserve
 这些地址是memblock中被屏蔽掉的地址，这些地址有些是不是固定的，例如代码段，dtb的地址都会在内核启动的时候调用memblock_reserve接口从memblock中排除掉。
-可以看到reserve的地址是在memory包含在里边的，就是说reserve地址表示从memory地址范围中扣出去的部分。
+可以看到reserve的地址范围，有些是包含在memory中的，有些是没有包含在memory中的？？为啥？
 
-## memblock查询
+dts中设置的预留内存，也是memblock.reserve处理的，例如：
 ```bash
-root@ubuntu-24-04:/sys/kernel/debug/memblock# cat memory 
-   0: 0x0000000080000000..0x00000001d54fffff    0 NONE
-root@ubuntu-24-04:/sys/kernel/debug/memblock# cat reserved 
-   0: 0x0000000080010000..0x000000008266ffff    0 NONE
-   1: 0x00000000fbfff000..0x00000000ffffefff    0 NONE
-   2: 0x00000001ce3a3000..0x00000001d47fffff    0 NONE
-   3: 0x00000001d483fbc0..0x00000001d483ffc7    0 NONE
-   4: 0x00000001d4842000..0x00000001d48426c7    0 NONE
-   5: 0x00000001d4842700..0x00000001d484275f    0 NONE
-   6: 0x00000001d4842780..0x00000001d4842907    0 NONE
-   7: 0x00000001d4842940..0x00000001d4842b87    0 NONE
-   8: 0x00000001d4842bc0..0x00000001d4842cef    0 NONE
-   9: 0x00000001d4842d00..0x00000001d4842d4f    0 NONE
-  10: 0x00000001d4842d80..0x00000001d4842ea6    0 NONE
-  11: 0x00000001d4842ec0..0x00000001d4842fe6    0 NONE
-  12: 0x00000001d4843000..0x00000001d4846027    0 NONE
-  13: 0x00000001d4846040..0x00000001d4846047    0 NONE
-  14: 0x00000001d4846080..0x00000001d4846087    0 NONE
-  15: 0x00000001d48460c0..0x00000001d48467b7    0 NONE
-  16: 0x00000001d48467c0..0x00000001d54fffff    0 NONE
-  17: 0x00000003ffe00000..0x00000003ffe00f1b    0 NONE
+reserved-memory {
+	reserved_mem@0 {
+		no-map;
+		ret = <0x0 0xAA00000 0x0 0xBB00000>;
+	}
+	reserved-memory {
+	reserved_mem@1 {
+		ret = <0x0 0xCC00000 0x0 0xBB00000>;
+	}
+}
 ```
-17超过了memblock/memory的范围？
+但这里的设置在cat /sys/kernel/debug/memblock/reserve里边有些能看到有些不能看到？？
 
+DTS中reserved-memory处理流程如下：
+```c
++-- start_kernel
+   +-- setup_arch
+      +-- arm64_memblock_init
+         +-- early_init_fdt_scan_reserved_mem
+            +-- fdt_scan_reserved_mem
+               +-- __reserved_mem_reserve_reg
+		  +-- early_init_dt_reserve_memory
+```
+
+## DTS中memreserve处理
+一般都在dts最开始就定义，例如：
+```c
+/memreserve/ 0x40000000 0x01000000
+```
 ## 参考
 https://www.kernel.org/doc/html/v4.19/core-api/boot-time-mm.html
 https://www.kernel.org/doc/gorman/
