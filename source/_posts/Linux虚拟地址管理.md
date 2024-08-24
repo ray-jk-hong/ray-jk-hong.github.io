@@ -27,4 +27,7 @@ http://www.wowotech.net/linux_kenrel/516.html
 
 CONFIG_ARM64_HW_AFDBM
 
+## 参考
+https://www.kernel.org/doc/gorman/html/understand/
+
 
