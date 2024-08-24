@@ -72,7 +72,6 @@ reserved-memory {
 		no-map;
 		ret = <0x0 0xAA00000 0x0 0xBB00000>;
 	}
-	reserved-memory {
 	reserved_mem@1 {
 		ret = <0x0 0xCC00000 0x0 0xBB00000>;
 	}
