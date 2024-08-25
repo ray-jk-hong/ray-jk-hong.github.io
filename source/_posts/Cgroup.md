@@ -1,8 +1,7 @@
-
 ---
 title: Cgroup
 categories: 
-- Linux
+- Linux Cgroup
 tags:
 - Linux Cgroup
 ---

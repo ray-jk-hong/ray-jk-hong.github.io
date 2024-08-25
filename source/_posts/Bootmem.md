@@ -1,9 +1,9 @@
 ---
-title: USB驱动
+title: Linux Bootmem
 categories: 
-- Linux Driver
+- Linux MM
 tags:
-- Linux Driver
+- Linux MM
 ---
 
 ## 物理地址的范围
