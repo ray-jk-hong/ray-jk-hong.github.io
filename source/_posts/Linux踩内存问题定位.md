@@ -1,7 +1,7 @@
 ---
 title: Prctl
 categories: 
-- Linux
+- Linux Debug
 tags:
 - Linux Debug
 ---

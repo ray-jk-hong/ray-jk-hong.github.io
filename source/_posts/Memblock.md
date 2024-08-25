@@ -1,8 +1,8 @@
 ---
 title: Memblock
 categories: 
-- Linux
+- Linux MM
 tags:
-- Linux Memblock
+- Linux MM
 ---
 

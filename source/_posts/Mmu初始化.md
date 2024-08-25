@@ -2,9 +2,9 @@
 ---
 title: Mmu初始化
 categories: 
-- Linux
+- Linux MM
 tags:
-- Linux Mmu
+- Linux MM
 ---
 
 ## __cpu_setup

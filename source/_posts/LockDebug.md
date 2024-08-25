@@ -1,7 +1,7 @@
 ---
 title: Lock Debug
 categories: 
-- Linux
+- Linux Debug
 tags:
 - Linux Debug
 ---

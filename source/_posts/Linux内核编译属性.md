@@ -1,7 +1,7 @@
 ---
 title: Linux内核编译属性
 categories: 
-- Linux
+- Linux Compiler Attribute
 tags:
 - Linux Compiler Attribute
 ---
