@@ -38,6 +38,7 @@ cat /sys/kernel/debug/memblock/memory：范围和dts范围定义一致
    2: 0x0000000AACC00000..0x000000000BB00000
    3: 0x0000000AADD00000..0x000000000BB00000
 ```
+
 读取dts并把memoy加到memblock流程：
 ```c
 +-- start_kernel
@@ -101,7 +102,7 @@ DTS中reserved-memory处理流程如下：
 答案：找到了就会在memory段中，把原来的段一份为2，，reserve-memory段重新生成一个memory区域并把他标记位MEMBLOCK_NOMAP，剩余的就是抠掉reserve-memory的。
 
 ## DMA zone/Normal zone
-怎么计算出来的？
+ZONE_DMA大小怎么计算出来的？
 
 ## DTS中memreserve处理
 一般都在dts最开始就定义，例如：
