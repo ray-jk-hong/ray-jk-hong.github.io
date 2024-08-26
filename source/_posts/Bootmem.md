@@ -98,3 +98,5 @@ DTS中reserved-memory处理流程如下：
 ## 参考
 https://www.kernel.org/doc/html/v4.19/core-api/boot-time-mm.html
 https://www.kernel.org/doc/gorman/
+
+https://0xax.gitbooks.io/linux-insides/content/MM/linux-mm-1.html
