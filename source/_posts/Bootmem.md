@@ -84,18 +84,18 @@ reserved-memory {
 DTS中reserved-memory处理流程如下：
 ```c
 +-- start_kernel
-   +-- setup_arch
-      +-- arm64_memblock_init
-         +-- early_init_fdt_scan_reserved_mem
-            +-- fdt_scan_reserved_mem
-               +-- __reserved_mem_reserve_reg
-		          +-- early_init_dt_reserve_memory
+    +-- setup_arch
+        +-- arm64_memblock_init
+            +-- early_init_fdt_scan_reserved_mem
+                +-- fdt_scan_reserved_mem
+                    +-- __reserved_mem_reserve_reg
+                        +-- early_init_dt_reserve_memory
 ```
 疑问：在启动完之后，reserved-memory {}中定义的很多段，其实在cat /sys/kernel/debug/memblock/reserve中没有显示
 	（no-map的可以理解，这些段是保存在memory中，并被标记为MEMBLOCK_NOMAP的，所以在reserve中找不到也正常）
 答案：没有标记no-map的段都是有的，标记位no-map的有些是找不到的。
 
-疑问：标记位no-map的如果在device_type="memory"段找不到会怎么样？
+疑问：标记位no-map的如果在device_type="memory"段找不到会怎么样？会报错吗？
 
 疑问：标记位no-map的如果在device_type="memory"中找到了会怎么样？
 答案：找到了就会在memory段中，把原来的段一份为2，，reserve-memory段重新生成一个memory区域并把他标记位MEMBLOCK_NOMAP，剩余的就是抠掉reserve-memory的。
