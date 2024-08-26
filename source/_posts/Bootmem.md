@@ -60,7 +60,7 @@ enum memblock_flags {
 	MEMBLOCK_RSRV_NOINIT	= 0x10,	/* don't initialize struct pages */
 };
 ```
-可惜在/sys/kernel/debug/memblock/memory并没有打印memblock.meory的类型。
+在内核启动日志中"Early memory node ranges"可以看到所有的memroy范围。包括上面所有的memblock_flags，但日志中没有打印类型。
 
 ### reserve范围确定
 cat /sys/kernel/debug/memblock/reserve
