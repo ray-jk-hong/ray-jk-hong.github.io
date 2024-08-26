@@ -30,6 +30,7 @@ memory11@numa11 {
   hotpluggable;  // 在/proc/buddyinfo中显示为movable
 };
 ```
+
 cat /sys/kernel/debug/memblock/memory：范围和dts范围定义一致
 ```bash
    0: 0x000000000AA00000..0x000000000BB00000
@@ -46,6 +47,7 @@ cat /sys/kernel/debug/memblock/memory：范围和dts范围定义一致
             +-- early_init_dt_scan_nodes
                +-- early_init_dt_scan_memory
 ```
+
 early_init_dt_scan_memory函数中会scan dts并找到device_type为memory的节点并把地址加到memblock中。
 memblock.memory的类型如下：
 ```c
@@ -89,7 +91,9 @@ DTS中reserved-memory处理流程如下：
                +-- __reserved_mem_reserve_reg
 		          +-- early_init_dt_reserve_memory
 ```
-在启动完之后，reserved-memory {}中定义的很多段，其实在cat /sys/kernel/debug/memblock/reserve中没有显示（no-map的可以理解，这些段是保存在memory中，并被标记为MEMBLOCK_NOMAP的）
+在启动完之后，reserved-memory {}中定义的很多段，其实在cat /sys/kernel/debug/memblock/reserve中没有显示（no-map的可以理解，这些段是保存在memory中，并被标记为MEMBLOCK_NOMAP的，所以在reserve中找不到也正常）
+其他的找不到可能是合并或者其他原因，需要看一下
+
 
 ## DTS中memreserve处理
 一般都在dts最开始就定义，例如：
