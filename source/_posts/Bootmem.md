@@ -102,7 +102,21 @@ DTS中reserved-memory处理流程如下：
 答案：找到了就会在memory段中，把原来的段一份为2，，reserve-memory段重新生成一个memory区域并把他标记位MEMBLOCK_NOMAP，剩余的就是抠掉reserve-memory的。
 
 ## DMA zone/Normal zone
-ZONE_DMA大小怎么计算出来的？
+疑问：ZONE_DMA大小怎么计算出来的？
+答案：可以看Initmem setup node就可以看出来
+```bash
+[    0.000000]Initmem setup node 0 [mem 0x0000000000AAA-0x000000BBBBffffff]
+[    0.000000]On node 0 totalpages: ZZ
+[    0.000000]DMA zone: AA pages used for memmap
+[    0.000000]DMA zone: 0 pages reserved
+[    0.000000]DMA zone: BB pages, LIFO batch:63
+[    0.000000]Normal zone: CC pages used for memmap
+[    0.000000]Normal zone: DD pages, LIFO batch:31
+```
+DMA zone在zone_sizes_init里边可以看出来，DMA zone的地址被赋值为0xFFFFFFFF（就是u32的最大值）。
+free_area_init_node函数中，会将相同node0的memory中，在memory.lowest - 0xFFFFFFFF范围内的全部拿出来放到DMA zone中，并计算page个数。
+DMA zone: BB pages, LIFO batch:63这句打印中，BB就是这么算出来的，，比如node0有5个memory范围，其中4个在memory.lower-0xFFFFFFFF范围内，就计算这4个的page个数然后加起来。
+当然这些都是在64位系统中是这样的，32位不一样
 
 ## DTS中memreserve处理
 一般都在dts最开始就定义，例如：
