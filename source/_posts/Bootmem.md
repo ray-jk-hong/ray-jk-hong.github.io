@@ -100,6 +100,9 @@ DTS中reserved-memory处理流程如下：
 疑问：标记位no-map的如果在device_type="memory"中找到了会怎么样？
 答案：找到了就会在memory段中，把原来的段一份为2，，reserve-memory段重新生成一个memory区域并把他标记位MEMBLOCK_NOMAP，剩余的就是抠掉reserve-memory的。
 
+## DMA zone/Normal zone
+怎么计算出来的？
+
 ## DTS中memreserve处理
 一般都在dts最开始就定义，例如：
 ```c
