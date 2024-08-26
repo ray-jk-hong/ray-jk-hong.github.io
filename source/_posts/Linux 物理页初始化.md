@@ -1,5 +1,5 @@
 ---
-title: Linux Buddy
+title: Linux 物理页初始化
 categories: 
 - Linux MM
 tags:
@@ -35,7 +35,7 @@ class page {
 
 note right of page::page_type
     一段pfn range的第一个page会被链接到free_list，
-    第一个page的page_type会被设置为PG_buddy。
+    第一个page的page_type会被设置为PG_buddy（通过__SetPageBuddy设置），定义在[inlcude/linux/page-flags.h]中
 end note
 
 note right of page::page_type
