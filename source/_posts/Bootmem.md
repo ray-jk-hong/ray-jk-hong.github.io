@@ -91,9 +91,10 @@ DTS中reserved-memory处理流程如下：
                +-- __reserved_mem_reserve_reg
 		          +-- early_init_dt_reserve_memory
 ```
-在启动完之后，reserved-memory {}中定义的很多段，其实在cat /sys/kernel/debug/memblock/reserve中没有显示（no-map的可以理解，这些段是保存在memory中，并被标记为MEMBLOCK_NOMAP的，所以在reserve中找不到也正常）
-其他的找不到可能是合并或者其他原因，需要看一下
-
+疑问：在启动完之后，reserved-memory {}中定义的很多段，其实在cat /sys/kernel/debug/memblock/reserve中没有显示
+	（no-map的可以理解，这些段是保存在memory中，并被标记为MEMBLOCK_NOMAP的，所以在reserve中找不到也正常）
+答案：没有标记no-map的段都是有的，标记位no-map的有些是找不到的。如果标记位no-map的段，在devcie_type="memory"中找不到会怎么样？
+	当然还有好多其他的，可能都是一些代码段之类的，不是在dts中定义的
 
 ## DTS中memreserve处理
 一般都在dts最开始就定义，例如：
