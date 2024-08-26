@@ -68,13 +68,13 @@ cat /sys/kernel/debug/memblock/reserve
 dts中设置的预留内存，也是memblock.reserve处理的，例如：
 ```bash
 reserved-memory {
-	reserved_mem@0 {
-		no-map;
-		ret = <0x0 0xAA00000 0x0 0xBB00000>;
-	}
-	reserved_mem@1 {
-		ret = <0x0 0xCC00000 0x0 0xBB00000>;
-	}
+    reserved_mem@0 {
+        no-map;
+        ret = <0x0 0xAA00000 0x0 0xBB00000>;
+    }
+    reserved_mem@1 {
+        ret = <0x0 0xCC00000 0x0 0xBB00000>;
+    }
 }
 ```
 但这里的设置在cat /sys/kernel/debug/memblock/reserve里边有些能看到有些不能看到？？
@@ -87,8 +87,9 @@ DTS中reserved-memory处理流程如下：
          +-- early_init_fdt_scan_reserved_mem
             +-- fdt_scan_reserved_mem
                +-- __reserved_mem_reserve_reg
-		  +-- early_init_dt_reserve_memory
+		          +-- early_init_dt_reserve_memory
 ```
+在启动完之后，reserved-memory {}中定义的很多段，其实在cat /sys/kernel/debug/memblock/reserve中没有显示（no-map的可以理解，这些段是保存在memory中，并被标记为MEMBLOCK_NOMAP的）
 
 ## DTS中memreserve处理
 一般都在dts最开始就定义，例如：
