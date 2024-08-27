@@ -101,15 +101,23 @@ end note
 ```
 
 ## 相关宏
-```c
-CONFIG_FLATMEM 没定义
-CONFIG_SPARSEMEM 定义
+1. CONFIG_FLATMEM：
+   内存段只有一个的时候使用，即中间没有空洞预留等
+2. CONFIG_SPARSEMEM
+   表示内存段可以有多个的时候使用
 CONFIG_SPARSEMEM_MANUAL 定义
 CONFIG_SPARSEMEM_EXTREME 定义
-CONFIG_SPARSEMEM_VMEMMAP 定义
-CONFIG_SPARSEMEM_VMEMMAP_ENABLE 定义
-
+3. CONFIG_SPARSEMEM_VMEMMAP 定义
+   和CONFIG_SPARSEMEM相似，但使用vmemmap方式，提高page_to_pfn等操作的性能。
+   pfn to page就定义成这样，，可以看到page结构体都放在vmemmap基地址的虚拟地址上。
+```c
+   #define __pfn_to_page(pfn)	(vmemmap + (pfn))
 ```
+   这相比于CONFIG_SPARSEMEM的pfn->section->pag的方式性能提高了一些。
+4. CONFIG_SPARSEMEM_VMEMMAP_ENABLE 定义
+
+https://qiita.com/akachochin/items/121d2bf3aa1cfc9bb95a
+
 
 ## 参考
 buddy初始化：https://blog.csdn.net/weixin_42262944/article/details/118276396
