@@ -158,6 +158,15 @@ reserved-memory {
 疑问：标记位no-map的如果在device_type="memory"中找到了会怎么样？
 答案：找到了就会在memory段中，把原来的段一份为2，，reserve-memory段重新生成一个memory区域并把他标记位MEMBLOCK_NOMAP，剩余的就是抠掉reserve-memory的。
 
+## 根据memblock初始化page
+
+```c
++-- start_kernel
+   +-- setup_arch
+      +-- paging_init
+         +-- map_mem
+```
+
 ## Linux启动日志中的内存区域
 疑问：ZONE_DMA大小怎么计算出来的？
 答案：可以看Initmem setup node就可以看出来
@@ -175,14 +184,6 @@ free_area_init_node函数中，会将相同node0的memory中，在memory.lowest 
 DMA zone: BB pages, LIFO batch:63这句打印中，BB就是这么算出来的，，比如node0有5个memory范围，其中4个在memory.lower-0xFFFFFFFF范围内，就计算这4个的page个数然后加起来。
 当然这些都是在64位系统中是这样的，32位不一样
 
-## 根据memblock初始化page
-
-```c
-+-- start_kernel
-   +-- setup_arch
-      +-- paging_init
-         +-- map_mem
-```
 
 ## DTS中memreserve处理
 一般都在dts最开始就定义，例如：
