@@ -7,7 +7,7 @@ tags:
 ---
 
 ## 物理地址的范围
-### memblodk物理地址范围
+### memblock物理地址范围
 通过DTS定义确定, 例如dts的定义如下：
 ```bash
 memory0@numa0 {
