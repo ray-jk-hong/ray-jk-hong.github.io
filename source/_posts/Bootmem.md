@@ -58,7 +58,8 @@ memblock -down-> phymem
 
 {% endplantuml %}
 
-上图中memory, reserved是常驻的，physmem是只有定义了CONFIG_HAVE_MEMBLOCK_PHYS_MAP才有
+上图中memory, reserved是常驻的，physmem是只有定义了CONFIG_HAVE_MEMBLOCK_PHYS_MAP才有。
+
 
 ### memory
 在启动过程中，主要有以下几个方式添加内存到memory中。
@@ -179,6 +180,9 @@ DMA zone: BB pages, LIFO batch:63这句打印中，BB就是这么算出来的，
 ```c
 /memreserve/ 0x40000000 0x01000000
 ```
+
+## page结构体初始化
+
 ## 参考
 https://www.kernel.org/doc/html/v4.19/core-api/boot-time-mm.html
 https://www.kernel.org/doc/gorman/
