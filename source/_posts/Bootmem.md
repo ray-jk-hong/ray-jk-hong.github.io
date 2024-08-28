@@ -194,6 +194,9 @@ DMA zone: BB pages, LIFO batch:63这句打印中，BB就是这么算出来的，
 ```
 疑问：map_mem中for_each_mem_range函数怎么选取memory内存段，no-map的怎么跳过去的？
 
+疑问：swapper_pg_dir是什么？
+https://www.cnblogs.com/linhaostudy/p/12827075.html
+
 ## 参考
 https://www.kernel.org/doc/html/v4.19/core-api/boot-time-mm.html
 https://www.kernel.org/doc/gorman/
