@@ -113,6 +113,13 @@ end note
             +-- build_zonelists：
 ```
 
+初始化日志中，可以看到初始化之后的buddy info：
+```c
+Fallback order for Node 0: 0 30 33 34 35 36 37 38 39 40 31
+Fallback order for Node 1: 0 30 33 34 35 36 37 38 39 40 31
+...
+```
+
 ## 相关宏
 1. CONFIG_FLATMEM：
    内存段只有一个的时候使用，即中间没有空洞预留等
