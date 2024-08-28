@@ -135,7 +135,7 @@ reserved-memory {
     }
 }
 ```
-在启动过程中，处理reserved-memory并将区域添加到memblock.reserve中。
+在启动过程中，处理reserved-memory区域中，没有带no-map标记的添加到memblock.reserve中。
 处理函数调用栈：
 ```c
 +-- start_kernel
@@ -150,7 +150,6 @@ reserved-memory {
 2. 调用memblock_reserve接口预留
 内核启动过程中，会将内核代码段之类的内存调用memblock_reserve添加到memblock.reserve中。
 
-
 疑问：在启动完之后，reserved-memory {}中定义的很多段，其实在cat /sys/kernel/debug/memblock/reserve中没有显示
 	（no-map的可以理解，这些段是保存在memory中，并被标记为MEMBLOCK_NOMAP的，所以在reserve中找不到也正常）
 答案：没有标记no-map的段都是有的，标记位no-map的有些是找不到的。
@@ -158,14 +157,9 @@ reserved-memory {
 疑问：标记位no-map的如果在device_type="memory"中找到了会怎么样？
 答案：找到了就会在memory段中，把原来的段一份为2，，reserve-memory段重新生成一个memory区域并把他标记位MEMBLOCK_NOMAP，剩余的就是抠掉reserve-memory的。
 
-## 根据memblock初始化page
-
-```c
-+-- start_kernel
-   +-- setup_arch
-      +-- paging_init
-         +-- map_mem
-```
+## memory与reserve区域的关系
+memory是表示所有可用的物理内存，包括enum memblock_flags所有的类型，是实实在在的内存。reserved内存是从真实内存里边抠出去的内存。
+所以reserved区域内存都是包含在memory区域里边的。在page初始化的时候，会扫描所有的memory区域，去除reserve区域并初始化page。
 
 ## Linux启动日志中的内存区域
 疑问：ZONE_DMA大小怎么计算出来的？
@@ -184,7 +178,6 @@ free_area_init_node函数中，会将相同node0的memory中，在memory.lowest 
 DMA zone: BB pages, LIFO batch:63这句打印中，BB就是这么算出来的，，比如node0有5个memory范围，其中4个在memory.lower-0xFFFFFFFF范围内，就计算这4个的page个数然后加起来。
 当然这些都是在64位系统中是这样的，32位不一样
 
-
 ## DTS中memreserve处理
 一般都在dts最开始就定义，例如：
 ```c
@@ -192,9 +185,19 @@ DMA zone: BB pages, LIFO batch:63这句打印中，BB就是这么算出来的，
 ```
 
 ## page结构体初始化
+在初始化完memblock之后，就会根据这些内存段建立页表到swapper_pg_dir。
+```c
++-- start_kernel
+   +-- setup_arch
+      +-- paging_init
+         +-- map_mem
+```
+疑问：map_mem中for_each_mem_range函数怎么选取memory内存段，no-map的怎么跳过去的？
 
 ## 参考
 https://www.kernel.org/doc/html/v4.19/core-api/boot-time-mm.html
 https://www.kernel.org/doc/gorman/
 
 https://0xax.gitbooks.io/linux-insides/content/MM/linux-mm-1.html
+
+http://www.wowotech.net/memory_management/mem_init_3.html
