@@ -92,12 +92,25 @@ end note
 {% endplantuml %}
 
 ## pglist_data初始化
+1. 根据memblock确定pglist_data的范围，并初始化page结构体
 ```c
 +-- start_kernel:
     +-- setup_arch:
         +-- bootmem_init:
             +-- zone_sizes_init:
-		+-- free_area_init
+		        +-- free_area_init
+                    +-- memmap_init
+```
+1) free_area_init的前面的部分将pglist_data结构体初始化，确定范围等
+2) memmap_init会扫描memblock的pfn范围，将page结构体拿到并初步初始化page结构体，但没有真正加到zone里边（buddy初始化还）
+
+2. zone初始化（buddy算法初始化）
+```c
++-- start_kernel:
+    +-- mm_core_init:
+        +-- build_all_zonelists:
+        +-- mem_init:
+            +-- build_zonelists：
 ```
 
 ## 相关宏
@@ -111,13 +124,15 @@ CONFIG_SPARSEMEM_EXTREME 定义
    和CONFIG_SPARSEMEM相似，但使用vmemmap方式，提高page_to_pfn等操作的性能。
    pfn to page就定义成这样，，可以看到page结构体都放在vmemmap基地址的虚拟地址上。
 ```c
-   #define __pfn_to_page(pfn)	(vmemmap + (pfn))
+    #define __pfn_to_page(pfn)	(vmemmap + (pfn))
 ```
    这相比于CONFIG_SPARSEMEM的pfn->section->pag的方式性能提高了一些。
+   
 4. CONFIG_SPARSEMEM_VMEMMAP_ENABLE 定义
 
 https://qiita.com/akachochin/items/121d2bf3aa1cfc9bb95a
 
-
 ## 参考
 buddy初始化：https://blog.csdn.net/weixin_42262944/article/details/118276396
+
+buddy算法：https://www.kernel.org/doc/gorman/html/understand/understand009.html
