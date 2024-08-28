@@ -120,7 +120,7 @@ Fallback order for Node 1: 0 30 33 34 35 36 37 38 39 40 31
 ...
 ```
 
-## 相关宏
+## 内存分布相关宏
 1. CONFIG_FLATMEM：
    内存段只有一个的时候使用，即中间没有空洞预留等
 2. CONFIG_SPARSEMEM
@@ -138,6 +138,27 @@ CONFIG_SPARSEMEM_EXTREME 定义
 4. CONFIG_SPARSEMEM_VMEMMAP_ENABLE 定义
 
 https://qiita.com/akachochin/items/121d2bf3aa1cfc9bb95a
+
+## 地址相关宏
+```c
+#define VA_BITS                (CONFIG_ARM64_VA_BITS)
+#define _PAGE_OFFSET(va)        (-(UL(1) << (va)))
+#define PAGE_OFFSET            (_PAGE_OFFSET(VA_BITS))
+```
+1. CONFIG_ARM64_VA_BITS：虚拟地址的bit位数，可以设置54/48等（具体可以看mmu寄存器那篇）。
+2. PAGE_OFFSET：就是TTBR1选择的地址了，，如果CONFIG_ARM64_VA_BITS=48， 则PAGE_OFFSET的值就是0xFFFF000000000000
+3. VA_BITS_MIN：虚拟地址最小值，如果4K页表的话就跟CONFIG_ARM64_VA_BITS是一样的
+```c
+#if VA_BITS > 48
+#ifdef CONFIG_ARM64_16K_PAGES
+#define VA_BITS_MIN    (47)
+#else
+#define VA_BITS_MIN    (48)
+#endif
+#else
+#define VA_BITS_MIN    (VA_BITS)
+#endif
+```
 
 ## 参考
 buddy初始化：https://blog.csdn.net/weixin_42262944/article/details/118276396
