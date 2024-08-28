@@ -1,9 +1,9 @@
 ---
-title: StartUp
+title: Linux内核启动
 categories: 
 - Linux
 tags:
-- Linux StartUp
+- Linux内核启动
 ---
 
 ## 内核入口
