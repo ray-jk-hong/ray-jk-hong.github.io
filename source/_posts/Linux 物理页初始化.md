@@ -102,7 +102,7 @@ end note
                     +-- memmap_init
 ```
 1) free_area_init的前面的部分将pglist_data结构体初始化，确定范围等
-2) memmap_init会扫描memblock的pfn范围，将page结构体拿到并初步初始化page结构体，但没有真正加到zone里边（buddy初始化还）
+2) memmap_init会扫描memblock的pfn范围，将page结构体拿到并初步初始化page结构体，但没有真正加到zone里边（buddy初始化还没开始）
 
 2. zone初始化（buddy算法初始化）
 ```c
