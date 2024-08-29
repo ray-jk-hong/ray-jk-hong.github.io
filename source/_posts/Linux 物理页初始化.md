@@ -98,7 +98,7 @@ end note
     +-- setup_arch:
         +-- bootmem_init:
             +-- zone_sizes_init:
-		        +-- free_area_init
+                +-- free_area_init
                     +-- memmap_init
 ```
 1) free_area_init的前面的部分将pglist_data结构体初始化，确定范围等
