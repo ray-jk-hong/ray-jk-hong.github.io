@@ -91,6 +91,8 @@ note left of pglist_data::node_id
 end note
 {% endplantuml %}
 
+通过page可以找到zone: struct zone *page_zone(const struct page *page)
+
 ## pglist_data初始化
 1. 根据memblock确定pglist_data的范围，并初始化page结构体
 ```c
@@ -106,11 +108,15 @@ end note
 
 2. zone初始化（buddy算法初始化）
 ```c
-+-- start_kernel:
-    +-- mm_core_init:
++-- start_kernel
+    +-- mm_core_init
         +-- build_all_zonelists:
-        +-- mem_init:
-            +-- build_zonelists：
+		    +-- build_all_zonelists_init
+                +-- __build_all_zonelists
+                    +-- build_zonelists
+    +-- mem_init
+        +-- memblock_free_all
+            +-- free_low_memory_core_early
 ```
 
 初始化日志中，可以看到初始化之后的buddy info：
