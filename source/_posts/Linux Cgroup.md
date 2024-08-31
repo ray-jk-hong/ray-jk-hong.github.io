@@ -63,6 +63,7 @@ Cgroup每个子系统都代表一种类型的资源
 - Net-cls子系统：提供网络带宽的访问限制
 - Pids子系统：限制Cgroup及其所有子孙Cgroup里边能创建的总的进程数量。进程是指通过fork或者clone函数创建的进程和线程。
   /sys/fs/cgroup/pids
+  某个进程fork了一个子进程，子进程默认与父进程处于同一个Cgroup中
 
 ## 相关结构体
 ```c
