@@ -7,6 +7,7 @@ tags:
 ---
 
 ## Buddy相关结构体
+buddy的算法不多讲了，很多资料。直接看buddy相关的结构体
 {% plantuml %}
 allowmixing
 
@@ -91,7 +92,10 @@ note left of pglist_data::node_id
 end note
 {% endplantuml %}
 
-通过page可以找到zone: struct zone *page_zone(const struct page *page)
+1. 一个Numa对应一个pglist_data结构体
+2. 根据zone类型（dma或者normal）找到对应的zone
+3. zone->free_area[order]就是链接page的buddy结构的链表头
+   通过也通过page可以找到zone: struct zone *page_zone(const struct page *page)
 
 ## pglist_data初始化
 1. 根据memblock确定pglist_data的范围，并初始化page结构体
@@ -127,21 +131,22 @@ Fallback order for Node 1: 0 30 33 34 35 36 37 38 39 40 31
 ```
 
 ## 内存分布相关宏
-1. CONFIG_FLATMEM：
+宏的后面写的定义或者未定义写的是我自己的虚拟机的配置。
+1. CONFIG_FLATMEM：（未定义）
    内存段只有一个的时候使用，即中间没有空洞预留等
-2. CONFIG_SPARSEMEM
+2. CONFIG_SPARSEMEM（定义）
    表示内存段可以有多个的时候使用
-CONFIG_SPARSEMEM_MANUAL 定义
-CONFIG_SPARSEMEM_EXTREME 定义
-3. CONFIG_SPARSEMEM_VMEMMAP 定义
-   和CONFIG_SPARSEMEM相似，但使用vmemmap方式，提高page_to_pfn等操作的性能。
+3. CONFIG_SPARSEMEM_MANUAL（定义）
+4. CONFIG_SPARSEMEM_EXTREME（定义）
+5. CONFIG_SPARSEMEM_VMEMMAP（定义）
+   和CONFIG_SPARSEMEM相似，但将page结构体全部保存到一个虚拟地址中，提高page_to_pfn等操作的性能。
    pfn to page就定义成这样，，可以看到page结构体都放在vmemmap基地址的虚拟地址上。
 ```c
     #define __pfn_to_page(pfn)	(vmemmap + (pfn))
 ```
    这相比于CONFIG_SPARSEMEM的pfn->section->pag的方式性能提高了一些。
    
-4. CONFIG_SPARSEMEM_VMEMMAP_ENABLE 定义
+4. CONFIG_SPARSEMEM_VMEMMAP_ENABLE（定义）
 
 https://qiita.com/akachochin/items/121d2bf3aa1cfc9bb95a
 
