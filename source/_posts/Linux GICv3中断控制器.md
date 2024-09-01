@@ -61,6 +61,9 @@ https://stackoverflow.com/questions/34371352/what-are-linux-irq-domains-why-are-
 
 https://stackoverflow.com/questions/34377846/what-is-chained-irq-in-linux-when-are-they-need-to-used
 
+http://www.wowotech.net/irq_subsystem/irq-domain.html
+
+
 ## 参考
 https://cloud.tencent.com/developer/article/1867927
 
