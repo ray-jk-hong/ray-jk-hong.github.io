@@ -85,8 +85,10 @@ max732x_irq_handler()函数中有这样一行代码：
 handle_nested_irq(irq_find_mapping(chip->gpio_chip.irqdomain, level));
 ```
 这行代码先使用irq_find_mapping()函数将硬中断号转成软件中断号，然后使用handle_nested_irq() 将"Some device"驱动的对应中断回调函数调用起来。
-
 max7325使用irq domain的提交（https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=479f8a5744d8141e95ef40ab364ae2d3648848ef）
+
+疑问：generic_handle_irq函数和haldle_nested_irq函数有什么区别
+答案：https://stackoverflow.com/questions/34377846/what-is-chained-irq-in-linux-when-are-they-need-to-used
 
 
 ## 参考
