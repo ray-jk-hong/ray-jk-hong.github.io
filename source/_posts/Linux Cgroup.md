@@ -65,7 +65,7 @@ Cgroup每个子系统都代表一种类型的资源
   /sys/fs/cgroup/pids
   某个进程fork了一个子进程，子进程默认与父进程处于同一个Cgroup中
 
-## 相关结构体
+## 软件架构
 ```c
 struct task_struct {
     struct css_set *cgroups;
