@@ -90,6 +90,8 @@ max7325使用irq domain的提交（https://git.kernel.org/pub/scm/linux/kernel/g
 疑问：generic_handle_irq函数和haldle_nested_irq函数有什么区别
 答案：https://stackoverflow.com/questions/34377846/what-is-chained-irq-in-linux-when-are-they-need-to-used
 
+疑问：interrupts=<中断号 >，这些中断号是怎么一层一层传递到irq domain中，然后在回调的时候被一层一层解析出来的？
+
 
 ## 参考
 https://cloud.tencent.com/developer/article/1867927
