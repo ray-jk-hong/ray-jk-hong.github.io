@@ -57,11 +57,36 @@ some_device: some_device@1c {
 };
 ```
 
-https://stackoverflow.com/questions/34371352/what-are-linux-irq-domains-why-are-they-needed
+中断的传播：
+有了上面的DTS定义，我们在"Some device"的驱动里边可以注册中断了。
+```c
+devm_request_threaded_irq(core->dev, core->gpio_irq, NULL,
+        some_device_isr, IRQF_TRIGGER_RISING | IRQF_ONESHOT,
+        dev_name(core->dev), core);
+```
+但此中断不是gic直接触发的，具体怎么做到的？
+从硬件角度看，max7325触发中断通知到cpu的流程如下：
+1. max7325的p4端口电平变化
+2. max7325感知到电平变化，改变INT管脚的电平
+3. GPIO4模块配置感知到电平变化，并触发中断给GIC
+4. GIC通知CPU
 
-https://stackoverflow.com/questions/34377846/what-is-chained-irq-in-linux-when-are-they-need-to-used
+从软件角度，"Some device"中断回调被调用的流程，跟上面的硬件流程正好相反。
+软件流程如下：
+1. CPU 现在处于 GIC 中断处理程序的中断上下文中。从 gic_handle_irq() 调用handle_domain_irq()，后者又调用 generic_handle_irq()。参考Documentation/gpio/driver.txt。现在我们在Soc的GPIO控制器的中断上下文。
+2. Soc的GPIO驱动也会调用generic_handle_irq()去触发对应pin脚的中断回调。可以看omap_gpio_irq_handler()是怎么做的。现在我们进入到了max7325中断回调函数
+3. max7325中断回调函数max732x_irq_handler()会调用handle_nested_irq()来触发"Some device"的中断回调
+4. 最终，"Some device"的中断回调被调用
 
-http://www.wowotech.net/irq_subsystem/irq-domain.html
+irq domain：
+gpio和max7325都是interrupt controller，都使用了irq domain方式来把硬中断号转成软中断并触发下一级interrupt-controller的中断回调函数。
+max732x_irq_handler()函数中有这样一行代码：
+```c
+handle_nested_irq(irq_find_mapping(chip->gpio_chip.irqdomain, level));
+```
+这行代码先使用irq_find_mapping()函数将硬中断号转成软件中断号，然后使用handle_nested_irq() 将"Some device"驱动的对应中断回调函数调用起来。
+
+max7325使用irq domain的提交（https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=479f8a5744d8141e95ef40ab364ae2d3648848ef）
 
 
 ## 参考
@@ -71,5 +96,10 @@ http://www.wowotech.net/irq_subsystem/gic-irq-chip-driver.html
 
 https://android.googlesource.com/kernel/msm/+/android-msm-bullhead-3.10-marshmallow-dr/Documentation/IRQ-domain.txt
 
+https://stackoverflow.com/questions/34371352/what-are-linux-irq-domains-why-are-they-needed
+
+https://stackoverflow.com/questions/34377846/what-is-chained-irq-in-linux-when-are-they-need-to-used
+
+http://www.wowotech.net/irq_subsystem/irq-domain.html
 
 
