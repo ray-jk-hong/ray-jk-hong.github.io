@@ -94,6 +94,9 @@ max7325使用irq domain的提交（https://git.kernel.org/pub/scm/linux/kernel/g
 
 
 ## 参考
+
+https://blog.csdn.net/qq_16106195/article/details/135276562
+
 https://cloud.tencent.com/developer/article/1867927
 
 http://www.wowotech.net/irq_subsystem/gic-irq-chip-driver.html
