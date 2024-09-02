@@ -69,3 +69,5 @@ irq_set_affinity
 https://cloud.tencent.com/developer/article/1867927
 
 http://www.wowotech.net/irq_subsystem/gic-irq-chip-driver.html
+
+arm generic interrupt controller architecture specification 4.0
