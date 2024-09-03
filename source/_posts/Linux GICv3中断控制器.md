@@ -92,6 +92,7 @@ max7325使用irq domain的提交（https://git.kernel.org/pub/scm/linux/kernel/g
 
 疑问：interrupts=<中断号 >，这些中断号是怎么一层一层传递到irq domain中，然后在回调的时候被一层一层解析出来的？
 
+疑问：系统启动的时候，是怎么读取所有的interrupt controller然后把这些关系都组织好的？
 
 ## 参考
 
