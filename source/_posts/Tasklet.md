@@ -30,8 +30,8 @@ softirq_entry  softirq_exit  softirq_raise tasklet_entry tasklet_exit
 ```
 tasklet_entry和tasklet_exit在5.10版本中是没有的，在6.9版本是有的。
 
-疑问：为什么看到tasklet的执行函数，有时候在[softirq0/1]这样的软中断上下文执行，有时候看到的确是进程上下文？
-答案：因为像tasklet这种，想法是让他尽快执行，都堆积到softirq不好。所以在spin_unlock_bh这种打开软中断之后，就会立即查看是否有softirq pending，有的话直接调用__do_softirq执行。
+疑问：为什么看到tasklet的执行函数，有时候在[ksoftirqd/0]这样的软中断上下文执行，有时候看到的确是进程上下文？
+答案：因为像tasklet这种，想法是让他尽快执行，都堆积到ksoftirqd不好。所以在spin_unlock_bh这种打开软中断之后，就会立即查看是否有softirq pending，有的话直接调用__do_softirq执行。
 所以就是在进程上下文中调用spin_unlock_bh之后，就有概率执行已经task schedule的tasklet回调函数，看着就是进程上下文了。
 
 ## 参考
