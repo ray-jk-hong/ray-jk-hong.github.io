@@ -28,18 +28,21 @@ tags:
 ![max7325](/images/中断/max7325-2.png)
 一个设备接到了P4上，拉高了P4管脚，这时max7325会将gpio4_29拉高触发对应中断给cpu。所以max7325就是级联到gpio interrupt-controller上的一个interrupt-controller。gpio interrupt-controller又是级联到gic interrupt-controller.
 ```
-expander: max7325@6d {
-    compatible = "maxim,max7325";
-    reg = <0x6d>;
+i2c@xxx {
+    xxx
+    expander: max7325@6d {
+        compatible = "maxim,max7325";
+        reg = <0x6d>;
 
-    gpio-controller;
-    #gpio-cells = <2>;
+        gpio-controller;
+        #gpio-cells = <2>;
 
-    interrupt-controller;
-    #interrupt-cells = <2>;
+        interrupt-controller;
+        #interrupt-cells = <2>;
 
-    interrupt-parent = <&gpio4>;
-    interrupts = <29 IRQ_TYPE_EDGE_FALLING>;
+        interrupt-parent = <&gpio4>;
+        interrupts = <29 IRQ_TYPE_EDGE_FALLING>;
+    };
 };
 ```
 上面DTS的属性：
@@ -47,6 +50,39 @@ expander: max7325@6d {
 - #interrupt-cells：表示interrupts = <xx>分为几段。
 - interrupt-parent：表示max7325是级联到哪里去了。因为现在是级联到gpio4上的，所以这里填的就是gpio4。
 - interrupts = <29 IRQ_TYPE_EDGE_FALLING>：max7325驱动需要注册interrupt-parent=<&gpio4>的29这个中断，因为芯片连线就是这么连的。
+这里说明一下, expander是放到i2c里边的，因为其是一个i2c的设备。像这样做完之后，其实是不需要额外注册i2c board info了。可以看一下drivers/gpio/gpio-max732x.c文件的probe函数。
+```c
+static int max732x_probe(struct i2c_client *client)
+{
+    pdata = dev_get_platdata(&client->dev); // 由于没有注册i2c board info，pdata是空
+	node = client->dev.of_node; // node是非空的
+
+	if (!pdata && node) // 由于pdata是空，node是非空，所以会创建一个pdata。由于从dts读i2c信息的时候，gpio_base可以要赋值成负值
+		pdata = of_gpio_max732x(&client->dev);
+    ret = devm_gpiochip_add_data(xx); // 动态分配一个gpio_base，，这个都不重要了，后面都不会用到
+    xx
+
+    /*
+     * client->irq就是上面dts里边定义的，，在启动的时候，读取interrupt并赋值给client->irq的。
+     * ???? i2c下面有多个设备怎么办?? 一个client结构体是对应i2c dts下面的一个块。
+     * interrupt-parent = <&gpio4>; 
+     * interrupts = <29 >;
+     */
+    ret = request_irq(client->irq, xx, ); IRQ_TYPE_EDGE_FALLING>;
+
+    return 0;
+}
+
+int gpiochip_add_data_with_key(xxx)
+{
+    base = gc->base;
+    if (base < 0) { // 上面gpio_base是负数，所以这里会动态分配。
+		base = gpiochip_find_base(gc->ngpio);
+    xxx
+    return 0;
+}
+
+```
 
 对于最左边的"Some device"，我们也要定义DTS几点，并有相应的驱动。DTS定义如下：
 ```
