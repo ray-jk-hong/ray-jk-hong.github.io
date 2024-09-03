@@ -6,6 +6,10 @@ tags:
 - Linux MM
 ---
 
+## 软件架构
+### mm_struct
+疑问：mmget, mmgrab的区别
+
 ## 内核虚拟地址管理[include/linux/mm.h]
 
 ### VM Flag
@@ -29,5 +33,3 @@ CONFIG_ARM64_HW_AFDBM
 
 ## 参考
 https://www.kernel.org/doc/gorman/html/understand/
-
-
