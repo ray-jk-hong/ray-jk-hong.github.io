@@ -95,6 +95,10 @@ max7325使用irq domain的提交（https://git.kernel.org/pub/scm/linux/kernel/g
 疑问：系统启动的时候，是怎么读取所有的interrupt controller然后把这些关系都组织好的？包括interrupt-parent也是在启动的时候都读完，建立关系并组织irq domain。
 [drivers/of/irq.c] of_irq_parse_raw()
 
+https://stackoverflow.com/questions/26667082/max732x-c-i2c-io-expander-gpio-keys-w-linux-device-tree-not-working
+https://stackoverflow.com/questions/34371352/what-are-linux-irq-domains-why-are-they-needed
+https://stackoverflow.com/questions/34377846/what-is-chained-irq-in-linux-when-are-they-need-to-used
+
 ## 参考
 
 https://blog.csdn.net/qq_16106195/article/details/135276562
@@ -105,10 +109,4 @@ http://www.wowotech.net/irq_subsystem/gic-irq-chip-driver.html
 
 https://android.googlesource.com/kernel/msm/+/android-msm-bullhead-3.10-marshmallow-dr/Documentation/IRQ-domain.txt
 
-https://stackoverflow.com/questions/34371352/what-are-linux-irq-domains-why-are-they-needed
-
-https://stackoverflow.com/questions/34377846/what-is-chained-irq-in-linux-when-are-they-need-to-used
-
 http://www.wowotech.net/irq_subsystem/irq-domain.html
-
-
