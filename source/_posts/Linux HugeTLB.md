@@ -1,5 +1,5 @@
 ---
-title: HugeTLB
+title: Linux HugeTLB
 categories: 
 - Linux MM
 tags:
