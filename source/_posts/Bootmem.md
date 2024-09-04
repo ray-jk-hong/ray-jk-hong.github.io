@@ -99,6 +99,14 @@ memory11@numa11 {
 early_init_dt_scan_memory函数中会scan dts并找到device_type为memory的节点并把地址加到memblock中。
 在内核启动日志中"Early memory node ranges"可以看到所有的memroy范围，但没有包含每段的memblock_flags类型。
 
+上述的memory类型，在dts配置完之后，在/sys/firmware/devicetree/base/目录下能找到memory0@numa0目录。
+其中reg就是我们配置的物理地址范围，但这个目录不能直接读。
+读的方式：
+```
+hexdump -C /sys/firmware/devicetree/base/memory0@numa0
+这样就能把范围配置，个数之类都打印出来。
+```
+
 2. reserved-memory的no-map添加
 在DTS中的定义如下：
 ```bash
@@ -124,6 +132,14 @@ reserved-memory {
 在debugfs节点可以查到对应的memory区域：cat /sys/kernel/debug/memblock/memory
 
 疑问：标记位no-map的如果在device_type="memory"段找不到会怎么样？会报错吗？
+
+dts配置查找reserved-memory范围
+```bash
+在目录：/sys/firmware/devicetree/base/reserved-memory 下能找到对应的配置项
+某一项，例如reserved_mem@0的范围怎么配置的，可以在/sys/firmware/devicetree/base/reserved-memory/reserved_mem@0/reg下找到。
+读的方式也是使用hexdump
+hexdump -C /sys/firmware/devicetree/base/reserved-memory/reserved_mem@0/reg
+```
 
 ### reserve范围确定
 reserve区域的添加有以下几种方式：
