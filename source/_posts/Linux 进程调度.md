@@ -1,9 +1,9 @@
 ---
-title: Process Schedule
+title: Linux进程调度
 categories: 
-- Linux
+- Linux进程调度
 tags:
-- Linux Process
+- Linux进程调度
 ---
 
 ## 进程调度算法

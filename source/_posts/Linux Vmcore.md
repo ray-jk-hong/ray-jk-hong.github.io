@@ -1,5 +1,5 @@
 ---
-title: Vmcore分析
+title: Linux Vmcore分析
 categories: 
 - Linux Debug
 tags:

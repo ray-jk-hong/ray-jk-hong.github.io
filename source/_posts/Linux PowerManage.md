@@ -1,5 +1,5 @@
 ---
-title: PowerManage
+title: Linux PowerManage
 categories: 
 - Linux
 tags:

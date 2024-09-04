@@ -1,9 +1,9 @@
 ---
-title: Prctl
+title: Linux 踩内存问题定位
 categories: 
-- Linux Debug
+- Linux MM
 tags:
-- Linux Debug
+- Linux MM
 ---
 
 ## 打开Kasan选项

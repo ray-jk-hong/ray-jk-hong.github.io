@@ -1,9 +1,9 @@
 ---
 title: Ptrace
 categories: 
-- Gcc Tool
+- Gdb
 tags:
-- Gcc Tool
+- Gdb
 ---
 
 ## 参考

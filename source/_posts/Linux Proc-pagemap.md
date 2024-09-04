@@ -1,10 +1,11 @@
 ---
-title: Proc-pagemap
+title: Linux Proc-pagemap
 categories: 
-- Linux
+- Linux Proc
 tags:
-- Linux Proc-pagemap
+- Linux Proc
 ---
+
 
 可以使用/proc/pid/pagemap和/proc/pid/map查看进程使用虚拟内存对应的物理地址
 ## 参考

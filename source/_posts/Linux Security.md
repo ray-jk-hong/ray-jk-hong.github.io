@@ -1,7 +1,7 @@
 ---
-title: Security
+title: Linux Security
 categories: 
-- Linux
+- Linux Security
 tags:
 - Linux Security
 ---

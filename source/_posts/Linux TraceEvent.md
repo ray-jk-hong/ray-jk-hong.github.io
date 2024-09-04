@@ -1,11 +1,10 @@
 ---
-title: TraceEvent
+title: Linux TraceEvent
 categories: 
-- Linux
+- Linux Trace
 tags:
 - Linux Trace
 ---
-
 
 ## 用户态Trace Event
 

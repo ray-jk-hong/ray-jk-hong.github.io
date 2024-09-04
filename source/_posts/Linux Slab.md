@@ -1,7 +1,7 @@
 ---
-title: Slab
+title: Linux Slab
 categories: 
-- Linux
+- Linux MM
 tags:
 - Linux MM
 ---

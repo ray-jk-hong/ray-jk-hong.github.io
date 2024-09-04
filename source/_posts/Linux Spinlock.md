@@ -1,10 +1,11 @@
 ---
-title: Spinlock
+title: Linux Spinlock
 categories: 
-- Linux
+- Linux Lock
 tags:
-- Linux Spinlock
+- Linux Lock
 ---
+
 
 ## Spinlock嵌套使用
 spinlock锁的类型有以下几种：

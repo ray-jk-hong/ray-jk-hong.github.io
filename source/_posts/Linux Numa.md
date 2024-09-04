@@ -1,5 +1,5 @@
 ---
-title: Numa
+title: Linux Numa
 categories: 
 - Linux MM
 tags:

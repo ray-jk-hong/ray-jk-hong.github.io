@@ -1,9 +1,9 @@
 ---
-title: Smmu
+title: Linux Smmu
 categories: 
-- Linux
+- Linux MM
 tags:
-- Linux Smmu
+- Linux MM
 ---
 
 ## VMID/ASID/PASID

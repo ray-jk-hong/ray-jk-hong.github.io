@@ -1,9 +1,9 @@
 ---
-title: Sysrq
+title: Linux Sysrq
 categories: 
-- Linux
+- Linux Debug
 tags:
-- Linux Sysrq
+- Linux Debug
 ---
 
 ## 代码路径
@@ -77,4 +77,4 @@ echo z > /proc/sysrq-trigger
 ```
 echo m > /proc/sysrq-trigger
 ```
-之前敲dmesg可以看到打印的内存信息。
+之后敲dmesg可以看到打印的内存信息。

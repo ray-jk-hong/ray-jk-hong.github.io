@@ -1,9 +1,9 @@
 ---
-title: Linux内核启动
+title: Linux 内核启动
 categories: 
-- Linux
+- Linux 内核启动
 tags:
-- Linux内核启动
+- Linux 内核启动
 ---
 
 ## 内核入口

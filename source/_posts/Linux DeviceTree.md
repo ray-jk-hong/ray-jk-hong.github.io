@@ -1,5 +1,5 @@
 ---
-title: DeviceTree
+title: Linux DeviceTree
 categories: 
 - Linux Driver
 tags:
