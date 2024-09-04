@@ -191,6 +191,7 @@ reserved-memory中标记no-map，表示这段是内存，要纳入到整个物�
 "reserved-memory有一些可选参数, 比如no-map, 如果使用了no-map, 那么这段区域执行memblock_remove, 反之执行memblock_reserve"，看这段话意思也很明确。
 标记了no-map表示这段是memory，但我需要从线性地址范围中去掉这块。但没有标记no-map，那表示这段我就从整个物理地址范围中扣掉。
 
+https://www.cnblogs.com/pengdonglin137/articles/10483018.html
 https://stackoverflow.com/questions/74094346/how-can-i-use-the-no-map-property-of-reserved-memory-in-device-tree-still-acc
 https://tenghsiang.gitlab.io/BoringStuffs/linux-reserved-memory/
 https://xilinx-wiki.atlassian.net/wiki/spaces/A/pages/18841683/Linux+Reserved+Memory
