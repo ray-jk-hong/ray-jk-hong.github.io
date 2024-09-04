@@ -13,6 +13,19 @@ dtc -O dtb -o dest.dtb src.dts
 2. 反编译命令
 dtc -I dtb -O dts src.dtb > des.dts
 
+## DTS相关目录
+1. /sys/firmware/fdt
+   原始dtb文件，如下命令可以查看dtb文内容
+   hexdump -C /sys/firmware/fdt
+2. /sys/firmware/devicetree
+   以目录结构程现的dtb文件, 根节点对应base目录, 每一个节点对应一个目录, 每一个属性对应一个文件。这个文件很好，可以看到所有的dts文件配置都对应生成了哪些。
+3. /sys/devices/platform
+   系统中所有的platform_device, 有来自设备树的, 也有来有.c文件中注册的，对于来自设备树的platform_device, 可以进入 /sys/devices/platform/<设备名>/of_node 查看它的设备树属性。
+4. /proc/device-tree
+   链接文件, /sys/firmware/devicetree/base
+
+https://www.cnblogs.com/multimicro/p/11905647.html
+
 ## 预留内存
 ### reserved-memory方式
 1. 在reserve-memory区域添加要预留的内存。
