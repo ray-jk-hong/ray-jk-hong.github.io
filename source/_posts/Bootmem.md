@@ -188,11 +188,14 @@ memory是表示所有可用的物理内存，包括enum memblock_flags所有的�
 标记位no-map的内存，在启动的时候，不会被纳入到线性地址范围。所以从DTS里边拿到物理地址之后，直接使用物理地址转虚拟地址(phys_to_virt)直接访问会导致挂死。
 reserved-memory中标记no-map，表示这段是内存，要纳入到整个物理地址大小范围之内，但这段又不能直接映射线性地址，让OS直接访问。
 
+"reserved-memory有一些可选参数, 比如no-map, 如果使用了no-map, 那么这段区域执行memblock_remove, 反之执行memblock_reserve"，看这段话意思也很明确。
+标记了no-map表示这段是memory，但我需要从线性地址范围中去掉这块。但没有标记no-map，那表示这段我就从整个物理地址范围中扣掉。
+
 https://stackoverflow.com/questions/74094346/how-can-i-use-the-no-map-property-of-reserved-memory-in-device-tree-still-acc
 https://tenghsiang.gitlab.io/BoringStuffs/linux-reserved-memory/
 https://xilinx-wiki.atlassian.net/wiki/spaces/A/pages/18841683/Linux+Reserved+Memory
 http://www.wowotech.net/memory_management/memory-layout.html
-
+https://www.cnblogs.com/pengdonglin137/articles/10483018.html
 https://docs.kernel.org/core-api/boot-time-mm.html
 
 ## Linux启动日志中的内存区域
