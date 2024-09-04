@@ -60,7 +60,6 @@ memblock -down-> phymem
 
 上图中memory, reserved是常驻的，physmem是只有定义了CONFIG_HAVE_MEMBLOCK_PHYS_MAP才有。
 
-
 ### memory
 在启动过程中，主要有以下几个方式添加内存到memory中。
 1. device_type="memory"添加
@@ -81,7 +80,7 @@ memory10@numa10 {
 memory11@numa11 {
     device_type = "memory";
     reg = <0xBB 0xDD0000 0x0 0xBB00000>; 
-    numa-node-id = <101>;
+    numa-node-id = <11>;
     hotpluggable;  // 在/proc/buddyinfo中显示为movable
 };
 ```
@@ -98,8 +97,14 @@ memory11@numa11 {
 
 early_init_dt_scan_memory函数中会scan dts并找到device_type为memory的节点并把地址加到memblock中。
 在内核启动日志中"Early memory node ranges"可以看到所有的memroy范围，但没有包含每段的memblock_flags类型。
+"Early memory node ranges"这些段是DTS配置加上根据reserved-memory段处理过的段。
+这个打印，其实在debugfs目录下有的，如果错过了启动的日志，可以查看如下debugfs目录：
+```bash
+cat /sys/kernel/debug/memblock/memory
+```
 
-上述的memory类型，在dts配置完之后，在/sys/firmware/devicetree/base/目录下能找到memory0@numa0目录。
+如果想要直接看到memory段的原始的DTS配置，可以按如下方式查找到：
+在/sys/firmware/devicetree/base/目录下找到对应的目录，例如memory0@numa0目录。
 其中reg就是我们配置的物理地址范围，但这个目录不能直接读。
 读的方式：
 ```
@@ -129,9 +134,8 @@ reserved-memory {
                         +-- early_init_dt_reserve_memory
 ```
 
-在debugfs节点可以查到对应的memory区域：cat /sys/kernel/debug/memblock/memory
-
 疑问：标记位no-map的如果在device_type="memory"段找不到会怎么样？会报错吗？
+答案：标记位no-map的段，如果在memory段中找到了就会进行拆分并统计到memory段中。如果没有找到，就不会统计到任何地方。
 
 dts配置查找reserved-memory范围
 ```bash
@@ -168,7 +172,9 @@ reserved-memory {
 
 疑问：在启动完之后，reserved-memory {}中定义的很多段，其实在cat /sys/kernel/debug/memblock/reserve中没有显示
 	（no-map的可以理解，这些段是保存在memory中，并被标记为MEMBLOCK_NOMAP的，所以在reserve中找不到也正常）
-答案：没有标记no-map的段都是有的，标记位no-map的有些是找不到的。
+答案：
+    (1) 没有标记no-map的段都是有的。
+    (2) 标记位no-map的，与memory段重叠的会统计到memory段(就是将memory段拆分，然后都统计到memory段中)，没有重叠的就哪里都没有统计了。
 
 疑问：标记位no-map的如果在device_type="memory"中找到了会怎么样？
 答案：找到了就会在memory段中，把原来的段一份为2，，reserve-memory段重新生成一个memory区域并把他标记位MEMBLOCK_NOMAP，剩余的就是抠掉reserve-memory的。
@@ -176,6 +182,18 @@ reserved-memory {
 ## memory与reserve区域的关系
 memory是表示所有可用的物理内存，包括enum memblock_flags所有的类型，是实实在在的内存。reserved内存是从真实内存里边抠出去的内存。
 所以reserved区域内存都是包含在memory区域里边的。在page初始化的时候，会扫描所有的memory区域，去除reserve区域并初始化page。
+
+## no-map到底表示什么
+我们看到reserved-memory区域中，标记位no-map的起始都会统计到memroy区域，在统计page个数的时候也不会抠掉no-map区域。那no-map到底表示的是什么？
+标记位no-map的内存，在启动的时候，不会被纳入到线性地址范围。所以从DTS里边拿到物理地址之后，直接使用物理地址转虚拟地址(phys_to_virt)直接访问会导致挂死。
+reserved-memory中标记no-map，表示这段是内存，要纳入到整个物理地址大小范围之内，但这段又不能直接映射线性地址，让OS直接访问。
+
+https://stackoverflow.com/questions/74094346/how-can-i-use-the-no-map-property-of-reserved-memory-in-device-tree-still-acc
+https://tenghsiang.gitlab.io/BoringStuffs/linux-reserved-memory/
+https://xilinx-wiki.atlassian.net/wiki/spaces/A/pages/18841683/Linux+Reserved+Memory
+http://www.wowotech.net/memory_management/memory-layout.html
+
+https://docs.kernel.org/core-api/boot-time-mm.html
 
 ## Linux启动日志中的内存区域
 疑问：ZONE_DMA大小怎么计算出来的？
@@ -209,6 +227,7 @@ DMA zone: BB pages, LIFO batch:63这句打印中，BB就是这么算出来的，
          +-- map_mem
 ```
 疑问：map_mem中for_each_mem_range函数怎么选取memory内存段，no-map的怎么跳过去的？
+答案：标记未no-map的在memory段中找不到也不会报错。
 
 疑问：swapper_pg_dir是什么？
 https://www.cnblogs.com/linhaostudy/p/12827075.html
