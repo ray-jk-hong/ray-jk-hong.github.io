@@ -9,6 +9,9 @@ tags:
 ## 软件架构
 ### mm_struct
 疑问：mmget, mmgrab的区别
+答案：
+1. mmget增加mm_struct->mm_users计数，即使进程退了，也不会将mm_struct的vma之类的都释放掉
+2. mmgrap增加mm_count计数，防止mm_struct被释放（即使是进程退了）
 
 ## 内核虚拟地址管理[include/linux/mm.h]
 
