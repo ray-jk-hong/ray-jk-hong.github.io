@@ -38,8 +38,13 @@ remap_pfn_range会直接赋值VM_PFNMAP属性。
 最好使用vm_insert_page来映射地址到vma
 
 ## Mmap的flag
+MAP_SHARED：
+MAP_PRIVATE：表示此地址是本进程独享的，所有对该地址的读写，不会马上写入。例如你在用户态mmap(传入MAP_PRIVATE)，然后在内核态通过在mmap回调中remap_pfn_xx建好了页表。
+当用户态写的时候，会发现写的内容不会马上被写到内存中。
+MAP_ANONYMOUS：
+MREMAP_MAYMOVE：
+MREMAP_FIXED：
 
-MAP_SHARED
 
 https://zhuanlan.zhihu.com/p/566614796
 
@@ -47,7 +52,9 @@ http://www.wowotech.net/linux_kenrel/516.html
 
 CONFIG_ARM64_HW_AFDBM
 
-## mremap
+
+
+## 防止mremap
 1. A进程remap_pfn_xx方式映射了一段page
 2. A进程fork B进程
 3. B进程使用mremap方式将A进程的地址从新映射到硬外的虚拟地址
