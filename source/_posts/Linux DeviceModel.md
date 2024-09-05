@@ -12,6 +12,7 @@ device_create
 bus_register
 driver_register
 device_register
-
+device_add
+class_create
 ## 参考
 http://www.wowotech.net/device_model/13.html
