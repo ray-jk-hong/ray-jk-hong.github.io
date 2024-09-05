@@ -47,5 +47,19 @@ http://www.wowotech.net/linux_kenrel/516.html
 
 CONFIG_ARM64_HW_AFDBM
 
+## mremap
+1. A进程remap_pfn_xx方式映射了一段page
+2. A进程fork B进程
+3. B进程使用mremap方式将A进程的地址从新映射到硬外的虚拟地址
+4. 进程A释放这段page之后，B进程仍然可以访问
+
+解决：
+1. 需要在remap_pfn_x的时候设置如下几个属性。
+VM_DONTCOPY
+VM_DONTEXPAND
+VM_DONTDUMP
+2. vm_struct_ops的mremap回调函数中，挂接函数并直接返回错误。
+
+
 ## 参考
 https://www.kernel.org/doc/gorman/html/understand/
