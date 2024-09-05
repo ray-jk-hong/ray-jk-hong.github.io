@@ -216,6 +216,12 @@ free_area_init_node函数中，会将相同node0的memory中，在memory.lowest 
 DMA zone: BB pages, LIFO batch:63这句打印中，BB就是这么算出来的，，比如node0有5个memory范围，其中4个在memory.lower-0xFFFFFFFF范围内，就计算这4个的page个数然后加起来。
 当然这些都是在64位系统中是这样的，32位不一样
 
+## 启动之后查看memory/reserve区域
+启动之后有两种方式查看
+1. /sys/kernel/debug/memblock/memory, /sys/kernel/debug/memblock/reseved可以看。
+2. /proc/iomem：这里的System RAM就是memory区域，reserved就是表示reserved区域。
+疑问：/proc/iomem的pcie/smmu这些区域是什么？
+
 ## DTS中memreserve处理
 一般都在dts最开始就定义，例如：
 ```c
