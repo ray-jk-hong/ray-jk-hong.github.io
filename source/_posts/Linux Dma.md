@@ -8,7 +8,8 @@ tags:
 
 ## dts配置注意
 1. dma-coherent
-在相应设备的设备树节点先，添加dma-coherent之后，在调用dma_alloc_coherent的时候?(在4.19内核版本中看，后面变成IOMMU_CACHE属性了)
+在相应设备的设备树节点先，添加dma-coherent之后，在调用dma_alloc_coherent的时候，申请内存建页表的时候，会按照cacheable的方式建页表。？？
+(在4.19内核版本中看，后面变成IOMMU_CACHE属性了)
 
 
 ## 使用接口注意
