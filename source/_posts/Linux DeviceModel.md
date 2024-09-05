@@ -6,6 +6,9 @@ tags:
 - Linux Driver
 ---
 
+## kobj/kset/kobj_type/sysfs_ops/
+https://www.cnblogs.com/LoyenWang/p/13334196.html
+
 ## 接口
 
 device_create
