@@ -13,6 +13,17 @@ tags:
 1. mmget增加mm_struct->mm_users计数，即使进程退了，也不会将mm_struct的vma之类的都释放掉
 2. mmgrap增加mm_count计数，防止mm_struct被释放（即使是进程退了）
 
+使用方法：
+
+```c
+1. 获取struct mm_struct *get_task_mm(struct task_struct *task) // 这里就是调用mmget，但里边用了task_lock锁
+2. mmap_lock锁需要抓？down_write?down_read锁怎么区分  
+3. mmgrab()
+4. 做vma分配等事情
+5. mmdrop()
+6. mmput()
+```
+
 ## 内核虚拟地址管理[include/linux/mm.h]
 
 ### VM Flag
