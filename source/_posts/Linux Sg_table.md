@@ -5,3 +5,7 @@ categories:
 tags:
 - Linux Driver
 ---
+
+struct sg_table 
+struct scatterlist
+
