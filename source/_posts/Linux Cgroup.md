@@ -65,6 +65,10 @@ Cgroup每个子系统都代表一种类型的资源
   /sys/fs/cgroup/pids
   某个进程fork了一个子进程，子进程默认与父进程处于同一个Cgroup中
 
+## Cgroup Oom行为配置
+如果panic_on_oom参数为2，则OOM会导致kernel panic，建议使用1，只影响当前进程
+echo 1 > /proc/sys/vm/panic_on_oom
+
 ## 软件架构
 ```c
 struct task_struct {
@@ -72,6 +76,12 @@ struct task_struct {
     struct list_head cg_list;
 }
 ```
+
+## 进程统计与Cgroup统计差异问题
+1. page cache，例如文件系统写入也会统计到Cgroup。例如往tmpfs写入的文件都是内存申请的，会统计到Cgroup中，但不会统计到进程。
+   疑问：怎么知道哪些是盘是ramfs?
+2. 所以有时看到Cgroup显示内存已经超过limit报了oom，但oom打印的当前cgroup所有的进程的内存大小加起来却很小。
+   oom时打印的内存大小，可以看"Linux 进程内存统计"这篇
 
 ## 进程内存统计
 进程上下文申请的内存要统计到Cgroup中需要在kmalloc的flag中添加__GFP_ACCOUNT
