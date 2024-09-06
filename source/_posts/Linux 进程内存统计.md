@@ -22,3 +22,5 @@ dump_tasks
 https://www.lineo.co.jp/blog/linux/sol01-processmemory.html
 
 https://www.cnblogs.com/sunsky303/p/13494977.html
+
+https://stackoverflow.com/questions/1353283/what-does-the-linux-proc-meminfo-mapped-topic-mean
