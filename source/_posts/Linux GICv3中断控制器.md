@@ -127,6 +127,8 @@ max7325使用irq domain的提交（https://git.kernel.org/pub/scm/linux/kernel/g
 答案：https://stackoverflow.com/questions/34377846/what-is-chained-irq-in-linux-when-are-they-need-to-used
 
 疑问：interrupts=<中断号 >，这些中断号是怎么一层一层传递到irq domain中，然后在回调的时候被一层一层解析出来的？
+这个可以看drivers/of/irq.c文件的of_irq_init函数的处理，，看怎么把interrupt-controller信息汇集的。
+
 
 疑问：系统启动的时候，是怎么读取所有的interrupt controller然后把这些关系都组织好的？包括interrupt-parent也是在启动的时候都读完，建立关系并组织irq domain。
 [drivers/of/irq.c] of_irq_parse_raw()
