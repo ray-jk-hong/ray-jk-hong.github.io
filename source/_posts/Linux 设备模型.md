@@ -76,8 +76,8 @@ int bus_register(const struct bus_type *bus)
     struct kset *kset = &priv->subsys;
 
     // 因为我们是在/sys/bus目录下创建，所以当前kobject的父目录是/sys/bus, 所以bus_kobj->kset = bus_kset
- 	bus_kobj->kset = bus_kset; 
-	bus_kobj->ktype = &bus_ktype;
+    bus_kobj->kset = bus_kset; 
+    bus_kobj->ktype = &bus_ktype;
 
     kset_register(kset); // 在/sys/bus目录下创建文件夹, 这步过后就能看到/sys/bus目录下新生成了一个文件夹, 并在文件夹下创建uvent文件
     bus_create_file(bus, &bus_attr_uevent); // 创建kobjet->sd
@@ -89,6 +89,11 @@ int bus_register(const struct bus_type *bus)
 }
 ```
 仔细看bus_register函数，可以看到kset/kobject这些结构体是什么依赖关系了。
+
+例如我要找/sys/bus目录下的所有目录和文件，将名字都打印出来，在代码中怎么实现呢？
+1. bus_kset->list可以找到/sys/bus目录下所有的kobject，可以打印所有/sys/bus目录下所有文件的名字
+2. /sys/bus/xxx对应的kobject, 可以通过container_of转出对应的kset
+3. 以此类推，可以打印/sys/bus/xxx对应的所有的文件了
 
 ## 接口
 
