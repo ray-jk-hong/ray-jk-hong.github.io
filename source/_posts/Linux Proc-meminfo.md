@@ -9,3 +9,5 @@ tags:
 ## 参考
 http://www.wowotech.net/memory_management/meminfo_1.html
 http://linuxperf.com/?cat=7
+
+https://blog.csdn.net/hzj_001/article/details/89712134
