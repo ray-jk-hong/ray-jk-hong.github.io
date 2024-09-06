@@ -15,6 +15,10 @@ ps -aux可以显示进程的内存
 
 ## USS
 
+## OOM时打印的内容
+dump_tasks
+
+## 参考
 https://www.lineo.co.jp/blog/linux/sol01-processmemory.html
 
 https://www.cnblogs.com/sunsky303/p/13494977.html
