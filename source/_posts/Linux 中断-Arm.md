@@ -6,7 +6,8 @@ tags:
 - Linux 中断
 ---
 
-## 中断类型
+##介绍
+### 中断类型
 | 中断类型 | 硬件中断号  | 描述 |
 | --- | --- | --- |
 | SGI | 0-15 | 软中断，由软件触发引起的中断，通过向寄存器 GICD_SGIR 写入数据来触发，系统会使用 SGI 中断来完成多核之间的通信|
@@ -22,7 +23,23 @@ tags:
 - SPI (Shared Peripheral Interrupt)：公用的外部设备中断，也定义为共享中断。中断产生后，可以分发到某一个CPU上。比如按键触发一个中断，手机触摸屏触发的中断
 - LPI (Locality-specific Peripheral Interrupt)：LPI 是 GICv3 中的新特性，它们在很多方面与其他类型的中断不同。LPI 始终是基于消息的中断，它们的配置保存在表中而不是寄存器。比如 PCIe 的 MSI/MSI-x 中断
 
-## GICv3组成
+### LPI中断
+#### LPI中断介绍
+1. LPI中断是GICv3的新特性
+2. 基于消息的中断，配置保存在表中，而不是寄存器中
+3. LPI是消息中断，所有没有实体的中断线。
+4. GIC内部提供一个寄存器，当外设往这个地址写入数据时，就会往GIC发送中断。
+
+#### ITS（Interrupt Translation Service）
+1. ITS用来解析LPI中断，将接收到的LPI中断解析，然后发送对应的Redistributor，再由Redistributor将中断信息发送给Cpu interface。
+2. 外设通过写GITS_TRANSLATE寄存器，发起LPI中断，并提供ITS两个信息
+   (1) Event Id:保存在GITS_TRANLATE中，表示外设发送中断的事件类型
+   (2) Device Id:表示哪个外设发起的LPI中断
+3. ITS根据Event Id + Device Id查表，得到LPI中断号，再使用LPI中断号查表得到该中断的目标Cpu。
+4. ITS将LPI中断号，LPI中断对应的Cpu发送给Redistributor，Redistributor再将该中断号信息发给Cpu interface。
+
+## GIC
+### GICv3组成
 ![gicv3-总体结构](/images/中断/gicv3-总体结构.png)
 
 GICv3 控制器由以下三部分组成
@@ -55,22 +72,20 @@ GICv3 控制器由以下三部分组成
 - LPI有自己的中断翻译器（ITS），翻译之后再与Redistribotor交互
 - SGI类型直接与CPU interface交互
 
-## 中断状态机
+### 中断状态机
 ![gicv3-总体结构](/images/中断/gic-v3中断状态机.png)
 - Inactive：无中断状态，即没有 Pending 也没有 Active
 - Pending：硬件或软件触发了中断，该中断事件已经通过硬件信号通知到 GIC，等待 GIC 分配的那个 CPU 进行处理，在电平触发模式下，产生中断的同时保持 Pending 状态
 - Active：CPU 已经应答（acknowledge）了该中断请求，并且正在处理中
 - Active and pending：当一个中断源处于 Active 状态的时候，同一中断源又触发了中断，进入 pending 状态
 
+### 寄存器
+GICC_AHPPIR
+
 ## 中断亲和性设置
 irq_set_affinity
 
 ## 参考
-https://cloud.tencent.com/developer/article/1867927
-
-http://www.wowotech.net/irq_subsystem/gic-irq-chip-driver.html
-
-arm generic interrupt controller architecture specification 4.0
 
 
 ## 参考
@@ -78,5 +93,9 @@ http://www.wowotech.net/irq_subsystem/gic_driver.html
 
 https://www.google.com/search?q=Marc+Zyngier+please+interrupt+me&sca_esv=08f49ddedad890b7&biw=1766&bih=548&ei=Y6TWZrv_Lo_c2roPvOzM-AU&ved=0ahUKEwj7vI3viqaIAxUPrlYBHTw2E184FBDh1QMIEA&uact=5&oq=Marc+Zyngier+please+interrupt+me&gs_lp=Egxnd3Mtd2l6LXNlcnAiIE1hcmMgWnluZ2llciBwbGVhc2UgaW50ZXJydXB0IG1lMgUQIRigATIFECEYoAEyBRAhGKABMgUQIRigAUiPLFChB1iUK3AEeACQAQCYAX6gAbYMqgEEMTguMrgBA8gBAPgBAZgCF6AC1gzCAgUQABiABMICBBAAGB7CAggQABiABBiiBMICBxAhGKABGAqYAwCIBgGSBwQyMS4yoAe3Mw&sclient=gws-wiz-serp
 
-## 寄存器
-GICC_AHPPIR
+https://cloud.tencent.com/developer/article/1867927
+
+http://www.wowotech.net/irq_subsystem/gic-irq-chip-driver.html
+
+arm generic interrupt controller architecture specification 4.0
+
