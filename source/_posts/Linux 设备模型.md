@@ -14,7 +14,7 @@ struct kobject {
 	const char		*name;                  /* 名字，对应sysfs下的一个目录 */
 	struct list_head	entry;               /* kobject中插入的 list_head结构，用于构造双向链表 */
 	struct kobject		*parent;            /* 指向当前kobject父对象的指针，体现在sys中就是包含当前kobject对象的目录对象 */
-	struct kset		*kset;                    /* 当前kobject对象所属的集合 */
+	struct kset		*kset;                    /* 当前kobject对象所属的集合，例如/sys/bus目录下的所有kobject的kset成员就是/sys/bus */
 	struct kobj_type	*ktype;            /* 当前kobject对象的类型 */
 	struct kernfs_node	*sd;              /* VFS文件系统的目录项，是设备和文件之间的桥梁，sysfs中的符号链接是通过kernfs_node内的联合体实现的 */
 	struct kref		kref;                     /* kobject的引用计数，当计数为0时，回调之前注册的release方法释放该对象 */
