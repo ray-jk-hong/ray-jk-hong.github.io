@@ -38,6 +38,7 @@ https://doc.embedfire.com/linux/imx6/driver/zh/latest/linux_driver/i2c_mpu6050.h
 https://www.cnblogs.com/multimicro/p/11905647.html
 
 ## 代码
+寄存器级别的操作，初始化，软复位等等
 drivers/i2c/busses/i2c-designware-core.h
 drivers/i2c/busses/i2c-designgware-master.c
 drivers/i2c/busses/i2c-designware-common.c
