@@ -36,3 +36,10 @@ I2C发送完开始信号之后，==主设备== 在SCL线上产生每个时钟脉
 https://doc.embedfire.com/linux/imx6/driver/zh/latest/linux_driver/i2c_mpu6050.html
 
 https://www.cnblogs.com/multimicro/p/11905647.html
+
+## 代码
+drivers/i2c/busses/i2c-designware-core.h
+drivers/i2c/busses/i2c-designgware-master.c
+drivers/i2c/busses/i2c-designware-common.c
+
+
