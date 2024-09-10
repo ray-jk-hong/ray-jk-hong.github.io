@@ -43,4 +43,7 @@ drivers/i2c/busses/i2c-designware-core.h
 drivers/i2c/busses/i2c-designgware-master.c
 drivers/i2c/busses/i2c-designware-common.c
 
+designeware i2c datasheet
+https://www.datasheetarchive.com/?q=designware%20i2c
+
 
