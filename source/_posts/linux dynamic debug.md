@@ -1,4 +1,5 @@
 
+## 需要使能的宏
 
 ## 函数
 echo -n "func xxx +p" > /sys/kernel/debug/dynamic_debug/control 
