@@ -1,9 +1,9 @@
 ---
 title: Kasan
 categories: 
-- Linux Debug
+- Linux MM
 tags:
-- Linux Debug
+- Linux MM
 ---
 
 主要功能是检查内存越界访问和使用已释放的内存等问题。
