@@ -1,9 +1,9 @@
 ---
 title: CpuTopology
 categories: 
-- Aarch64
+- Linux Cpu
 tags:
-- Aarch64
+- Linux Cpu
 ---
 
 ## lscpu查看cpu信息
