@@ -1,9 +1,9 @@
 ---
 title: Perf
 categories: 
-- Linux
+- Linux 性能
 tags:
-- Linux Perf
+- Linux 性能
 ---
 ## perf命令
 ### stat
