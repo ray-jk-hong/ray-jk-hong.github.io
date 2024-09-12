@@ -1,9 +1,9 @@
 ---
-title: Linux Security
+title: Linux 内核安全设置
 categories: 
-- Linux Security
+- Linux 安全
 tags:
-- Linux Security
+- Linux 安全
 ---
 
 ## 参考
