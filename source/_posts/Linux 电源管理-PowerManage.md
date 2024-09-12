@@ -1,9 +1,9 @@
 ---
 title: Linux PowerManage
 categories: 
-- Linux
+- Linux 电源管理
 tags:
-- Linux PowerManage
+- Linux 电源管理
 ---
 
 ## Wakelock接口
