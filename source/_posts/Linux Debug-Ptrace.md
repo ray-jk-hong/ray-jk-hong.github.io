@@ -1,9 +1,9 @@
 ---
 title: Ptrace
 categories: 
-- Gdb
+- Linux Debug
 tags:
-- Gdb
+- Linux Debug
 ---
 
 ## 参考
