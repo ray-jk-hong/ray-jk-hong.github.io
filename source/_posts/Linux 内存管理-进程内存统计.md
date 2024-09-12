@@ -6,7 +6,7 @@ tags:
 - Linux MM
 ---
 
-## ps -aux可以显示进程的内存
+## 用户态角度
 ps -aux等方式打印进程信息时，能看到内存的使用情况，但显示都是VSS/RSS/PSS/USS等。
 这几种意义如下
 
@@ -33,8 +33,11 @@ https://segmentfault.com/a/1190000040077427
 
 疑问：进程通过ioctl进入到内核中，通过kmalloc等方式申请的内存，能否统计到USS/PSS/RSS中？？
 
-## OOM时打印的内容
+## 内核态角度
+OOM时打印的内容
 dump_tasks
+
+## 内核态/用户态看到的统计信息关联
 
 ## 参考
 https://www.lineo.co.jp/blog/linux/sol01-processmemory.html
