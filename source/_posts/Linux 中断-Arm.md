@@ -46,25 +46,34 @@ tags:
 4. GIC内部提供一个寄存器，当外设往这个地址写入数据时，就会往GIC发送中断。
 
 #### ITS（Interrupt Translation Service）
-1. ITS用来解析LPI中断，将接收到的LPI中断解析，然后发送对应的Redistributor，再由Redistributor将中断信息发送给Cpu interface。
-2. 外设通过写GITS_TRANSLATE寄存器，发起LPI中断，并提供ITS两个信息
-   (1) Event Id:保存在GITS_TRANLATE中，表示外设发送中断的事件类型
-   (2) Device Id:表示哪个外设发起的LPI中断
-3. ITS根据Event Id + Device Id查表，得到LPI中断号，再使用LPI中断号查表得到该中断的目标Cpu。
-4. ITS将LPI中断号，LPI中断对应的Cpu发送给Redistributor，Redistributor再将该中断号信息发给Cpu interface。
+1. 介绍
+   1) ITS用来解析LPI中断，将接收到的LPI中断解析，然后发送对应的Redistributor，再由Redistributor将中断信息发送给Cpu interface。
+   2) 2) 外设通过写GITS_TRANSLATE寄存器，发起LPI中断，并提供ITS两个信息
+      (1) Event Id:保存在GITS_TRANLATE中，表示外设发送中断的事件类型
+      (2) Device Id:表示哪个外设发起的LPI中断
+   3) ITS根据Event Id + Device Id查表，得到LPI中断号，再使用LPI中断号查表得到该中断的目标Cpu。
+   4) ITS将LPI中断号，LPI中断对应的Cpu发送给Redistributor，Redistributor再将该中断号信息发给Cpu interface。
+2. ITS的配置和存放信息
+   1) ITS在初始化的时候需要分配内存，用于保存命令队列缓存和路由表
+   2) CMDQ_BUFFER（命令队列缓存）：用于存放配置各个路由表命令，由软硬件共同维护
+   3) DEVICE_TABLE（设备表）：用于映射指定设备号所占用的ITT的基地址
+   4) ITT（中断传输表）：用于映射中断号和Collection（分组id）的关系
+   5) CT（分组信息表）：用于映射Collection（分组id）到TA（目标地址，就是对应的GICR的地址）的关系
 
 ## GIC介绍
 ### GICv3组成
 ![gicv3-总体结构](/images/中断/gicv3-总体结构.png)
 
 GICv3 控制器由以下三部分组成
-1. Distributor(GICD)：SPI 中断的分发
+#### GIC Distributor(GICD)：SPI 中断的分发
 (1) 打开或关闭每个中断。Distributor对中断的控制分成两个级别。一个是全局中断的控制（GIC_DIST_CTRL）。一旦关闭了全局的中断，那么任何的中断源产生的中断事件都不会被传递到 CPU interface。另外一个级别是对针对各个中断源进行控制（GIC_DIST_ENABLE_CLEAR），关闭某一个中断源会导致该中断事件不会分发到 CPU interface，但不影响其他中断源产生中断事件的分发。
 (2) 控制将当前优先级最高的中断事件分发到一个或者一组 CPU interface。当一个中断事件分发到多个 CPU interface 的时候，GIC 的内部逻辑应该保证只 assert 一个CPU
 (3) 优先级控制
 (4) interrupt属性设定。设置每个外设中断的触发方式：电平触发、边缘触发
 (5) interrupt group的设定。设置每个中断的 Group，其中 Group0 用于安全中断，支持 FIQ 和 IRQ，Group1 用于非安全中断，只支持 IRQ
-2. Redistributor：SGI，PPI，LPI 中断的管理，将中断发送给 CPU interface
+
+#### GIC Redistributor：SGI，PPI，LPI 中断的管理，将中断发送给 CPU interface
+1. GICR能力
 (1) 启用和禁用 SGI 和 PPI。
 (2) 设置 SGI 和 PPI 的优先级。
 (3) 将每个 PPI 设置为电平触发或边缘触发。
@@ -72,7 +81,13 @@ GICv3 控制器由以下三部分组成
 (5) 控制 SGI 和 PPI 的状态。
 (6) 内存中数据结构的基址控制，支持 LPI 的相关中断属性和挂起状态。
 (7) 电源管理支持。
-3. CPU interface：传输中断给 Core
+2. GICR配置和信息存放
+(1) 有属性配置表(Config Table)，PT表（Pending Table）和CPT表（Coarse Pending Table）。这些都存放在内存中
+(2) 属性配置表(Config Table)：存放中断优先级，分组信息，使能状态
+(3) PT表（Pending Table）：存放中断的挂起状态
+(4) CPT表（Coarse Pending Table）：为了加快搜索内存Pending状态中断速度，因此需要一个CPT映射表，用于建立512个PT中断映射关系。每个CPT对应512个中断，里面信息存放一个优先级和pending状态，分别对应512个中断最高优先级和512个中断里是否有pending状态中断存在。类似一级页表和二级页表。
+
+#### CPU interface：每个CPU Interface都负责把一个CPU连到GIC上
 (1) 打开或关闭 CPU interface 向连接的 CPU assert 中断事件。对于 ARM，CPU interface 和 CPU 之间的中断信号线是 nIRQCPU 和 nFIQCPU。如果关闭了中断，即便是 Distributor 分发了一个中断事件到 CPU interface，也不会 assert 指定的 nIRQ 或者 nFIQ 通知 Core
 (2) 中断的确认。Core 会向 CPU interface 应答中断（应答当前优先级最高的那个中断），中断一旦被应答，Distributor 就会把该中断的状态从 pending 修改成 active 或者 pending and active（这是和该中断源的信号有关，例如如果是电平中断并且保持了该 asserted 电平，那么就是 pending and active）。ack 了中断之后，CPU interface 就会 deassert nIRQCPU 和 nFIQCPU 信号线
 (3) 中断处理完毕的通知。当 interrupt handler 处理完了一个中断的时候，会向写 CPU interface 的寄存器通知 GIC CPU 已经处理完该中断。做这个动作一方面是通知 Distributor 将中断状态修改为 deactive，另外一方面，CPU interface 会 priority drop，从而允许其他的 pending 的中断向 CPU 提交
@@ -80,6 +95,7 @@ GICv3 控制器由以下三部分组成
 (5) 设置 CPU 的中断抢占（preemption）策略
 (6) 在多个中断事件同时到来的时候，选择一个优先级最高的通知 CPU
 
+#### GIC各个组成部分负责的中断类型
 每个中断类型涉及的GICv3内部组成部分还不一样，如下图：
 ![gicv3-总体结构](/images/中断/gic-v3中断类型与模块关系.png)
 - Distributor只有SPI中断类型涉及。GICv2中SGI/PPI这些都Distributor管，但在GICv3中，Distributor只管SPI中断
