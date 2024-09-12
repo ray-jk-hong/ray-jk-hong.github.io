@@ -1,9 +1,9 @@
 ---
 title: Ftrace
 categories: 
-- Linux Trace
+- Linux 性能
 tags:
-- Linux Trace
+- Linux 性能
 ---
 
 ## Ftrace原理
