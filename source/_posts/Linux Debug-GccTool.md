@@ -1,9 +1,9 @@
 ---
 title: Gcc Tool
 categories: 
-- Gcc Tool
+- Linux Debug
 tags:
-- Gcc Tool
+- Linux Debug
 ---
 ## Summary
 ar, nm, objdump, addr2line
