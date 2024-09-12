@@ -1,9 +1,9 @@
 ---
 title: Lock Kmemleak
 categories: 
-- Linux Debug
+- Linux MM
 tags:
-- Linux Debug
+- Linux MM
 ---
 
 ## 参考
