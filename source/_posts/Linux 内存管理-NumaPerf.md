@@ -1,9 +1,9 @@
 ---
 title: Linux Numa Perf
 categories: 
-- Linux Numa
+- Linux MM
 tags:
-- Linux Numa
+- Linux MM
 ---
 
 ```c
