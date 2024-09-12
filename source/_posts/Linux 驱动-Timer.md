@@ -1,9 +1,9 @@
 ---
 title: Linux Timer
 categories: 
-- Linux Timer
+- Linux Driver
 tags:
-- Linux Timer
+- Linux Driver
 ---
 
 ## Sleep接口注意
