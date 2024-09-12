@@ -12,7 +12,7 @@ tags:
 ### irq domain
 中断系统中出现多个中断控制器，每个中断控制器对中断号都独立编号（HW interrupt ID），这时多个中断控制器就会出现中断号重复的情况。如果这样，注册中断不仅需要知道中断号（HW interrupt ID），而且需要知道是哪个中断控制器，irq domain就是为了解决这个问题。有了irq domain我们只需要知道虚拟的i中断号（IRQ number）就可以了。每个interrupt-controller可以，也可以没有自己的irq domain，就看你需不需要将自己的interrupt-controller的中断号转成硬件中断号了。例如gpio这个interrupt-controller，为了方便，中断号都是以gpio号替换掉的，这个时候gpio interrupt-controller就需要有一个irq domain将gpio号转成硬件中断号。
 
-### interrupt-controller
+### interrupt-controlle
 所谓interrupt-controller就是那些实际产生中断的设备或者芯片IP。例如gic，gpio这些都是一个interrupt-controller。interrupt-controller之间是可以级联的，例如gpio这个interrrup-controller就是级联到gic这个interrupt-controller。
 
 ### irq chip
@@ -133,6 +133,9 @@ https://blog.csdn.net/jasonactions/article/details/115541386
 
 疑问：系统启动的时候，是怎么读取所有的interrupt controller然后把这些关系都组织好的？包括interrupt-parent也是在启动的时候都读完，建立关系并组织irq domain。
 [drivers/of/irq.c] of_irq_parse_raw()
+
+## interrupt-controller和interrupt-parent指定和级联示意图
+![controller-parent示意图](/images/中断/controller-parent示意图.png)
 
 https://stackoverflow.com/questions/26667082/max732x-c-i2c-io-expander-gpio-keys-w-linux-device-tree-not-working
 https://stackoverflow.com/questions/34371352/what-are-linux-irq-domains-why-are-they-needed
