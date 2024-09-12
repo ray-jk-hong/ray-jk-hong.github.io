@@ -7,6 +7,7 @@ tags:
 ---
 
 ## 需要使能的宏
+CONFIG_DYNAMIC_DEBUG
 
 ## 按照范围使能
 ### 函数
