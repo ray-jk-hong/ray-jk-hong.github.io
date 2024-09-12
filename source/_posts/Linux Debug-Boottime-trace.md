@@ -1,9 +1,9 @@
 ---
 title: Boot time trace
 categories: 
-- Linux Trace
+- Linux Debug
 tags:
-- Linux Trace
+- Linux Debug
 ---
 
 ## 参考
