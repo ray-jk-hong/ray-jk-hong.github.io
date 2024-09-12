@@ -1,9 +1,9 @@
 ---
 title: Linux Rcu (Read Copy Update)
 categories: 
-- Linux Lock
+- Linux 锁
 tags:
-- Linux Lock
+- Linux 锁
 ---
 
 ## 参考
