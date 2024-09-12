@@ -6,8 +6,9 @@ tags:
 - Linux 中断
 ---
 
-##介绍
-### 中断类型
+## 中断介绍
+### 中断类型介绍
+#### 按照应用分类
 | 中断类型 | 硬件中断号  | 描述 |
 | --- | --- | --- |
 | SGI | 0-15 | 软中断，由软件触发引起的中断，通过向寄存器 GICD_SGIR 写入数据来触发，系统会使用 SGI 中断来完成多核之间的通信|
@@ -19,9 +20,23 @@ tags:
 ![gicv3-总体结构](/images/中断/gic-v3中断类型和范围.png)
 
 - SGI (Software Generated Interrupt)：软件触发的中断。软件可以通过写 GICD_SGIR 寄存器来触发一个中断事件，一般用于核间通信，内核中的 IPI：inter-processor interrupts 就是基于 SGI。
-- PPI (Private Peripheral Interrupt)：私有外设中断。这是每个核心私有的中断。PPI会送达到指定的CPU上，应用场景有CPU本地时钟
+- PPI (Private Peripheral Interrupt)：私有外设中断，只能发给一个指定的处理器处理。Linux timer是使用这类中断触发的。
 - SPI (Shared Peripheral Interrupt)：公用的外部设备中断，也定义为共享中断。中断产生后，可以分发到某一个CPU上。比如按键触发一个中断，手机触摸屏触发的中断
 - LPI (Locality-specific Peripheral Interrupt)：LPI 是 GICv3 中的新特性，它们在很多方面与其他类型的中断不同。LPI 始终是基于消息的中断，它们的配置保存在表中而不是寄存器。比如 PCIe 的 MSI/MSI-x 中断
+#### 按照行为分类
+按照行为可以分为消息中断（MSI）和线中断
+
+### 中断模型
+1. 1-N模型
+中断被GIC发送给N个处理器，但只需要一个处理器接收处理。GIC确认有一个处理器处理了当前中断，GIC会将发给其余处理器的中断信号立刻关闭；这种模型一般用于SPI/PPI
+(1) 1-1模型：SGI, PPI, SPI，LPI
+(2) 1-N模型：SPI
+2. N-N模型
+中断被GIC发送给N个处理器了，也需要N个处理器都对其接收处理。即使GIC确认已有处理器在处理此中断，GIC仍会保持发给其余处理器的中断信号有效
+(1) N-N模型：SGI、SPI。
+
+### SPI中断
+
 
 ### LPI中断
 #### LPI中断介绍
@@ -38,7 +53,7 @@ tags:
 3. ITS根据Event Id + Device Id查表，得到LPI中断号，再使用LPI中断号查表得到该中断的目标Cpu。
 4. ITS将LPI中断号，LPI中断对应的Cpu发送给Redistributor，Redistributor再将该中断号信息发给Cpu interface。
 
-## GIC
+## GIC介绍
 ### GICv3组成
 ![gicv3-总体结构](/images/中断/gicv3-总体结构.png)
 
