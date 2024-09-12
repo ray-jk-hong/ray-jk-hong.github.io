@@ -14,6 +14,10 @@ ASID：在多进程的情况下，每次切换进程都需要进行TLB清理。�
 
 PASID(Process Address Space ID) ，地址空间ID，是EP的本地ID，每个function都有一组不同的PASID，不同function间的PASID互不相关。带有PASID的TLP Prefix是一种End-End的TLP前缀，PASID与Requester ID一起共同作为请求TLP地址空间的唯一标识。同一PASID在同一系统中可以重复使用。PASID用来对多个进程进行区分。
 
+### ASID获取
+大于等于5.10版本arm64_mm_context_get(current->mm)
+小于5.10版本mm_context_get(current->mm);
+
 ### PASID获取
 iommu_sva_bind_device
 iommu_sva_get_pasid
@@ -26,6 +30,4 @@ https://blog.csdn.net/qq_45024274/article/details/129224989
 
 ## SVA的概念
 https://www.kernel.org/doc/html/next/x86/sva.html
-
-
 
