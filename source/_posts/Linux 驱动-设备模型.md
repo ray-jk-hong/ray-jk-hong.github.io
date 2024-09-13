@@ -79,7 +79,7 @@ int bus_register(const struct bus_type *bus)
     bus_kobj->kset = bus_kset; 
     bus_kobj->ktype = &bus_ktype;
 
-    kset_register(kset); // 在/sys/bus目录下创建文件夹, 这步过后就能看到/sys/bus目录下新生成了一个文件夹, 并在文件夹下创建uvent文件
+    kset_register(kset); // 在/sys/bus目录下创建文件夹, 这步过后就能看到/sys/bus目录下新生成了一个文件夹, 并在文件夹下创建uvent文件，然后把kobject加到bus_kset->list中
     bus_create_file(bus, &bus_attr_uevent); // 创建kobjet->sd
 
     kset_create_and_add("devices", NULL, bus_kobj); // 创建/sys/bus/xxx/devices目录
