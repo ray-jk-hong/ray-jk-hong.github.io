@@ -7,15 +7,36 @@ tags:
 ---
 
 ## 相关结构体
-struct irq_chip
-struct irq_desc
-struct irq_data
+1. struct irq_chip
+- 用来描述如何驱动interrupt-controller的一组接口
+2. struct irqdomain
+- 指向interrupt-controller提供的fwnode（定义的dts信息就保存在这里）。
+- 提供方法将interrupt-controller定义的本地的irq id转换成hwirq。
+- 每个interrupt-controller都有一个irqdomain
+3. struct irq_desc
+- 每个中断都有一个对应的irq_desc（就是说与中断号是1:1对应存在的）
+- 保存着中断的主要信息
+4. struct irq_data
+- 一个中断一个，用来管理与irq_chip相关的东西
+- 保存IRQ num和hwirq
+- 有指针指向irq_chip
+- 被irq_desc包含
 
-google: Knocking at your back door Marc Zyngier  arm
+## 中断触发-回调
+在中断触发到中断回调过程：
+![中断触发到回调流程.png](/images/中断/中断触发到回调流程.png)
+1. CPU接收到中断
+2. 通过读gic寄存器等方式找到hwirq号
+3. 通过hwirq和irqdomain找到IRQ num就可以直接找到irq_desc
+4. Linux内核就可以执行对应的回调了
+
+"Knocking at your back door" - Marc Zyngier 
 https://events17.linuxfoundation.org/events/archive/2016/embedded-linux-conference-europe
 
 ## irq-domain/irq-chip/interrupt-controller关系
 ![irqdomain-irqcontroller关系](/images/中断/中断控制器-irqdomain关系.png)
+
+这个图话的有问题，每个interrupt-controller都要有自己的irqdomain
 
 ### irq domain
 中断系统中出现多个中断控制器，每个中断控制器对中断号都独立编号（HW interrupt ID），这时多个中断控制器就会出现中断号重复的情况。如果这样，注册中断不仅需要知道中断号（HW interrupt ID），而且需要知道是哪个中断控制器，irq domain就是为了解决这个问题。有了irq domain我们只需要知道虚拟的i中断号（IRQ number）就可以了。每个interrupt-controller可以，也可以没有自己的irq domain，就看你需不需要将自己的interrupt-controller的中断号转成硬件中断号了。例如gpio这个interrupt-controller，为了方便，中断号都是以gpio号替换掉的，这个时候gpio interrupt-controller就需要有一个irq domain将gpio号转成硬件中断号。
