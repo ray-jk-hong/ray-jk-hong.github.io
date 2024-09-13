@@ -12,7 +12,7 @@ struct irq_desc
 struct irq_data
 
 google: Knocking at your back door Marc Zyngier  arm
-
+https://events17.linuxfoundation.org/events/archive/2016/embedded-linux-conference-europe
 
 ## irq-domain/irq-chip/interrupt-controller关系
 ![irqdomain-irqcontroller关系](/images/中断/中断控制器-irqdomain关系.png)
