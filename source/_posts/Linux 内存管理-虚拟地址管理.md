@@ -37,7 +37,8 @@ tags:
 如果A进程是内核的线程，拿mmgrap要替换成kthread_use_mm()【这个很重要】
 
 ## mm notifier
-mm notifier可以提交注册，观测mm_struct是否在调用exit_mmap函数销毁所有的vma。(__mmput()->exit_mmap()函数中会调用mm notifier的回调函数)
+mm notifier可以提交注册，观测mm_struct是否在调用exit_mmap函数销毁所有的vma。
+(__mmput()->exit_mmap()->mmu_notifier_release()函数中会调用mm notifier的回调函数)
 
 ## 内核虚拟地址管理[include/linux/mm.h]
 
