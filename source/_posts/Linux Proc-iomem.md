@@ -16,4 +16,7 @@ tags:
     +-- insert_resource
 ```
 
+2. 其他
+其他的就不说了，像驱动，printk需要的内存等等都是通过insert_resource添加进去的，看代码就好了。
+
 https://blog.csdn.net/weixin_45030965/article/details/126122511
