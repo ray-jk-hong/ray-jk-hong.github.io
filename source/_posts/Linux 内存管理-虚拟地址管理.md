@@ -15,14 +15,29 @@ tags:
 
 使用方法：
 ```c
-1. 获取struct mm_struct *get_task_mm(struct task_struct *task) // 这里就是调用mmget，但里边用了task_lock锁
+1. 获取newmm = struct mm_struct *get_task_mm(struct task_struct *task), oldmm = current->mm // get_task_mm就是调用mmget，里边用了task_lock锁
 2. mmap_lock锁需要抓？down_write?down_read锁怎么区分  
 3. mmgrab()
-4. 做vma分配等事情
-5. mmdrop()
+4. current->mm = newmm;
+5. 做vma分配等事情 // 在流程中需要使用current->mm
+6. current->mm = oldmm;
+7. mmdrop()
+8. mmput()
+```
+上面的操作就是A进程拿了B进程的mm并做操作的流程，但仅限于A进程是用户态进程的场景，如果A进程是内核态线程，需要做如下操作。
+
+```c
+1. 获取newmm = struct mm_struct *get_task_mm(struct task_struct *task), oldmm = current->mm // get_task_mm就是调用mmget，里边用了task_lock锁
+2. mmap_lock锁需要抓？down_write?down_read锁怎么区分  
+3. kthread_use_mm
+4. 做vma分配等事情 // 在流程中需要使用current->mm
+5. kthread_unuse_mm;
 6. mmput()
 ```
-上面的操作就是A进程拿了B进程的mm并做操作的流程。如果A进程是内核的线程，拿mmgrap要替换成kthread_use_mm()【这个很重要】
+如果A进程是内核的线程，拿mmgrap要替换成kthread_use_mm()【这个很重要】
+
+## mm notifier
+mm notifier可以提交注册，观测mm_struct是否在调用exit_mmap函数销毁所有的vma。(__mmput()->exit_mmap()函数中会调用mm notifier的回调函数)
 
 ## 内核虚拟地址管理[include/linux/mm.h]
 
