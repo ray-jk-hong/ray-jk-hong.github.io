@@ -182,6 +182,7 @@ reserved-memory {
 ## memory与reserve区域的关系
 memory是表示所有可用的物理内存，包括enum memblock_flags所有的类型，是实实在在的内存。reserved内存是从真实内存里边抠出去的内存。
 所以reserved区域内存都是包含在memory区域里边的。在page初始化的时候，会扫描所有的memory区域，去除reserve区域并初始化page。
+有些reserved区域在memblock.reserved里边没有显示，是因为这段区域脱离了memblock.memory区域（但也不表示这段就不能使用，如果这段确实是物理内存，则直接ioremap使用就好了，但这么做确实不好统计，不推荐）
 
 ## no-map到底表示什么
 我们看到reserved-memory区域中，标记位no-map的起始都会统计到memroy区域，在统计page个数的时候也不会抠掉no-map区域。那no-map到底表示的是什么？
