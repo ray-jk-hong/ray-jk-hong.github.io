@@ -14,7 +14,6 @@ tags:
 2. mmgrap增加mm_count计数，防止mm_struct被释放（即使是进程退了）
 
 使用方法：
-
 ```c
 1. 获取struct mm_struct *get_task_mm(struct task_struct *task) // 这里就是调用mmget，但里边用了task_lock锁
 2. mmap_lock锁需要抓？down_write?down_read锁怎么区分  
@@ -23,8 +22,7 @@ tags:
 5. mmdrop()
 6. mmput()
 ```
-但上面的，在本进程操作，或者拿到其他进程的mm之后操作是有区别的。
-
+上面的操作就是A进程拿了B进程的mm并做操作的流程。如果A进程是内核的线程，拿mmgrap要替换成kthread_use_mm()【这个很重要】
 
 ## 内核虚拟地址管理[include/linux/mm.h]
 
