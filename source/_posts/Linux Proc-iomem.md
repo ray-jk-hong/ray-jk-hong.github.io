@@ -18,5 +18,6 @@ tags:
 
 2. 其他
 其他的就不说了，像驱动，printk需要的内存等等都是通过insert_resource添加进去的，看代码就好了。
+insert_resource的时候传入的第一个参数是iomem_resource就是添加到/proc/iomem统计里边去掉的。
 
 https://blog.csdn.net/weixin_45030965/article/details/126122511
