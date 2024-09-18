@@ -106,6 +106,7 @@ end note
             +-- zone_sizes_init:
                 +-- free_area_init
                     +-- free_area_init_node
+                        +-- free_area_init_core 
                     +-- memmap_init
 ```
 1) free_area_init的前面的部分将pglist_data结构体初始化，确定范围等
