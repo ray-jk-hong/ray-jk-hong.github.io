@@ -19,3 +19,6 @@ dma_map_single接口传入的地址，需要是线性地址范围地址，且物
 
 2. dma_alloc_coherent
 
+## 参考
+https://www.byteisland.com/dma-%E4%B8%8E-scatterlist-%E6%8A%80%E6%9C%AF%E7%AE%80%E4%BB%8B/
+
