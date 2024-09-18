@@ -125,6 +125,7 @@ end note
 - node_next Pointer to next node in a NULL terminated list.
 
 ## zone初始化（buddy算法初始化）
+初始化zone并将page连接到zone的流程如下：
 ```c
 +-- start_kernel
     +-- mm_core_init
@@ -135,6 +136,13 @@ end note
     +-- mem_init
         +-- memblock_free_all
             +-- free_low_memory_core_early
+                +-- __free_memory_core
+                    +-- __free_pages_memory
+                        +-- memblock_free_pages
+                            +-- __free_pages_core
+                                +-- __free_pages_ok
+                                    +-- free_one_page
+                                        +-- __free_one_page
 ```
 
 初始化日志中，可以看到初始化之后的buddy info：
