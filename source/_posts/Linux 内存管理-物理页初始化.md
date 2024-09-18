@@ -115,7 +115,7 @@ end note
 +-- start_kernel
     +-- mm_core_init
         +-- build_all_zonelists:
-		    +-- build_all_zonelists_init
+        	+-- build_all_zonelists_init
                 +-- __build_all_zonelists
                     +-- build_zonelists
     +-- mem_init
