@@ -28,3 +28,5 @@ struct scatterlist {
 ## 参考
 https://www.wowotech.net/memory_management/scatterlist.html
 
+https://stackoverflow.com/questions/29270447/how-does-scatterlist-works-in-linux
+
