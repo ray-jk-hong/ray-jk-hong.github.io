@@ -105,12 +105,25 @@ end note
         +-- bootmem_init:
             +-- zone_sizes_init:
                 +-- free_area_init
+                    +-- free_area_init_node
                     +-- memmap_init
 ```
 1) free_area_init的前面的部分将pglist_data结构体初始化，确定范围等
 2) memmap_init会扫描memblock的pfn范围，将page结构体拿到并初步初始化page结构体，但没有真正加到zone里边（buddy初始化还没开始）
 
-2. zone初始化（buddy算法初始化）
+- node_zones The zones for this node, ZONE_HIGHMEM, ZONE_NORMAL, ZONE_DMA;
+- node_zonelists This is the order of zones that allocations are preferred from. build_zonelists() in mm/page_alloc.c sets up the order when called by free_area_init_core(). A failed allocation in ZONE_HIGHMEM may fall back to ZONE_NORMAL or back to ZONE_DMA;
+- nr_zones Number of zones in this node, between 1 and 3. Not all nodes will have three. A CPU bank may not have ZONE_DMA for example;
+- node_mem_map This is the first page of the struct page array representing each physical frame in the node. It will be placed somewhere within the global mem_map array;
+- valid_addr_bitmap A bitmap which describes “holes” in the memory node that no memory exists for. In reality, this is only used by the Sparc and Sparc64 architectures and ignored by all others;
+- bdata This is only of interest to the boot memory allocator discussed in Chapter 5;
+- node_start_paddr The starting physical address of the node. An unsigned long does not work optimally as it breaks for ia32 with Physical Address Extension (PAE) for example. PAE is discussed further in Section 2.5. A more suitable solution would be to record this as a Page Frame Number (PFN). A PFN is simply in index within physical memory that is counted in page-sized units. PFN for a physical address could be trivially defined as (page_phys_addr >> PAGE_SHIFT);
+- node_start_mapnr This gives the page offset within the global mem_map. It is calculated in free_area_init_core() by calculating the number of pages between mem_map and the local mem_map for this node called lmem_map;
+- node_size The total number of pages in this zone;
+- node_id The Node ID (NID) of the node, starts at 0;
+- node_next Pointer to next node in a NULL terminated list.
+
+## zone初始化（buddy算法初始化）
 ```c
 +-- start_kernel
     +-- mm_core_init
