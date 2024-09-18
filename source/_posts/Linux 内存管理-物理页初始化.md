@@ -153,7 +153,7 @@ Fallback order for Node 1: 0 30 33 34 35 36 37 38 39 40 31
 ```
 
 ## Page结构体
-- page_type
+### page_type
   include/linux/page-flags.h文件中PAGE_TYPE_OPS定义的一组page类型的定义。有如下几个：
 ```
     PAGE_TYPE_OPS(Buddy, buddy) ： 表示page是free的且在buddy系统中（连接的zone的free_area中，当然这个page肯定是componed head的page，其他page即使在buddy系统中也不会设置这个）
@@ -171,7 +171,42 @@ Fallback order for Node 1: 0 30 33 34 35 36 37 38 39 40 31
     #define PG_table	0x00000200
     #define PG_guard	0x00000400
 ```
+### flags
+PG_active: This bit is set if a page is on the active_list LRU and cleared when it is removed. It marks a page as being hot
+PG_arch_1：Quoting directly from the code: PG_arch_1 is an architecture specific page state bit. The generic code guarantees that this bit is cleared for a page when it first is entered into the page cache. This allows an architecture to defer the flushing of the D-Cache (See Section 3.9) until the page is mapped by a process
+PG_checked：Only used by the Ext2 filesystem
+PG_dirty：This indicates if a page needs to be flushed to disk. When a page is written to that is backed by disk, it is not flushed immediately, this bit is needed to ensure a dirty page is not freed before it is written out
+PG_error：If an error occurs during disk I/O, this bit is set
+PG_fs_1：Bit reserved for a filesystem to use for it's own purposes. Currently, only NFS uses it to indicate if a page is in sync with the remote server or not
+PG_highmem：Pages in high memory cannot be mapped permanently by the kernel. Pages that are in high memory are flagged with this bit during mem_init()
+PG_launder：This bit is important only to the page replacement policy. When the VM wants to swap out a page, it will set this bit and call the writepage() function. When scanning, if it encounters a page with this bit and PG_locked set, it will wait for the I/O to complete
+PG_locked：This bit is set when the page must be locked in memory for disk I/O. When I/O starts, this bit is set and released when it completes
+PG_lru：If a page is on either the active_list or the inactive_list, this bit will be set
+PG_referenced：If a page is mapped and it is referenced through the mapping, index hash table, this bit is set. It is used during page replacement for moving the page around the LRU lists
+PG_reserved：This is set for pages that can never be swapped out. It is set by the boot memory allocator (See Chapter 5) for pages allocated during system startup. Later it is used to flag empty pages or ones that do not even exist
+PG_slab：This will flag a page as being used by the slab allocator
+PG_skip：Used by some architectures to skip over parts of the address space with no backing physical memory
+PG_unused：This bit is literally unused
+PG_uptodate：When a page is read from disk without error, this bit will be set.
 
+flag设置/校验/清楚的接口：
+| **Bit name** | **Set** | Test | Clear |
+| ---- | ---- | ---- | ---- |
+| PG_active | SetPageActive() | PageActive() | ClearPageActive() |
+| PG_arch_1 | N/A | N/A | N/A |
+| PG_checked | SetPageChecked() | PageChecked() | N/A |
+| PG_dirty | SetPageDirty() | PageDirty() | ClearPageDirty() |
+| PG_error | SetPageError() | PageError() | ClearPageError() |
+| PG_highmem | N/A | PageHighMem() | N/A |
+| PG_launder | SetPageLaunder() | PageLaunder() | ClearPageLaunder() |
+| PG_locked | LockPage() | PageLocked() | UnlockPage() |
+| PG_lru | TestSetPageLRU() | PageLRU() | TestClearPageLRU() |
+| PG_referenced | SetPageReferenced() | PageReferenced() | ClearPageReferenced() |
+| PG_reserved | SetPageReserved() | PageReserved() | ClearPageReserved() |
+| PG_skip | N/A | N/A | N/A |
+| PG_slab | PageSetSlab() | PageSlab() | PageClearSlab() |
+| PG_unused() | N/A | N/A | N/A |
+| PG_uptodate | SetPageUptodate() | PageUptodate() | ClearPageUptodate() |
 
 ## 内存分布相关宏
 宏的后面写的定义或者未定义写的是我自己的虚拟机的配置。
