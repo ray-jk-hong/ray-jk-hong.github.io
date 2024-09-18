@@ -4,6 +4,9 @@ shmget
 shmat
 shmdt
 
+## posix 方式
+shm_open
+
 ## dma-buf
 
 ## ion
