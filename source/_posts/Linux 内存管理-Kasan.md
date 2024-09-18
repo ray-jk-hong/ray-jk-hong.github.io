@@ -24,3 +24,7 @@ while outline instrumentation gives a smaller image but is slower
 https://www.kernel.org/doc/html/v4.14/dev-tools/kasan.html
 https://blog.csdn.net/feelabclihu/article/details/109685476
 http://www.wowotech.net/memory_management/424.html
+
+CONFIG_PAGE_OWNER
+./Documentation/dev-tools/kasan.rst
+
