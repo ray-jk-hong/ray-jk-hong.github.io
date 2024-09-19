@@ -30,16 +30,14 @@ https://blog.csdn.net/weixin_51760563/article/details/122789480
 1、代码路径
 主线代码：https://github.com/torvalds/linux
 
-2、    重点学习内容：
+2、重点学习内容：
 调度类 – CFS， 调度类 – IDLE，调度类 – RT， 调测工具；
 
-3、    CPU体系架构，CPU调频，CPU hotplug,  CPU isolate， EAS，NOHZ等
+3、CPU体系架构，CPU调频，CPU hotplug,  CPU isolate， EAS，NOHZ等
 当前了解即可，后面深入到项目中慢慢掌握。
 
 
 CPU体系架构：
-
-
 
 1、代码路径
 主线代码：https://github.com/torvalds/linux
