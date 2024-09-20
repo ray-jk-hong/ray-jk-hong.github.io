@@ -138,7 +138,6 @@ dma_set_coherent_mask(dev, 0xFFFFFFFF);
 lp->vaddr = dma_alloc_coherent(dev, ALLOC_SIZE, &lp->paddr, GFP_KERNEL);
 dev_info(dev, "Allocated coherent memory, vaddr: 0x%0llX, paddr: 0x%0llX\n", 
 (u64)lp->vaddr, lp->paddr);
-
 ```
 
 #### CMA内存预留
@@ -215,5 +214,13 @@ drv@0xabadf {
     (1) 1表示边沿触发
     (2) 4表示电平触发
   SGI中断，DTS是不支持的，没有SGI中断的相关DTS配置。
+疑问：有些设备没有定义interrupt-cells，且没有定义interrupt-parent。这种设备应该是直接继承gic？
+例如在dts文件中会有：
+```
+interrupt-controller@abc0 {
+   #interrupt-cells = <0x3>;
+}
+```
+
 
 https://blog.csdn.net/rockrockwu/article/details/96461563
