@@ -200,8 +200,9 @@ mmc0_8bit_pins_a: mmc0-8bit@0 {
 ### 中断配置
 ```
 drv@0xabadf {
-    #interrupt-cells = <0x3>;
-    interrupts = <0 30 1>;
+   #interrupt-cells = <0x3>;
+   interrupts = <0 30 1>;
+   interrupt-names = "xx";
 };
 ```
 - interrupt-cells：表示interrupt由几组数字组成
@@ -221,6 +222,6 @@ interrupt-controller@abc0 {
    #interrupt-cells = <0x3>;
 }
 ```
-
+- interrupt-names：可以给每个中断起名字
 
 https://blog.csdn.net/rockrockwu/article/details/96461563
