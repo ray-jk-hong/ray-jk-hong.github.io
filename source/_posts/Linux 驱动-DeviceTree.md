@@ -223,5 +223,5 @@ interrupt-controller@abc0 {
 }
 ```
 - interrupt-names：可以给每个中断起名字
-
-https://blog.csdn.net/rockrockwu/article/details/96461563
+- interrupt-map：
+https://stackoverflow.com/questions/69849394/in-device-tree-a-nodes-interrupts-output-cell-size-is-1-but-its-interrupt-pare
