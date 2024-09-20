@@ -184,19 +184,36 @@ pool
 ```
 5. pinctrl配置项
 ```bash
-   mmc0_8bit_pins_a: mmc0-8bit@0 {
-      fsl,pinmux-ids = <
-      0x2000 /* MX28_PAD_SSP0_DATA0__SSP0_D0 */
-      0x2010 /* MX28_PAD_SSP0_DATA1__SSP0_D1 */
-      [...]
-      0x2090 /* MX28_PAD_SSP0_DETECT__SSP0_... */
-      0x20a0 /* MX28_PAD_SSP0_SCK__SSP0_SCK */
-      >;
-      fsl,drive-strength = <1>;
-      fsl,voltage = <1>;
-      fsl,pull-up = <1>;
-   };
+mmc0_8bit_pins_a: mmc0-8bit@0 {
+  fsl,pinmux-ids = <
+    0x2000 /* MX28_PAD_SSP0_DATA0__SSP0_D0 */
+    0x2010 /* MX28_PAD_SSP0_DATA1__SSP0_D1 */
+    [...]
+    0x2090 /* MX28_PAD_SSP0_DETECT__SSP0_... */
+    0x20a0 /* MX28_PAD_SSP0_SCK__SSP0_SCK */
+  >;
+  fsl,drive-strength = <1>;
+  fsl,voltage = <1>;
+  fsl,pull-up = <1>;
+};
 ```
 
+### 中断配置
+```
+drv@0xabadf {
+    #interrupt-cells = <0x3>;
+    interrupts = <0 30 1>;
+};
+```
+- interrupt-cells：表示interrupt由几组数字组成
+- interrupts：<0 30 0>根据interrupt-cells的定义，一个interrupt由3组数字组成
+  第一个数字：表示中断类型，0表示spi，1表示ppi，其他值留着以后用
+  第二个数字：表示中断号
+    (1) SPI中断：中断号从0-987，spin中断号要注意的一点是，写到dts里边的中断号要在实际的硬件中断号中-32
+    (2) PPI中断：中断号从16-31，PPI中断是每个CPU一份的。
+  第三个数字：表示触发方式
+    (1) 1表示边沿触发
+    (2) 4表示电平触发
+  SGI中断，DTS是不支持的，没有SGI中断的相关DTS配置。
 
-### 中断相关配置
+https://blog.csdn.net/rockrockwu/article/details/96461563
