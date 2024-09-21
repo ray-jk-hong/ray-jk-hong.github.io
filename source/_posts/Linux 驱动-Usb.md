@@ -118,6 +118,7 @@ Enedpoint/Interface/Configuration/Usb device之间的关系总结：
 - Interface有0个或多个Endpoint
 
 ## USB对应的Sysfs
+USB sysfs包含物理USB设备信息和USB Interface信息。
 
 
 ## 参考
