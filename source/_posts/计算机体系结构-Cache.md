@@ -136,6 +136,8 @@ c)	prefetch_range
 
 ## 6. Cache一致性维护
 ### 6.1 Cache一致性协议
+Cache本质上就是Local buffer，比如多个CPU之间，CPU与DMA之间如何保持数据同步是个大问题。
+Cache提供了多种保持数据一致性的协议，如下：
 1. Directory Based（目录一致性协议）
   目录一致性，主要思想是利用目录的形式记录所有cache line和共享数据的位置和状态，因此当处理器对某一cache line进行操作时，根据相应的目录项进行一致性操作。
   系统中cache directory有两种的实现方式：
@@ -183,6 +185,5 @@ c)	prefetch_range
 ## 8. Cache预取
 1. 软件预取
 2. 硬件预取
-
 
 https://zhuanlan.zhihu.com/p/694673551
