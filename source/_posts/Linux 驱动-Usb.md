@@ -108,9 +108,16 @@ Linux驱动通过struct usb_interface structure描述USB Interface。
 由多个Interface组成一个Configurations。一个USB设备可以有多个Configuration，并且在多个Configuration之间切换，以切换设备状态。
 例如某些设备支持下载Firmware到设备中，这种设备就需要有多个Configuration。Linux USB驱动同一时间只支持一个Configuration使能（Linux内核支持不太好，但幸运的是这种设备很少）。
 
-Configuration由结构体structure struct usb_host_config描述。
-整个USB设备由struct usb_device描述。
+Configuration由结构体structure struct usb_host_config描述。整个USB设备由struct usb_device描述。
 这两个结构体，Linux内核很少会读写。
+
+Enedpoint/Interface/Configuration/Usb device之间的关系总结：
+- USB设备有一个或多个Configuration
+- Configuration有一个或多个Interface
+- Interface有一个或多个Settings
+- Interface有0个或多个Endpoint
+
+## USB对应的Sysfs
 
 
 ## 参考
