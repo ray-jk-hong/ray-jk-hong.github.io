@@ -180,5 +180,9 @@ c)	prefetch_range
   2)	dma_sync_single_for_device
   一般是CPU在写数据之后使用DMA_TO_DEVICE调用此接口
 
+## 8. Cache预取
+1. 软件预取
+2. 硬件预取
+
 
 https://zhuanlan.zhihu.com/p/694673551
