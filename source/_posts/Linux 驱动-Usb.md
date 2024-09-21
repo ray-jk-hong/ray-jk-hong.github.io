@@ -119,6 +119,74 @@ Enedpoint/Interface/Configuration/Usb device之间的关系总结：
 
 ## USB对应的Sysfs
 USB sysfs包含物理USB设备信息和USB Interface信息。
+例如，一个USB鼠标，只有一个Interface，其Sysfs目录如下：
+As an example, for a simple USB
+```bash
+/sys/devices/pci0000:00/0000:00:09.0/usb2/2-1
+|-- 2-1:1.0
+|   |-- bAlternateSetting
+|   |-- bInterfaceClass
+|   |-- bInterfaceNumber
+|   |-- bInterfaceProtocol
+|   |-- bInterfaceSubClass
+|   |-- bNumEndpoints
+|   |-- detach_state
+|   |-- iInterface
+|   `-- power
+|       `-- state
+|-- bConfigurationValue
+|-- bDeviceClass
+|-- bDeviceProtocol
+|-- bDeviceSubClass
+|-- bMaxPower
+|-- bNumConfigurations
+|-- bNumInterfaces
+|-- bcdDevice
+|-- bmAttributes
+|-- detach_state
+|-- devnum
+|-- idProduct
+|-- idVendor
+|-- maxchild
+|-- power
+| `-- state
+|-- speed
+`-- version
+```
+
+结构体struct usb_device对应的目录：
+    /sys/devices/pci0000:00/0000:00:09.0/usb2/2-1
+与设备绑定的Interface对应的目录：
+    /sys/devices/pci0000:00/0000:00:09.0/usb2/2-1/2-1:1.0
+要了解这一长串的目录的意义，需要知道Linux内核是怎么标记USB设备。
+第一个USB设备是root hub，这是一个USB控制器（USB Controller），一般包含在一个PCIe设备中。
+之所以命名为USB Controller是因为其控制整个连接的USB bus。
+USB控制器（USB Controller）是 PCI 总线和 USB 总线之间的桥接，同时也是该总线上第一个 USB 设备.
+所有的root hub都被USB core赋予了一个number，上面的例子中就是usb2，就是说是第二个注册给USB core的root hub。
+- usb2：就是一个USB bus。
+- 2-1: USB设备的目录，第一个2是和USB bus的号是一样的，- 后面的1表示是USB设备插入的port号。
+- 2-1:1.0：USB Interface目录，前面是和USB设备目录名字一样。1.0：前面的1表示是第一个Configuration，后面的0表示Interface号0。
+USB interface的sysfs节点的值是可以被修改的，例如bConfigurationValue就可以被修改，以便修改USB Configuration行为。
+
+其他的Endpoint相关信息，没有包含在sysfs中，而是包含在 /proc/bus/usb/ 目录下。
+ /proc/bus/usb/ 目录下的内容也可以被修改，以便用户态USB驱动可以控制USB设备。
+
+## Urb(USB Request Block)
+### 介绍
+用来从特定的Endpoint，以异步方式读写数据的数据结构。与文件系统异步IO代码中的kiocb结构体，网络代码中的skbuff一样。
+USB驱动根据需求，可能给一个Endpoint创建多个Urb结构体或者多个Endpoint复用同一个Urb。
+典型的Urb的生命周期如下：
+- 被USB驱动创建
+- 被指定给某个USB设备的某个Endpoint
+- 被USB驱动提交给USB core
+- 被USB host controller驱动处理（被发送给USB设备）
+- 等到Urb结束，USB host controller会通知USB设备驱动
+Urb提交可以被驱动和USB core随时取消（例如在USB设备被移除时）。
+
+### Urb结构体(struct urb)
+成员说明：
+- struct usb_device *dev
+    执行用来发送当前Urb的USB设备。在 urb 被发送到 USB 核心之前，这个变量必须由USB 驱动程序初始化
 
 
 ## 参考
