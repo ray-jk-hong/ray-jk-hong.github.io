@@ -155,6 +155,8 @@ Cache提供了多种保持数据一致性的协议，如下：
 - MOSI
 - MOESI
 
+如果两个CPU不再同一个Cache L3范围内，就要考虑Cache一致性怎么解决了，如果芯片保证不了，则需要在代码层面去Invalid & Clean数据，保证两边读到的数据是一致的。
+
 ## 7. PCIe与CPU之间的数据一致性
 1. Consistent DMA Mapping
   dma_alloc_coherent类接口，直接申请内存并映射好DMA地址。接口内部根据PCIe是否支持Cache一致性，
