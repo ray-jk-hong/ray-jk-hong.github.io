@@ -38,6 +38,9 @@ Endpoint可以是如下4种之一：
 
 CONTROL和BULK模式用于异步数据发送，而且不是周期性的，是驱动什么时候想发送的时候就会用一下。INTERRUP和ISOCHRONOUS模式是周期性的。
 
+传输方式：
+https://www.cnblogs.com/linhaostudy/p/11393740.html
+
 
 Linux内核使用struct usb_host_endpoint描述endpoint。
 
@@ -198,7 +201,12 @@ Urb提交可以被驱动和USB core随时取消（例如在USB设备被移除时
     (6) unsigned int usb_rcvintpipe(struct usb_device *dev, unsigned int endpoint)  : interrupt IN
     (7) unsigned int usb_sndisocpipe(struct usb_device *dev, unsigned int endpoint)
     (8) unsigned int usb_rcvisocpipe(struct usb_device *dev, unsigned int endpoint)
-
+- unsigned int transfer_flags
+    此变量可以设置为多个不同的位值，具体取决于USB 驱动程序希望对 urb 执行的操作。可用的值有：
+    (1) URB_SHORT_NOT_OK：
+        设置后，它指定任何可能发生的 IN 端点上的短读（Short Read）操作都应被 USB 核心视为错误。
+        此值仅对要从 USB 设备读取的 urb 有用，对写入 urb 则无用
+    (2) URB_ISO_ASAP：
 
 ## 参考
 https://docs.kernel.org/driver-api/usb/writing_usb_driver.html
