@@ -186,7 +186,18 @@ Urb提交可以被驱动和USB core随时取消（例如在USB设备被移除时
 ### Urb结构体(struct urb)
 成员说明：
 - struct usb_device *dev
-    执行用来发送当前Urb的USB设备。在 urb 被发送到 USB 核心之前，这个变量必须由USB 驱动程序初始化
+    指向此 urb 所要发送的 struct usb_device 的指针。在 urb 可以发送到 USB 核心之前，此变量必须由 USB 驱动程序初始化。
+- unsigned int pipe
+    此 urb 将被发送到的特定 struct usb_device 的端点信息。此变量必须由 USB 驱动程序初始化，然后 urb 才能被发送到 USB 核心
+    要设置此结构的字段，USB驱动要根据传输方向酌情使用如下函数中的一个。请注意，每个端点只能属于一种类型。  
+    (1) unsigned int usb_sndctrlpipe(struct usb_device *dev, unsigned int endpoint) : control OUT endpoint 
+    (2) unsigned int usb_rcvctrlpipe(struct usb_device *dev, unsigned int endpoint) : control IN endpoint
+    (3) unsigned int usb_sndbulkpipe(struct usb_device *dev, unsigned int endpoint) : bulk OUT endpoint
+    (4) unsigned int usb_rcvbulkpipe(struct usb_device *dev, unsigned int endpoint) : bulk IN endpoint
+    (5) unsigned int usb_sndintpipe(struct usb_device *dev, unsigned int endpoint)  : interrupt OUT
+    (6) unsigned int usb_rcvintpipe(struct usb_device *dev, unsigned int endpoint)  : interrupt IN
+    (7) unsigned int usb_sndisocpipe(struct usb_device *dev, unsigned int endpoint)
+    (8) unsigned int usb_rcvisocpipe(struct usb_device *dev, unsigned int endpoint)
 
 
 ## 参考
