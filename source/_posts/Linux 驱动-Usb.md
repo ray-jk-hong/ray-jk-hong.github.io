@@ -201,12 +201,34 @@ Urb提交可以被驱动和USB core随时取消（例如在USB设备被移除时
     (6) unsigned int usb_rcvintpipe(struct usb_device *dev, unsigned int endpoint)  : interrupt IN
     (7) unsigned int usb_sndisocpipe(struct usb_device *dev, unsigned int endpoint)
     (8) unsigned int usb_rcvisocpipe(struct usb_device *dev, unsigned int endpoint)
-- unsigned int transfer_flags
+- unsigned int transfer_flags：
     此变量可以设置为多个不同的位值，具体取决于USB 驱动程序希望对 urb 执行的操作。可用的值有：
     (1) URB_SHORT_NOT_OK：
         设置后，它指定任何可能发生的 IN 端点上的短读（Short Read）操作都应被 USB 核心视为错误。
         此值仅对要从 USB 设备读取的 urb 有用，对写入 urb 则无用
     (2) URB_ISO_ASAP：
+- void *transfer_buffer：
+    指向向设备发送数据（对于 OUT urb）或从设备接收数据（对于 IN urb）时要使用的缓冲区的指针。为了让主机控制器能够正确访问此缓冲区，必须通过调用 kmalloc 来创建它，而不是在堆栈上或静态地创建。对于控制端点，此缓冲区用于传输的数据阶段。
+- dma_addr_t transfer_dma：
+    用于通过 DMA 将数据传输到 USB 设备的缓冲区。
+-int transfer_buffer_length：
+    对于 OUT 端点，如果端点最大值小于此变量中指定的值，则到 USB 设备的传输将被分解为较小的块，以便正确传输数据。这种大型传输发生在连续的 USB 帧中。在一个 urb 中提交大量数据，并让 USB 主机控制器将其拆分成较小的块，比按连续顺序发送较小的缓冲区要快得多。
+
+### 创建Urb
+### 发送Urb
+### Urb发送结束
+### Urb取消
+
+## USB Driver
+### USB Driver支持哪些设备
+struct usb_device_id 结构提供了此驱动程序支持的不同类型的 USB 设备的列表。USB core使用此列表来决定将设备交给哪个驱动程序，热插拔脚本则使用此列表来决定在特定设备插入系统时自动加载哪个驱动程序。
+struct usb_device_id结构体成员如下：
+- __u16 match_flags：
+    确定设备应与结构中的以下哪个字段匹配。这是由 include/linux/mod_devicetable.h 文件中指定的不同 USB_DEVICE_ID_MATCH_*值定义的位字段。此字段通常不会直接设置，而是由后面描述的 USB_DEVICE 类型宏初始化。
+__u16 idVendor：
+    设备的 USB Vendor ID。此编号由 USB Forum分配给其成员，其他人无法编造。
+__u16 idProduct：
+    设备的 USB 产品 ID。所有已分配Vendor ID 的供应商都可以按照自己的选择管理其产品 ID。
 
 ## 参考
 https://docs.kernel.org/driver-api/usb/writing_usb_driver.html
