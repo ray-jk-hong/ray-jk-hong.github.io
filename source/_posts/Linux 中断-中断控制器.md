@@ -170,6 +170,9 @@ https://stackoverflow.com/questions/26667082/max732x-c-i2c-io-expander-gpio-keys
 https://stackoverflow.com/questions/34371352/what-are-linux-irq-domains-why-are-they-needed
 https://stackoverflow.com/questions/34377846/what-is-chained-irq-in-linux-when-are-they-need-to-used
 
+## 中断亲和性
+irq_set_affinity_hint
+
 ## 参考
 
 https://blog.csdn.net/qq_16106195/article/details/135276562
