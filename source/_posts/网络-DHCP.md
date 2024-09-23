@@ -7,3 +7,4 @@ tags:
 ---
 
 DHCP(Dynamic Host Configuration Protocol)
+https://info.support.huawei.com/info-finder/encyclopedia/zh/DHCP.html
