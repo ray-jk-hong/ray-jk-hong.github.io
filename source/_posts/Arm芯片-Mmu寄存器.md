@@ -172,6 +172,9 @@ MAIR_ELx设置完成之后，在寻址的时候，就只需要通过lower attrib
 __cpu_setup
 __enable_mmu
 
+## TTBCR（Translation Table Base Control Register）
+
+
 ## 参考
 
 TTBR寄存器中asid的作用
