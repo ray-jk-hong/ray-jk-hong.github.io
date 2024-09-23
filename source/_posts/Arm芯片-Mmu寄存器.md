@@ -168,12 +168,16 @@ MAIR_ELx设置完成之后，在寻址的时候，就只需要通过lower attrib
 ![页表描述](/images/MMU/PTE-1.png)
 ![页表描述](/images/MMU/PTE-2.png)
 
+## TTBCR（Translation Table Base Control Register）
+
+## SCTLR_EL1
+### WXN
+
+## HCR_ELx
+
 ## 启动时配置mmu
 __cpu_setup
 __enable_mmu
-
-## TTBCR（Translation Table Base Control Register）
-
 
 ## 参考
 
