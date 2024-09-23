@@ -86,6 +86,25 @@ cpu-map {
 ## cpu上电过程
 https://blog.csdn.net/chensong_2000/article/details/129442447
 
+## 接口
+### nr_cpus_node(node)
+获取指定Numa node id上的CPU核心个数
+### cpu_to_node(cpu)
+获取CPU所在的Numa node号
+### numa_node_id(void)
+返回当前进程的Numa node id
+
+### for_each_online_node(node)
+参数(node)是出参。就是轮询所有上线的Numa node id
+
+### for_each_node_with_cpus(node)
+```
+#define for_each_node_with_cpus(node)			\
+	for_each_online_node(node)			\
+		if (nr_cpus_node(node))
+```
+轮询所有Numa node id，从里边挑选有cpu的Numa node id
+
 ## 参考
 
 Documentation\cputopology.txt
