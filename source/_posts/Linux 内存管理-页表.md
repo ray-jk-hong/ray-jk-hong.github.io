@@ -77,6 +77,13 @@ PTE_CONT
 
 ### AttrIndx[2:0]
 配合MAIR寄存器表示内存属性。
+Linux内核定义的内存属性有以下几种：
+0：DEVICE_nGnRnE
+1：DEVICE_nGnRE
+2：DEVICE_GRE
+3：NORMAL_NC
+4：NORMAL
+5：NORMAL_WT
 
 ### PBHA ?
 
