@@ -106,6 +106,11 @@ Aarch64的tcr相关的定义都在arch/arm64/include/asm/pgtable-hwdef.h
 - 101 48 bits, 256 TB.
 应该是和TxSZ表示的大小设置一样就可以了。
 
+IPS寄存器配置在__cpu_setup[arch/arm64/mm/proc.S]
+```c
+tcr_compute_pa_size tcr, #TCR_IPS_SHIFT, x5, x6
+```
+
 ### TG（Granule size）
 寻址的地址粒度（在Linux场景下，就是page_size对应的大小）
 01 16KByte
