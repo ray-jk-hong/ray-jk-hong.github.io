@@ -1,7 +1,7 @@
 ---
 title: Linux InputDriver
 categories: 
-- Linux Driver
+- Linux
 tags:
-- Linux Driver
+- Linux
 ---

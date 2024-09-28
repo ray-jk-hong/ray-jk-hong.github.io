@@ -1,9 +1,9 @@
 ---
 title: Linux 进程内存统计
 categories: 
-- Linux MM
+- Linux 
 tags:
-- Linux MM
+- Linux 
 ---
 
 ## 用户态角度

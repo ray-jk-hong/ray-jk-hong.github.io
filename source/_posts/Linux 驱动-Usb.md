@@ -1,9 +1,9 @@
 ---
 title: Linux Usb
 categories: 
-- Linux Driver
+- Linux
 tags:
-- Linux Driver
+- Linux
 ---
 
 ## USB基础
@@ -229,7 +229,7 @@ __u16 idVendor：
     设备的 USB Vendor ID。此编号由 USB Forum分配给其成员，其他人无法编造。
 __u16 idProduct：
     设备的 USB 产品 ID。所有已分配Vendor ID 的供应商都可以按照自己的选择管理其产品 ID。
-
+ 
 ## 参考
 https://docs.kernel.org/driver-api/usb/writing_usb_driver.html
 

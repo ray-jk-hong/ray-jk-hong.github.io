@@ -1,9 +1,9 @@
 ---
 title: ARM汇编
 categories: 
-- Aarch64
+- Arch
 tags:
-- Aarch64
+- Arch
 ---
 
 ## C语言中嵌入Asm

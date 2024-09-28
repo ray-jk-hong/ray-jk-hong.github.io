@@ -1,9 +1,9 @@
 ---
 title: Linux Bootmem
 categories: 
-- Linux MM
+- Linux
 tags:
-- Linux MM
+- Linux
 ---
 
 ## 物理地址的范围

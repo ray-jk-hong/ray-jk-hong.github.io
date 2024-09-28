@@ -1,9 +1,9 @@
 ---
 title: Linux Sg_table
 categories: 
-- Linux Driver
+- Linux
 tags:
-- Linux Driver
+- Linux
 ---
 
 struct sg_table 

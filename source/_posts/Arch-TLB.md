@@ -1,9 +1,9 @@
 ---
 title: TLB
 categories: 
-- Aarch64
+- Arch
 tags:
-- Aarch64
+- Arch
 ---
 
 ## TLB

@@ -1,9 +1,9 @@
 ---
 title: Gcc Tool
 categories: 
-- Linux Debug
+- 编译
 tags:
-- Linux Debug
+- 编译
 ---
 ## Summary
 ar, nm, objdump, addr2line

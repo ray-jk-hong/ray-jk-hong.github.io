@@ -1,9 +1,9 @@
 ---
-title: Lock Debug
+title: Linux 锁-Debug
 categories: 
-- Linux Debug
+- Linux
 tags:
-- Linux Debug
+- Linux
 ---
 
 CONFIG_LOCKUP_DETECTOR=y

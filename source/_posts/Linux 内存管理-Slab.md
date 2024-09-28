@@ -1,9 +1,9 @@
 ---
 title: Linux Slab
 categories: 
-- Linux MM
+- Linux
 tags:
-- Linux MM
+- Linux
 ---
 
 ## Feature

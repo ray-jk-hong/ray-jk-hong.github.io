@@ -1,9 +1,9 @@
 ---
 title: Linux Cgroup
 categories: 
-- Linux 算力分组
+- Linux
 tags:
-- Linux 算力分组
+- Linux
 ---
 
 ## Cgroup整体

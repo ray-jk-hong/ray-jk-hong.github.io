@@ -1,9 +1,9 @@
 ---
 title: Linux 用户态接口
 categories: 
-- Linux 用户态接口
+- Linux
 tags:
-- Linux 用户态接口
+- Linux
 ---
 
 ## Prctl

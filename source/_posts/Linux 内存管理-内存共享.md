@@ -1,3 +1,10 @@
+---
+title: Linux 进程间内存共享
+categories: 
+- Linux
+tags:
+- Linux
+---
 
 ## sys v方式
 shmget

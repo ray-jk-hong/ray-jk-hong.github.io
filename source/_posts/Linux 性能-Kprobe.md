@@ -1,9 +1,9 @@
 ---
-title: Kprobe
+title: Linux Kprobe
 categories: 
-- Linux 性能
+- Linux
 tags:
-- Linux 性能
+- Linux
 ---
 
 ## 内核态注册

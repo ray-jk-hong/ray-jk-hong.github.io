@@ -1,9 +1,9 @@
 ---
 title: 机器学习-System (MLSys)
 categories: 
-- 机器学习
+- AI
 tags:
-- 机器学习
+- AI
 ---
 
 MLSys 是机器学习（Machine Learning）和系统科学（Systems）的交叉领域，旨在优化和增强机器学习算法和应用的系统性能、效率与可用性。 

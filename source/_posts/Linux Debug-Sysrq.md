@@ -1,9 +1,9 @@
 ---
 title: Linux Sysrq
 categories: 
-- Linux Debug
+- Linux
 tags:
-- Linux Debug
+- Linux
 ---
 
 ## 代码路径

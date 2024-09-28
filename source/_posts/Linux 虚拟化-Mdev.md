@@ -1,9 +1,9 @@
 ---
 title: Linux Mdev
 categories: 
-- Linux 虚拟化
+- Linux
 tags:
-- Linux 虚拟化
+- Linux
 ---
 
 ## 参考

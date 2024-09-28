@@ -1,9 +1,9 @@
 ---
 title: Linux Kaslr
 categories: 
-- Linux 安全
+- Linux
 tags:
-- Linux 安全
+- Linux
 ---
 
 发现一个64位高通平台的一个现象，假设一个内核函数在system.map中的地址是A，在kernel中把这个函数地址打印出来是B，A和B理论上应该相等的吧，

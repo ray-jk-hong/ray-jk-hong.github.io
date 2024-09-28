@@ -1,9 +1,9 @@
 ---
 title: Linux 文件系统概述
 categories: 
-- Linux 文件系统
+- Linux
 tags:
-- Linux 文件系统
+- Linux
 ---
 
 ## 参考

@@ -1,9 +1,9 @@
 ---
 title: Linux Proc-iomem
 categories: 
-- Linux Proc
+- Linux
 tags:
-- Linux Proc
+- Linux
 ---
 
 /proc/iomem的显示，显示的都是insert_resource接口加进去的。包括System Ram，Reserved和内核代码段，还有一些驱动。

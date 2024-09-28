@@ -1,9 +1,9 @@
 ---
 title: Lock Kmemleak
 categories: 
-- Linux MM
+- Linux
 tags:
-- Linux MM
+- Linux
 ---
 
 ## 参考

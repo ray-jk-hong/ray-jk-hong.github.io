@@ -1,3 +1,10 @@
+---
+title: Linux 进程通信
+categories: 
+- Linux
+tags:
+- Linux
+---
 
 
 ## 参考

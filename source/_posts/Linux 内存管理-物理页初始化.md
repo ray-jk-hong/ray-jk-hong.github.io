@@ -1,9 +1,9 @@
 ---
 title: Linux 物理页初始化
 categories: 
-- Linux MM
+- Linux
 tags:
-- Linux MM
+- Linux
 ---
 
 ## Buddy相关结构体

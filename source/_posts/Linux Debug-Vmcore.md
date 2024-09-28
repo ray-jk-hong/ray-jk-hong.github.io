@@ -1,9 +1,9 @@
 ---
 title: Linux Vmcore分析
 categories: 
-- Linux Debug
+- Linux
 tags:
-- Linux Debug
+- Linux
 ---
 
 ## 参考

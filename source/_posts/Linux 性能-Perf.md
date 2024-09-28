@@ -1,10 +1,11 @@
 ---
-title: Perf
+title: Linux Perf工具
 categories: 
-- Linux 性能
+- Linux
 tags:
-- Linux 性能
+- Linux
 ---
+
 ## perf命令
 ### stat
 记录给定条件下事件的发生次数

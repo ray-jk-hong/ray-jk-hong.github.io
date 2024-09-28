@@ -1,9 +1,9 @@
 ---
 title: Linux Workqueue
 categories: 
-- Linux Interrupt
+- Linux
 tags:
-- Linux Interrupt
+- Linux
 ---
 
 ## WQ_UNBOUND类型的Workqueue创建流程

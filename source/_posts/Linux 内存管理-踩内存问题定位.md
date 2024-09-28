@@ -1,9 +1,9 @@
 ---
 title: Linux 踩内存问题定位
 categories: 
-- Linux MM
+- Linux
 tags:
-- Linux MM
+- Linux
 ---
 
 ## 打开Kasan选项

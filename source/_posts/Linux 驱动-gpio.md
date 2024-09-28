@@ -1,7 +1,7 @@
 ---
 title: Linux Gpio
 categories: 
-- Linux 驱动
+- Linux
 tags:
-- Linux 驱动
+- Linux
 ---

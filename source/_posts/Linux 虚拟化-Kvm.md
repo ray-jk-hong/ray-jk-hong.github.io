@@ -1,9 +1,9 @@
 ---
 title: Linux Kvm
 categories: 
-- Linux 虚拟化
+- Linux
 tags:
-- Linux 虚拟化
+- Linux
 ---
 
 ## Ubuntu安装kvm

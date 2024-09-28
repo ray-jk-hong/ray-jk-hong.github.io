@@ -1,9 +1,9 @@
 ---
 title: Mte
 categories: 
-- Aarch64
+- Arch
 tags:
-- Mte
+- Arch
 ---
 
 ## 参考

@@ -1,9 +1,9 @@
 ---
 title: Linux GICv3中断控制器代码
 categories: 
-- Linux 中断
+- Linux
 tags:
-- Linux 中断
+- Linux
 ---
 
 ## 相关结构体

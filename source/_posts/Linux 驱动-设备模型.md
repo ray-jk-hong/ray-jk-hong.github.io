@@ -1,9 +1,9 @@
 ---
 title: Linux 设备模型
 categories: 
-- Linux Driver
+- Linux
 tags:
-- Linux Driver
+- Linux
 ---
 
 ## kobj

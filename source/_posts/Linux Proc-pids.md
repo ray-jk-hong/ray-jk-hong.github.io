@@ -1,9 +1,9 @@
 ---
 title: Linux Cgroup
 categories: 
-- Linux Cgroup
+- Linux
 tags:
-- Linux Cgroup
+- Linux
 ---
 
 /proc/pids目录下统计的信息: pids是进程的tgid号

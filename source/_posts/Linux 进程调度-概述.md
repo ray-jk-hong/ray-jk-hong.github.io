@@ -1,9 +1,9 @@
 ---
 title: Linux进程调度
 categories: 
-- Linux进程调度
+- Linux
 tags:
-- Linux进程调度
+- Linux
 ---
 
 ## 进程调度算法

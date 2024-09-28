@@ -1,9 +1,9 @@
 ---
 title: Linux TraceEvent
 categories: 
-- Linux 性能
+- Linux
 tags:
-- Linux 性能
+- Linux
 ---
 
 ## 用户态Trace Event

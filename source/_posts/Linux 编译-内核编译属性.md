@@ -1,9 +1,9 @@
 ---
 title: Linux内核编译属性
 categories: 
-- Linux 编译
+- Linux
 tags:
-- Linux 编译
+- Linux
 ---
 
 ## __ro_after_init

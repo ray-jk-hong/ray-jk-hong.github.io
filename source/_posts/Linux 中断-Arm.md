@@ -1,9 +1,9 @@
 ---
-title: Linux 中断-Arm
+title: Linux ARM中断介绍
 categories: 
-- Linux 中断
+- Linux
 tags:
-- Linux 中断
+- Linux
 ---
 
 ## 中断介绍

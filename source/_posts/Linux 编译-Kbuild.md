@@ -1,9 +1,9 @@
 ---
 title: Linux Kbuild
 categories: 
-- Linux 编译
+- Linux
 tags:
-- Linux 编译
+- Linux
 ---
 
 

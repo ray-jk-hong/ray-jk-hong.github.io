@@ -1,9 +1,9 @@
 ---
 title: Linux Tasklet
 categories: 
-- Linux 中断
+- Linux
 tags:
-- Linux 中断
+- Linux
 ---
 
 ## Tasklet执行方式

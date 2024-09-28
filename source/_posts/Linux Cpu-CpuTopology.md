@@ -1,9 +1,9 @@
 ---
-title: CpuTopology
+title: Linux CpuTopology
 categories: 
-- Linux Cpu
+- Linux
 tags:
-- Linux Cpu
+- Linux
 ---
 
 ## lscpu查看cpu信息

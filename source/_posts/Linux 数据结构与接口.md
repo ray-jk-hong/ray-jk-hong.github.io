@@ -1,7 +1,7 @@
 ---
 title: Linux 数据结构与接口
 categories: 
-- Linux 数据结构与接口
+- Linux
 tags:
 - Linux
 ---

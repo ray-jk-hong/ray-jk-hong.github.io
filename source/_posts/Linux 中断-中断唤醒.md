@@ -1,9 +1,9 @@
 ---
 title: Linux 中断唤醒
 categories: 
-- Linux 中断
+- Linux
 tags:
-- Linux 中断
+- Linux
 ---
 
 ## 参考

@@ -1,9 +1,9 @@
 ---
 title: Linux虚拟地址管理
 categories: 
-- Linux MM
+- Linux
 tags:
-- Linux MM
+- Linux
 ---
 
 ## 软件架构

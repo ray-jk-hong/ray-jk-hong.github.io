@@ -1,9 +1,9 @@
 ---
-title: C++-Oop
+title: C++-Oop (面向对象)
 categories: 
 - C++
 tags:
-- C++-Oop
+- C++
 ---
 ## 问题
 ### 多态

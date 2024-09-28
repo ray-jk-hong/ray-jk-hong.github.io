@@ -1,9 +1,9 @@
 ---
 title: 机器学习-课程
 categories: 
-- 机器学习
+- AI
 tags:
-- 机器学习
+- AI
 ---
 
 

@@ -1,3 +1,10 @@
+---
+title: Linux Psci
+categories: 
+- Linux
+tags:
+- Linux
+---
 
 
 ## 参考

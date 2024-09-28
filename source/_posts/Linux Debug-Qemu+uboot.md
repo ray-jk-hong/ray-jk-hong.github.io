@@ -1,9 +1,9 @@
 ---
 title: Qemu+uboot
 categories: 
-- Linux Debug
+- Linux
 tags:
-- Linux Debug
+- Linux
 ---
 
 ## 参考

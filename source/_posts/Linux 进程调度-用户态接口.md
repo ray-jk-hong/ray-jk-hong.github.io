@@ -1,3 +1,10 @@
+---
+title: Linux 进程调度相关用户态接口
+categories: 
+- Linux
+tags:
+- Linux
+---
 
 
 ## taskset命令：让程序执行在某些Cpu上

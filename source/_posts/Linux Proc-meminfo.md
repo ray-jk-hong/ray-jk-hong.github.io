@@ -1,9 +1,9 @@
 ---
 title: Linux Proc-meminfo
 categories: 
-- Linux Proc
+- Linux
 tags:
-- Linux Proc
+- Linux
 ---
 
 ## 参考

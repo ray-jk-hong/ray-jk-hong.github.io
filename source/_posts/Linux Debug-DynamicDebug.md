@@ -1,9 +1,9 @@
 ---
 title: Linux DynamicDebug
 categories: 
-- Linux Debug
+- Linux
 tags:
-- Linux Debug
+- Linux
 ---
 ## 概述
 功能就是打印pr_debug之类的debug级别的打印。当然你写/proc/sys/kernel/printk打开所有的debug级别打印，但这样打印的实在太多了。

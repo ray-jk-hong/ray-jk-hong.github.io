@@ -1,9 +1,9 @@
 ---
 title: Linux 日志系统
 categories: 
-- Linux Debug
+- Linux
 tags:
-- Linux Debug
+- Linux
 ---
 
 ## %pK打印

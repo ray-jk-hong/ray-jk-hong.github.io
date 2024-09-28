@@ -1,8 +1,8 @@
 ---
 title: Linux 模块
 categories: 
-- Linux 内核
+- Linux
 tags:
-- Linux 驱动
+- Linux
 ---
 

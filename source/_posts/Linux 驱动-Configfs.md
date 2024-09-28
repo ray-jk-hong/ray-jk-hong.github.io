@@ -1,3 +1,10 @@
+---
+title: Linux Configfs机制
+categories: 
+- Linux
+tags:
+- Linux
+---
 
 
 ## 参考

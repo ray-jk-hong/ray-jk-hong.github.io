@@ -1,9 +1,9 @@
 ---
 title: Linux社区提交
 categories: 
-- Linux Patch Submit
+- Linux
 tags:
-- Linux Patch Submit
+- Linux
 ---
 
 

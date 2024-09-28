@@ -1,9 +1,9 @@
 ---
 title: Linux Numa
 categories: 
-- Linux MM
+- Linux
 tags:
-- Linux MM
+- Linux
 ---
 
 ## Dts定义NUMA

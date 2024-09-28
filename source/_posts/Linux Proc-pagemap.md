@@ -1,9 +1,9 @@
 ---
 title: Linux Proc-pagemap
 categories: 
-- Linux Proc
+- Linux
 tags:
-- Linux Proc
+- Linux
 ---
 
 

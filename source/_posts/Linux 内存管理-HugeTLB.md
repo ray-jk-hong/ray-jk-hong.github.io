@@ -1,9 +1,9 @@
 ---
 title: Linux HugeTLB
 categories: 
-- Linux MM
+- Linux
 tags:
-- Linux MM
+- Linux
 ---
 
 ## 参考

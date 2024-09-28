@@ -1,7 +1,7 @@
 ---
 title: Linux 进程退出
 categories: 
-- Linux进程调度
+- Linux
 tags:
-- Linux进程调度
+- Linux
 ---

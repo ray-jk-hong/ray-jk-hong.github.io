@@ -1,9 +1,9 @@
 ---
 title: Linux Dma
 categories: 
-- Linux Driver
+- Linux
 tags:
-- Linux Driver
+- Linux
 ---
 
 ## dts配置注意

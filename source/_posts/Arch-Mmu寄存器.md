@@ -1,9 +1,9 @@
 ---
 title: Mmu寄存器
 categories: 
-- Arm芯片
+- Arch
 tags:
-- Arm芯片
+- Arch
 ---
 
 ## TTBR(Translation Table Base Register)寄存器

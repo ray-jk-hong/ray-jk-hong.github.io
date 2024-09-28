@@ -1,9 +1,9 @@
 ---
 title: 计算机体系结构-内存屏障
 categories: 
-- 计算机体系结构
+- Arch
 tags:
-- 计算机体系结构
+- Arch
 ---
 
 ## 参考

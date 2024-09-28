@@ -1,9 +1,9 @@
 ---
 title: Build Your Own Kernel
 categories: 
-- Linux Debug
+- Linux
 tags:
-- Linux Debug
+- Linux
 ---
 
 

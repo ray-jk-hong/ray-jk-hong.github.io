@@ -1,9 +1,9 @@
 ---
 title: Linux Spinlock
 categories: 
-- Linux 锁
+- Linux
 tags:
-- Linux 锁
+- Linux
 ---
 
 
