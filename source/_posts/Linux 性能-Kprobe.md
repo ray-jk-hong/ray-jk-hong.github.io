@@ -71,4 +71,15 @@ echo 1 > /proc/sys/kernel/ftrace_dump_on_oops
 
 例如：调用栈显示某个函数有挂死现象，则可以按照上述方式打开并跟踪参数情况，可以追踪哪些参数传到函数中导致的异常
 
+## 内核态使用kprobe
+
+### 打开的feature
+```bash
+CONFIG_KPROBES
+CONFIG_MODULES
+CONFIG_MODULE_UNLOAD
+CONFIG_KALLSYMS
+CONFIG_KALLSYMS_ALL
+CONFIG_DEBUG_INFO
+```
 
