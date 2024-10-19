@@ -83,3 +83,13 @@ CONFIG_KALLSYMS_ALL
 CONFIG_DEBUG_INFO
 ```
 
+### kprobe例子
+https://github.com/ray-jk-hong/linux-samples/blob/main/kprobe/kprobe_kernel.c
+
+https://github.com/torvalds/linux/blob/master/samples/kprobes/kprobe_example.c
+
+### jprobe
+
+### 参考
+https://lwn.net/Articles/132196/
+
