@@ -19,6 +19,8 @@ http://3ms.huawei.com/km/blogs/details/125081
 数组等使用rcu
 https://www.kernel.org/doc/html/v5.9/RCU/arrayRCU.html
 
+https://github.com/jinb-park/rcu_example
+
 例子：
 https://github.com/jinb-park/rcu_example/blob/master/list_rcu_example.c
 
