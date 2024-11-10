@@ -16,7 +16,7 @@ https://docs.google.com/document/d/1X0lThx8OK0ZgLMqVoXiR4ZrGURHrXK6NyLRbeXe3Xac/
 
 http://3ms.huawei.com/km/blogs/details/125081
 
-数组等使用rcu
+数组等使用rcu: 数组保护不适合使用rcu
 https://www.kernel.org/doc/html/v5.9/RCU/arrayRCU.html
 
 https://github.com/jinb-park/rcu_example
@@ -24,4 +24,4 @@ https://github.com/jinb-park/rcu_example
 例子：
 https://github.com/jinb-park/rcu_example/blob/master/list_rcu_example.c
 
-
+https://github.com/jinb-park/rcu_example

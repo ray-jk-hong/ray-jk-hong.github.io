@@ -6,7 +6,6 @@ tags:
 - Linux
 ---
 
-## 
 
 ## 共享中断时，返回值
 Dev1, Dev2共享中断，在request_irq时，Dev1, Dev2 调用request_irq时指定一个中断IRQ10，flag填写IRQF_SHARED。在中断回调函数中，判断是否是本设备返回的中断，不是就返回IRQ_NONE让继续执行下个回调。
