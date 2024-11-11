@@ -6,7 +6,6 @@ tags:
 - Linux
 ---
 
-## 
 
 ## 软件架构
 ![mdev](/images/Linux/虚拟化/vfio-mdev.svg)
