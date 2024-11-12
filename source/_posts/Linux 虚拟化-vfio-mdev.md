@@ -16,8 +16,7 @@ tags:
 3. mtty.c这种活着上图中的nvidia.ko等都是具体的device了。会调用mdev_register_device添加设备。
 
 
-
-## 软件架构
+## 调用流程
 ![mdev](/images/Linux/虚拟化/vfio-mdev.svg)
 
 ## 参考
