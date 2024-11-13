@@ -58,6 +58,11 @@ VM_IO将该VMA标记为内存映射的IO区域，VM_IO会阻止系统将该区�
 #### VM_DONTEXPAND
 #### VM_DONTDUMP
 
+#### VM_MIXEDMAP
+#### VM_PFNMAP
+
+https://cloud.tencent.com/developer/ask/sof/708258/answer/1042209
+
 ## Mmap的flag
 MAP_SHARED：
 MAP_PRIVATE：表示此地址是本进程独享的，所有对该地址的读写，不会马上写入。例如你在用户态mmap(传入MAP_PRIVATE)，然后在内核态通过在mmap回调中remap_pfn_xx建好了页表。
@@ -122,6 +127,9 @@ VM_DONTDUMP，它阻止vma包含在核心转储中
 只需将实际的物理I/O地址(通过PAGE_SHIFT向下移动以产生PFN)直接传递给io_remap_pfn_range()。即使在某些体系结构中io_remap_pfn_range()被定义为remap_pfn_range()，但在其他体系结构中却不是这样。出于可移植性的原因，您应该只在PFN参数指向RAM的情况下使用remap_pfn_range()，而在phys_addr指向I/O内存的情况下使用io_remap_pfn_range()。
 
 https://www.cnblogs.com/wanglouxiaozi/p/15036469.html
+
+### vm_insert_page()/vm_insert_pfn()
+映射内核page到用户态
 
 ## 参考
 https://www.kernel.org/doc/gorman/html/understand/
