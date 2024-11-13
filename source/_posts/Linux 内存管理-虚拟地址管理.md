@@ -121,5 +121,7 @@ VM_DONTDUMP，它阻止vma包含在核心转储中
 
 只需将实际的物理I/O地址(通过PAGE_SHIFT向下移动以产生PFN)直接传递给io_remap_pfn_range()。即使在某些体系结构中io_remap_pfn_range()被定义为remap_pfn_range()，但在其他体系结构中却不是这样。出于可移植性的原因，您应该只在PFN参数指向RAM的情况下使用remap_pfn_range()，而在phys_addr指向I/O内存的情况下使用io_remap_pfn_range()。
 
+https://www.cnblogs.com/wanglouxiaozi/p/15036469.html
+
 ## 参考
 https://www.kernel.org/doc/gorman/html/understand/
