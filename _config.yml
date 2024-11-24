@@ -103,7 +103,7 @@ ignore:
 # theme: Yilia-Pro
 # theme: hexo-theme-clean-dark
 # theme: dev-dark-theme
-theme: butterfly
+# theme: butterfly
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
