@@ -17,6 +17,7 @@ https://fd3kyt.github.io/posts/implementation-of-epoll/
 
 https://zhuanlan.zhihu.com/p/721189872
 
+https://github.com/libevent/libevent/blob/master/epoll.c
 
 ## Poll
 
