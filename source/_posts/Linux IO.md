@@ -19,6 +19,11 @@ https://zhuanlan.zhihu.com/p/721189872
 
 https://github.com/libevent/libevent/blob/master/epoll.c
 
+epoll和poll的行为在内核态差不多。POLLIN, EPOLLIN这些是否兼容
+
+https://stackoverflow.com/questions/18103093/how-does-a-socket-event-get-propagated-converted-to-epoll/27143672#27143672
+
+
 ## Poll
 
 https://www.cnblogs.com/gulan-zmc/p/12229159.html
