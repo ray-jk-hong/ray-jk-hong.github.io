@@ -15,6 +15,8 @@ https://rammuking.tistory.com/entry/Epoll%EC%9D%98-%EA%B8%B0%EC%B4%88-%EA%B0%9C%
 
 https://fd3kyt.github.io/posts/implementation-of-epoll/
 
+https://zhuanlan.zhihu.com/p/721189872
+
 
 ## Poll
 
