@@ -14,7 +14,7 @@ tags:
 - Gid：
 - Cpus_allowed：可以执行的Cpu Mask
   进程的Cpu绑定，可以看taskset接口使用方法
-- Cpus_allowed_list：可以自行的Cpu号
+- Cpus_allowed_list：可以执行的Cpu号
 - Mems_allowed：这个再看一下，不太懂什么意思
 - Mems_allowed_list：可以申请的内存Numa号
 - voluntary_ctxt_switches
