@@ -32,5 +32,74 @@ https://www.makelinux.net/ldd3/chp-6-sect-3.shtml
 
 ## IoUring
 
+## 内核态实现
+1. 进程wait初始化
+   1) 进程结构体中定义一个wakt_queue_head_t inq, wait_queue_head_t outq
+   2) 在进程初始化时inti_waitqueue_head(&intq), inti_waitqueue_head(&outq)初始化
+2. 实现file_operations->poll函数
+```
+   static unsigned int scull_p_poll(struct file *filp, poll_table *wait)
+  {
+      struct scull_pipe *dev = filp->private_data;
+      unsigned int mask = 0;
+      /*
+      * The buffer is circular; it is considered full
+      * if "wp" is right behind "rp" and empty if the
+      * two are equal.
+      */
+      down(&dev->sem);
+      poll_wait(filp, &dev->inq, wait);
+      poll_wait(filp, &dev->outq, wait);
+      if (dev->rp != dev->wp)
+          mask |= POLLIN | POLLRDNORM; /* readable */
+      if (spacefree(dev))
+          mask |= POLLOUT | POLLWRNORM; /* writable */
+      up(&dev->sem);
+      return mask;
+  }
+```
+	在poll函数中、添加poll_wait和返回的POLLIN等mask
+	poll_wait(filep, &head_wait, wait), 这里wait是poll_table*类型
+	poll_wait() 本身并不引起阻塞，只是将等待队列头部添加到 poll_table 中，是让唤醒等待队列可以唤醒因 select() 而睡眠的进程
+
+3. 在write, read函数中实现等待
+```
+static ssize_t xx_write(struct file *filp,
+    const char __user *buf, size_t size, loff_t *ppos)
+{
+    ...
+    /* initial element in wait queue, priv = current */
+    DECLARE_WAITQUEUE(wait, current);
+    /* insert element into wait queue */
+    add_wait_queue(&xxx_wait, &wait);
+
+    do {
+        avail = device_writable(...);
+        if (avail < 0) {
+            if (filp->f_flags & O_NONBLOCK) {
+                ret = -EAGAIN;
+                goto out;
+            }
+            set_current_state(TASK_INTERRUPTIBLE);
+            schedule();
+
+            /* be waken up by signal */
+            if (signal_pending(current)) {
+                ret = -ERESTARTSYS;
+                goto out;
+            }
+        }
+    } while(avail < 0);
+
+    device_write(...);
+
+out:
+    remove_wait_queue(&xxx_wait, &wait);
+    set_current_state(TASK_RUNNING);
+
+    return ret;
+}
+```
+
 ## 参考
 https://doc.embedfire.com/linux/imx6/linux_base/zh/latest/system_programing/socket_io/socket_io.html
